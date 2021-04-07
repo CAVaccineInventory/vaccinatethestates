@@ -10,7 +10,7 @@ if (process.env.NETLIFY) {
 
 module.exports = {
   "entry": {
-    "main": "./webpack/index.js",
+    "main": "./assets/webpack/index.js",
   },
   "output": {
     "path": path.resolve(__dirname, "assets/js"),
