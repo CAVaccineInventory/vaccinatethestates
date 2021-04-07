@@ -3,25 +3,23 @@
     <div class="ps-4 pe-2 xl:px-8">
       <div class="flex items-center h-16">
         <div class="flex flex-grow items-center justify-between">
-          {% assign nav = site.pages | sort: 'order' %} {% for item in nav
-            %} {% if item.title and item.add_to_nav %} {% if item.url ==
-            page.url %} {% assign navItemClasses = "bg-gray-100" %} {% else %}
-            {% assign navItemClasses = "" %} {% endif %}
+          {% assign nav = site.pages | sort: 'order' %} {% for item in nav %} {%
+          if item.title and item.add_to_nav %} {% if item.url == page.url %} {%
+          assign navItemClasses = "bg-gray-100" %} {% else %} {% assign
+          navItemClasses = "" %} {% endif %}
 
-            <a
-              href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ item.url }}"
-              class="{{ navItemClasses }} border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
-            >
-              {% t item.title %}
-            </a>
-            {% endif %} {% endfor %}
-            <a
-              href="https://vaccinateca.com/volunteer"
-              class="border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
-              >{% t volunteer_title %}</a
-              >
-            </div>
-          </div>
+          <a
+            href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ item.url }}"
+            class="{{ navItemClasses }} border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
+          >
+            {% t item.title %}
+          </a>
+          {% endif %} {% endfor %}
+          <a
+            href="https://vaccinateca.com/volunteer"
+            class="border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
+            >{% t volunteer_title %}</a
+          >
         </div>
       </div>
     </div>
