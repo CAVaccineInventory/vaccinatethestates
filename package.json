@@ -8,15 +8,14 @@
     "build:css:watch": "cross-env NODE_ENV=development postcss postcss/*.css --dir assets/css/ --watch --verbose"
   },
   "dependencies": {
+    "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
     "foreman": "^3.0.1",
     "path-browserify": "^1.0.1",
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.1",
     "url": "^0.11.0",
-    "webpack": "^5.30.0"
-  },
-  "devDependencies": {
+    "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0"
   }
 }
