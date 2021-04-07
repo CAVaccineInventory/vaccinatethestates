@@ -6,4 +6,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 bundle install
 npm install
 
-npx nf start
+if [ $# -ge 1 ] && [ "$1" = "--dev" ]; then
+    npx nf start --procfile Procfile.dev
+else
+    npx nf start
+fi
