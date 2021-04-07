@@ -37,7 +37,7 @@ module.exports = {
         test: /\.handlebars$/,
         loader: "handlebars-loader",
         options: {
-          helperDirs: [path.resolve(__dirname, "webpack/handlebars-helpers")],
+          helperDirs: [path.resolve(__dirname, "assets/webpack/handlebars-helpers")],
         },
       },
     ],
@@ -49,7 +49,7 @@ module.exports = {
     },
   },
   "resolveLoader": {
-    modules: ["node_modules", path.resolve(__dirname, "webpack/loaders")],
+    modules: ["node_modules", path.resolve(__dirname, "assets/webpack/loaders")],
   },
   "plugins": [
     new webpack.SourceMapDevToolPlugin({
