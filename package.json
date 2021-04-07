@@ -15,6 +15,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-es": "^4.1.0",
     "foreman": "^3.0.1",
+    "handlebars-loader": "^1.7.1",
     "path-browserify": "^1.0.1",
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.1",
