@@ -6,3 +6,19 @@ marquee {
   background-color: green;
   color: white;
 }
+
+/* Add underlines to links... */
+a {
+  color: #0366d6;
+  text-decoration: underline;
+}
+
+/* ... but exempt a bunch of things. */
+nav a,
+a[class^="bg-"],
+a[class*=" bg-"],
+a[class^="border-"],
+a[class*=" border-"],
+a.no-underline {
+  text-decoration: none;
+}
