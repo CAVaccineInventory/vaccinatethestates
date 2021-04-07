@@ -10,28 +10,10 @@
           "allowed_output": [
             "name",
             "phone",
-            "website",
-            "City",
-            "CITY",
-            "Phone_Number",
-            "SiteAddress",
-            "SiteCity",
-            "SiteState",
-            "SiteZip",
-            "State",
-            "Street",
-            "ZIP",
-            "Zip_Code",
             "address",
-            "address1",
             "city",
-            "lat",
-            "long",
             "name",
-            "postal_code",
-            "state",
             "url",
-            "website",
             "zip"
           ]
         }
