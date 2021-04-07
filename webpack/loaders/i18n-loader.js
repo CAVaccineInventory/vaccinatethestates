@@ -5,7 +5,7 @@ const util = require("util");
 const yaml = require("js-yaml");
 
 const readFile = util.promisify(fs.readFile);
-const root = path.join(__dirname, "../../..");
+const root = path.join(__dirname, "../..");
 
 async function loadTranslations(ctx) {
   const configPath = path.join(root, "_config.yml");
