@@ -1,4 +1,18 @@
 <html>
+  <head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+  </head>
 <body>
 <h1>Vaccinate The States</h1>
+<div id='map' style='width: 750px; height: 750px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/calltheshots/ckn6plmc90jme17pqc65d55ld/draft',
+center: [-120, 37], // starting position [lng, lat]
+zoom: 3 // starting zoom
+});
+</script>
 </html>
