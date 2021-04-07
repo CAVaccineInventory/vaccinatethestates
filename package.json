@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "start": "webpack -w --config webpack.prod.js",
+    "start:dev": "webpack -w --config webpack.dev.js",
+    "lint": "prettier 'webpack/**/*.js' postcss/*.css **/*.html && eslint .",
+    "lint:fix": "prettier --write 'webpack/**/*.js' postcss/*.css **/*.html && eslint --fix .",
+    "build:css": "cross-env NODE_ENV=production postcss postcss/*.css --dir assets/css/",
+    "build:css:watch": "cross-env NODE_ENV=development postcss postcss/*.css --dir assets/css/ --watch --verbose"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "foreman": "^3.0.1",
+    "path-browserify": "^1.0.1",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.1",
+    "url": "^0.11.0",
+    "webpack": "^5.30.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.6.0"
+  }
+}

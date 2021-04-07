@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e -u
+
+npx webpack build --config webpack.prod.js
+npm run build:css
+bundle exec jekyll build
