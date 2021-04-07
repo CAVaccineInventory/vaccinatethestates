@@ -4,7 +4,38 @@
     "jesse": {
       "source": "mapbox://tileset-source/calltheshots/jesse",
       "minzoom": 0,
-      "maxzoom": 15
+      "maxzoom": 15,
+      "features": {
+        "attributes": {
+          "allowed_output": [
+            "name",
+            "phone",
+            "website",
+            "City",
+            "CITY",
+            "Phone_Number",
+            "SiteAddress",
+            "SiteCity",
+            "SiteState",
+            "SiteZip",
+            "State",
+            "Street",
+            "ZIP",
+            "Zip_Code",
+            "address",
+            "address1",
+            "city",
+            "lat",
+            "long",
+            "name",
+            "postal_code",
+            "state",
+            "url",
+            "website",
+            "zip"
+          ]
+        }
+      }
     }
   }
 }
