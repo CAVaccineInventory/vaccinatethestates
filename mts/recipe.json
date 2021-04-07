@@ -1,11 +1,6 @@
 {
   "version": 1,
   "layers": {
-    "vaccinespotter": {
-      "source": "mapbox://tileset-source/calltheshots/vaccinespotter",
-      "minzoom": 0,
-      "maxzoom": 15
-    },
     "jesse": {
       "source": "mapbox://tileset-source/calltheshots/jesse",
       "minzoom": 0,
