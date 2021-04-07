@@ -10,7 +10,7 @@ if (process.env.NETLIFY) {
 
 module.exports = {
   "entry": {
-    "main": "./assets/webpack/index.js",
+    "near-me": "./assets/webpack/near-me.js",
   },
   "output": {
     "path": path.resolve(__dirname, "assets/js"),
