@@ -3,24 +3,113 @@
     <div class="ps-4 pe-2 xl:px-8">
       <div class="flex items-center h-16">
         <div class="flex flex-grow items-center justify-between">
-          {% assign nav = site.pages | sort: 'order' %} {% for item in nav %} {%
-          if item.title and item.add_to_nav %} {% if item.url == page.url %} {%
-          assign navItemClasses = "bg-gray-100" %} {% else %} {% assign
-          navItemClasses = "" %} {% endif %}
+          <div class="flex-shrink-0">
+            <a
+              href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}/"
+              class="flex items-center space-s-3"
+            >
+              <h1 class="text-black font-extrabold">VaccinateTheStates</h1>
+            </a>
+          </div>
 
-          <a
-            href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ item.url }}"
-            class="{{ navItemClasses }} border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
-          >
-            {% t item.title %}
-          </a>
-          {% endif %} {% endfor %}
-          <a
-            href="https://vaccinateca.com/volunteer"
-            class="border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
-            >{% t volunteer_title %}</a
-          >
+          <!-- desktop nav -->
+          <div class="hidden lg:block">
+            <div class="ms-8 flex items-baseline space-x-2">
+              {% assign nav = site.pages | sort: 'order' %} {% for item in nav
+              %} {% if item.title and item.add_to_nav %} {% if item.url ==
+              page.url %} {% assign navItemClasses = "bg-gray-100" %} {% else %}
+              {% assign navItemClasses = "" %} {% endif %}
+
+              <a
+                href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ item.url }}"
+                class="{{ navItemClasses }} border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
+              >
+                {% t item.title %}
+              </a>
+              {% endif %} {% endfor %}
+              <a
+                href="https://vaccinateca.com/volunteer"
+                class="border border-transparent hover:border-gray-300 px-3 py-2 rounded-md text-sm font-normal text-black"
+                >{% t volunteer_title %}</a
+              >
+            </div>
+          </div>
+
+          <!-- mobile nav -->
+          <div class="flex lg:hidden">
+            <!-- Mobile menu button -->
+            <button
+              class="inline-flex items-center justify-center p-2 rounded-md text-black hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white js-mobile-menu-button"
+            >
+              <!--
+                Heroicon name: menu
+  
+                Menu open: "hidden", Menu closed: "block"
+              -->
+              <svg
+                class="block h-6 w-6 js-mobile-menu-activator"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <!--
+                Heroicon name: x
+  
+                Menu open: "block", Menu closed: "hidden"
+              -->
+              <svg
+                class="hidden h-6 w-6 js-mobile-menu-deactivator"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+    </div>
+    <!--
+      Mobile menu, toggle classes based on menu state.
+
+      Open: "block", closed: "hidden"
+    -->
+    <div class="hidden lg:hidden js-mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        {% assign nav = site.pages | sort: 'order' %} {% for item in nav %} {%
+        if item.title and item.add_to_nav %} {% if item.url == page.url %} {%
+        assign navItemClasses = "bg-gray-100" %} {% else %} {% assign
+        navItemClasses = "" %} {% endif %}
+
+        <a
+          href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ item.url }}"
+          class="{{ navItemClasses }} hover:underline text-black block px-3 py-2 rounded-md text-base font-normal"
+        >
+          {% t item.title %}
+        </a>
+        {% endif %} {% endfor %}
+        <a
+          href="https://vaccinateca.com/volunteer"
+          class="hover:underline text-black block px-3 py-2 rounded-md text-base font-normal"
+          >{% t volunteer_title %}</a
+        >
       </div>
     </div>
   </div>
