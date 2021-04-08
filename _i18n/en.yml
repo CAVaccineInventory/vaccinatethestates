@@ -6,3 +6,5 @@ volunteer_title : Volunteer
 site_card_title: Site Card title
 site_card_body: Site Card body 
 footer_text: A collaborative effort by Call the Shots, Inc and other interested people.
+find_vaccine: Find <span class="hidden md:inline">Vaccine</span>
+enter_zip: Enter ZIP

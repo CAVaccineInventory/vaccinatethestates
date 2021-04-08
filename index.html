@@ -6,4 +6,21 @@ order: 1
 ---
 <div class="flex flex-col items-center">
     <h1 class="text-2xl md:text-3xl mb-10 lg:mb-12 mt-6 font-semibold text-center"> Find a COVID-19 vaccine for yourself or a loved one </h1>
+
+    <div id="main" class="mb-10 lg:mb-12">
+        {% include search_form.html %}
+      </div>
+
+    <div class="max-w-4xl content-center grid md:grid-cols-2">
+        <img
+          class="transform scale-75 justify-self-center"
+          src="/assets/img/front_page_illustration.png"
+          alt="{% t index.illustration %}"
+          />
+        <div class="self-center text-black md:text-lg">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus efficitur in ipsum sed ultrices. Pellentesque et vulputate tortor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc quis tincidunt sapien. Phasellus ac magna hendrerit, tincidunt libero eu, tempus lacus. Cras tincidunt nisl sollicitudin justo bibendum.
+          </p>
+        </div>
+      </div>
 </div>
