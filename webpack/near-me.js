@@ -1,12 +1,14 @@
 import mapboxgl from "mapbox-gl";
-import { generateCards } from "./siteCards.js";
+import siteCard from "./templates/siteCard.handlebars";
 
 window.addEventListener("load", () => load());
+
+const featureLayer = "jesse";
 
 const initMap = () => {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
-  const map = new mapboxgl.Map({
+  window.map = new mapboxgl.Map({
     container: "map",
     style:
       "mapbox://styles/calltheshots/ckn6plmc90jme17pqc65d55ld?optimize=true",
@@ -14,7 +16,7 @@ const initMap = () => {
     zoom: 3, // starting zoom
   });
 
-  map.on("click", "jesse", function (e) {
+  map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const description = JSON.stringify(e.features[0].properties);
 
@@ -28,16 +30,59 @@ const initMap = () => {
     new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on("mouseenter", "jesse", function () {
+  map.on("mouseenter", featureLayer, function () {
     map.getCanvas().style.cursor = "pointer";
   });
   // Change it back to a pointer when it leaves.
-  map.on("mouseleave", "jesse", function () {
+  map.on("mouseleave", featureLayer, function () {
     map.getCanvas().style.cursor = "";
   });
+
+  // Initial card load
+  map.on("load", featureLayer, renderCardsFromMap);
+
+  // Reload cards on map movement
+  map.on("moveend", featureLayer, renderCardsFromMap);
+};
+
+const renderCardsFromMap = () => {
+  if (!window.map) {
+    initMap();
+  }
+
+  const features = getUniqueFeatures(map.queryRenderedFeatures()).slice(0, 10);
+  const cards = document.getElementById("cards");
+  cards.innerHTML = "";
+
+  features.forEach((feature) => {
+    const templateInfo = {
+      body: feature.id,
+    };
+    const range = document
+      .createRange()
+      .createContextualFragment(siteCard(templateInfo));
+
+    cards.appendChild(range);
+  });
+};
+
+const getUniqueFeatures = (array) => {
+  const existingFeatureKeys = {};
+  // Because features come from tiled vector data, feature geometries may be split
+  // or duplicated across tile boundaries and, as a result, features may appear
+  // multiple times in query results.
+  const uniqueFeatures = array.filter(function (el) {
+    if (existingFeatureKeys[el.id]) {
+      return false;
+    } else {
+      existingFeatureKeys[el.id] = true;
+      return true;
+    }
+  });
+
+  return uniqueFeatures;
 };
 
 const load = () => {
   initMap();
-  generateCards("cards");
 };
