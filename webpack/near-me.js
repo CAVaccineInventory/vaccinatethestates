@@ -1,5 +1,5 @@
 import mapboxgl from "mapbox-gl";
-import { generateCards } from './siteCards.js';
+import { generateCards } from "./siteCards.js";
 
 window.addEventListener("load", () => load());
 
