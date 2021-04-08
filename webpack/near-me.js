@@ -1,5 +1,5 @@
 import mapboxgl from "mapbox-gl";
-import siteCard from './templates/siteCard.handlebars';
+import siteCard from "./templates/siteCard.handlebars";
 
 window.addEventListener("load", () => load());
 
