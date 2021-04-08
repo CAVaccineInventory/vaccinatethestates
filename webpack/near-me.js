@@ -58,7 +58,9 @@ const renderCardsFromMap = () => {
     const templateInfo = {
       body: feature.id,
     };
-    const range = document.createRange().createContextualFragment(siteCard(templateInfo));
+    const range = document
+      .createRange()
+      .createContextualFragment(siteCard(templateInfo));
 
     cards.appendChild(range);
   });
@@ -79,7 +81,7 @@ const getUniqueFeatures = (array) => {
   });
 
   return uniqueFeatures;
-}
+};
 
 const load = () => {
   initMap();
