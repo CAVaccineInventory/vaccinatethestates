@@ -1,5 +1,5 @@
-import siteCard from "./templates/siteCard.handlebars";
 import mapboxgl from "mapbox-gl";
+import { generateCards } from "./siteCards.js";
 
 window.addEventListener("load", () => load());
 
@@ -37,13 +37,7 @@ const initMap = () => {
   });
 };
 
-const initCards = () => {
-  const range = document.createRange().createContextualFragment(siteCard({}));
-
-  document.getElementById("cards").appendChild(range);
-};
-
 const load = () => {
   initMap();
-  initCards();
+  generateCards("cards");
 };
