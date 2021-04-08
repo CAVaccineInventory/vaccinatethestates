@@ -1,6 +1,6 @@
 <nav class="bg-white border-b border-gray-200">
   <div class="mx-auto">
-    <div class="ps-4 pe-2 xl:px-8">
+    <div class="px-4 ps-4 pe-2 xl:px-8">
       <div class="flex items-center h-16">
         <div class="flex flex-grow items-center justify-between">
           <div class="flex-shrink-0">
@@ -122,9 +122,6 @@
   />
   {% t warning %}
 </marquee>
-
-<div class="px-4 xl:px-8">
-  <p class="text-center lg:text-right mt-4">
-    <a href="/">English</a> &middot; <a href="/es/">Español</a>
-  </p>
+<div class="px-4 xl:px-8 mt-4 text-center lg:text-right">
+  {% include language_picker.html %}
 </div>

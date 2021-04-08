@@ -7,6 +7,15 @@ marquee {
   color: white;
 }
 
+:root {
+  font-family: "DM Sans", sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: "DM Sans", sans-serif;
+  }
+}
+
 /* Add underlines to links... */
 a {
   color: #0366d6;
