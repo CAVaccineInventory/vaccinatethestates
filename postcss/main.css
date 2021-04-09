@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-marquee {
-  background-color: green;
-  color: white;
-}
-
 :root {
   font-family: "DM Sans", sans-serif;
 }
