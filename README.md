@@ -3,7 +3,7 @@
 ## How to begin local development
 
 ### Setup with Ruby 2.7
-- Start local development server with `script/server --dev`
+- Start local development server with `script/server`
 
 ### First time with Jekyll?
 
