@@ -3,7 +3,12 @@
 ## How to begin local development
 
 ### Setup with Ruby 2.7
-- Start local development server with `script/server --dev`
+#### Mac
+1. Install Homebrew if you don't have it already (https://brew.sh/)
+2. `brew install ruby-install chruby`
+3. Add `source /opt/homebrew/opt/chruby/share/chruby/chruby.sh` and `source /opt/homebrew/opt/chruby/share/chruby/auto.sh` to `~/.zshrc` or `~/.bashrc`
+4. `ruby-install ruby 2.7.2`
+5. Start local development server with `script/server`
 
 ### First time with Jekyll?
 
