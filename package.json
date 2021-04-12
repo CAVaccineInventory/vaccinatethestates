@@ -8,6 +8,8 @@
     "build:css:watch": "cross-env NODE_ENV=development postcss postcss/*.css --dir assets/css/ --watch --verbose"
   },
   "dependencies": {
+    "@sentry/browser": "^6.2.5",
+    "@sentry/tracing": "^6.2.5",
     "autoprefixer": "^10.2.5",
     "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
