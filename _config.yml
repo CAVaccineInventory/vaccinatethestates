@@ -1,6 +1,9 @@
 title: Vaccinate The States
 languages: ["en", "es"]
 
+twitter: vaxthestates
+instagram: vaccinatethestates
+
 exclude:
   - netlify.toml
   - package.json

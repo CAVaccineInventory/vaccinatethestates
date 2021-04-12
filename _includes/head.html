@@ -23,10 +23,31 @@
     property="og:url"
     content="https://www.vaccinatethestates.com{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ page.url }}"
   />
-  <meta property="og:site_name" content="VaccinateTheStates" />
+  <meta property="og:site_name" content="{{ site.title }}" />
 
-  <!-- TODO: link card image metadata -->
-  <!-- TODO: twitter data -->
+  <!-- TODO: switch twitter to summary_large_image once we get card image assets. add twitter:image -->
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:title" content="{% t page.title %}" />
+  <meta name="twitter:site" content="@{{site.twitter}}" />
+
+  <!-- TODO: missing image field (no card image asset), sameAs (unknown) -->
+  <script type="application/ld+json">
+    {
+      "description": "{% t site_description %}",
+      "publisher": {
+        "@type": "Organization",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.vaccinatethestates.com/assets/img/logo.png"
+        }
+      },
+      "@type": "WebSite",
+      "headline": "{% t page.title %}",
+      "url": "https://www.vaccinatethestates.com{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ page.url }}",
+      "name": "{{ site.title }}",
+      "@context": "https://schema.org"
+    }
+  </script>
 
   <link href="/assets/css/main.css" rel="stylesheet" />
   <script src="/assets/js/main.js"></script>
