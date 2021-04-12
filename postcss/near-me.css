@@ -2,8 +2,6 @@
 
 @media (min-width: 1024px) {
   #map {
-    position: sticky;
-    top: 0;
-    left: 0;
+    @apply sticky top-0 left-0;
   }
 }
