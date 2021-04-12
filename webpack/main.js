@@ -32,10 +32,11 @@ const initMobileMenu = () => {
 
 const initSentry = () => {
   Sentry.init({
-    dsn: "https://7b52413f154242aba5a7f5fb2034d9f2@o509416.ingest.sentry.io/5716706",
+    dsn:
+      "https://7b52413f154242aba5a7f5fb2034d9f2@o509416.ingest.sentry.io/5716706",
     integrations: [new Integrations.BrowserTracing()],
 
     // Trace 20% of transactions sent to Sentry
-    tracesSampleRate: .2,
+    tracesSampleRate: 0.2,
   });
 };
