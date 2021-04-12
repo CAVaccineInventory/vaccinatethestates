@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>
-    {%if page.title == "home_title" %}{{site.title}}{%else%}{% t page.title %} |
+    {%if page.title == "home_title" or page.title == nil %}{{site.title}}{%else%}{% t page.title %} |
     {{ site.title }} {%endif%}
   </title>
   <meta name="generator" content="Jekyll v4.1.1" />
