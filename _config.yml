@@ -1,2 +1,26 @@
 title: Vaccinate The States
 languages: ["en", "es"]
+
+exclude:
+  - netlify.toml
+  - package.json
+  - package-lock.json
+  - CODEOWNERS
+  - LICENSE
+  - README.md
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - script/
+  - webpack/
+  - Procfile
+  - Procfile.prod
+  - postcss.config.js
+  - postcss/
+  - webpack.common.js
+  - webpack.dev.js
+  - webpack.prod.js
+  - tailwind.config.js
