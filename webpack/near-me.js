@@ -4,7 +4,8 @@ import siteCard from "./templates/siteCard.handlebars";
 window.addEventListener("load", () => load());
 
 const featureLayer = "jesse";
-const mapboxToken = "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
+const mapboxToken =
+  "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
