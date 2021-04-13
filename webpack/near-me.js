@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import siteCard from "./templates/siteCard.handlebars";
+import "regenerator-runtime/runtime";
 
 window.addEventListener("load", () => load());
 
@@ -84,22 +85,21 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-function geocodeAndZoom() {
+async function geocodeAndZoom() {
   const zip = "90210";
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
+  const response = await fetch(url);
 
-  fetch(url).then((response) => {
-    if (!response.ok) {
-      // TODO(skalnik): Move to sentry
-      alert("Could not retrieve the county data.");
-      return;
-    }
+  if (!response.ok) {
+    // TODO(skalnik): Move to sentry
+    alert("Could not retrieve the county data.");
+    return;
+  }
 
-    response.json().then((json) => {
-      const center = json["features"][0]["center"];
-      map.flyTo({ center: center, zoom: 9 });
-    });
-  });
+  const json = await response.json();
+
+  const center = json["features"][0]["center"];
+  map.flyTo({ center: center, zoom: 9 });
 }
 
 const load = () => {
