@@ -8,7 +8,7 @@ const featureLayer = "jesse";
 const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
-const initMap = () => {
+const initMap = (zip) => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -40,8 +40,13 @@ const initMap = () => {
     map.getCanvas().style.cursor = "";
   });
 
-  // Initial card load
-  map.on("load", featureLayer, geocodeAndZoom);
+  if (zip) {
+    map.on("load", featureLayer, () => {
+      geocodeAndZoom(zip);
+    });
+  } else {
+    map.on("load", featureLayer, renderCardsFromMap);
+  }
 
   // Reload cards on map movement
   map.on("moveend", featureLayer, renderCardsFromMap);
@@ -85,8 +90,7 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-async function geocodeAndZoom() {
-  const zip = "90210";
+async function geocodeAndZoom(zip) {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
   const response = await fetch(url);
 
@@ -103,5 +107,12 @@ async function geocodeAndZoom() {
 }
 
 const load = () => {
-  initMap();
+  const urlParams = new URLSearchParams(window.location.search);
+  const zip = urlParams.get("zip");
+
+  if (zip && /\d{5}/.test(zip)) {
+    initMap(zip);
+  } else {
+    initMap();
+  }
 };
