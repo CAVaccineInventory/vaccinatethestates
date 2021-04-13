@@ -1,1 +1,13 @@
-warning: Placeholder spanish text!!!
+warning: Menos de "beta". Este mapa incluye información no válida. No lo usa.
+home_title: Disponibilidad de la vacuna contra el COVID-19
+nearme_title: Sitios de vacunación cercanos
+aboutus_title: Acerca de nosotros
+volunteer_title : Voluntar
+site_card_title: Título de la tarjeta del sitio
+footer_text: "Un esfuerzo de colaboración de Call the Shots, Inc y otras personas interesadas."
+find_vaccine: "Encontrar <span class=\"hidden md:inline\">vacuna</span>"
+enter_zip: Ingrese código ZIP
+headline: Encuentre una vacuna contra el COVID-19 para usted o un querido 
+site_description: Publicando la disponibilidad actualizada de la vacuna contra el COVID-19 en hospitales y farmacias de los Estados Unidos.
+404_text:
+    "La página que ha solicitado no existe. Si busca ayuda encontrando vacunas, marque <a href=\"/\">aquí</a>."
