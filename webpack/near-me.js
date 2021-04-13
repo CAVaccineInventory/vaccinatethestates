@@ -4,10 +4,10 @@ import siteCard from "./templates/siteCard.handlebars";
 window.addEventListener("load", () => load());
 
 const featureLayer = "jesse";
+const mapboxToken = "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 const initMap = () => {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
+  mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
     style:
@@ -39,7 +39,7 @@ const initMap = () => {
   });
 
   // Initial card load
-  map.on("load", featureLayer, renderCardsFromMap);
+  map.on("load", featureLayer, geocodeAndZoom);
 
   // Reload cards on map movement
   map.on("moveend", featureLayer, renderCardsFromMap);
@@ -82,6 +82,24 @@ const getUniqueFeatures = (array) => {
 
   return uniqueFeatures;
 };
+
+function geocodeAndZoom() {
+  const zip = "90210";
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
+
+  fetch(url).then((response) => {
+    if (!response.ok) {
+      // TODO(skalnik): Move to sentry
+      alert("Could not retrieve the county data.");
+      return;
+    }
+
+    response.json().then((json) => {
+      const center = json["features"][0]["center"];
+      map.flyTo({ center: center, zoom: 9 });
+    });
+  });
+}
 
 const load = () => {
   initMap();
