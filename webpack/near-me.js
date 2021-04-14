@@ -107,7 +107,11 @@ async function geocodeAndZoom(zip) {
   const json = await response.json();
 
   const center = json["features"][0]["center"];
-  map.flyTo({ center: center, zoom: 9 });
+  moveMap(center[1], center[0]);
+}
+
+function moveMap(lat, lon) {
+  map.flyTo({ center: [lon, lat], zoom: 9 });
 }
 
 const load = () => {
@@ -117,7 +121,7 @@ const load = () => {
       geocodeAndZoom(zip);
     },
     geoCallback: (lat, lon) => {
-      console.log(lat, lon);
+      moveMap(lat, lon);
     },
     geoErrorCallback: () => {
       alert(t("alert_detect"));
