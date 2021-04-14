@@ -2,6 +2,7 @@ import mapboxgl from "mapbox-gl";
 import siteCard from "./templates/siteCard.handlebars";
 import { initSearch } from "./search.js";
 import { t } from "./i18n.js";
+import * as Sentry from "@sentry/browser";
 
 window.addEventListener("load", () => load());
 
