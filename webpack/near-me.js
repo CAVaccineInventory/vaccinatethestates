@@ -109,6 +109,15 @@ async function geocodeAndZoom(zip) {
 
   const json = await response.json();
 
+  if (json["features"].length < 1 || !json["features"][0]["center"]) {
+    Sentry.captureException(new Error("Could not geocode ZIP"), {
+      input: {
+        zip: zip,
+      },
+    });
+    return;
+  }
+
   const center = json["features"][0]["center"];
   moveMap(center[1], center[0]);
 }
@@ -127,6 +136,7 @@ const load = () => {
       moveMap(lat, lon);
     },
     geoErrorCallback: () => {
+      Sentry.captureException(new Error("Could not geolocate user"));
       alert(t("alert_detect"));
     },
   });
