@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import siteCard from "./templates/siteCard.handlebars";
+import { initSearch } from "./search.js";
 
 window.addEventListener("load", () => load());
 
@@ -84,5 +85,17 @@ const getUniqueFeatures = (array) => {
 };
 
 const load = () => {
+  initSearch({
+    type: "display",
+    zipCallback: (zip) => {
+      console.log(zip);
+    },
+    geoCallback: (lat, lon) => {
+      console.log(lat, lon);
+    },
+    geoErrorCallback: () => {
+      console.log("failed to get geo");
+    },
+  });
   initMap();
 };

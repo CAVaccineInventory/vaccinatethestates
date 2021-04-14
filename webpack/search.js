@@ -1,23 +1,26 @@
 import { t } from "./i18n.js";
 
 /**
- * Initializes the search form JS
- * Calls back searchCallback on a search event. In pseudo typescript:
- * 
- * searchCallback: () => GeoResponse | ZipResponse
- * 
- * interface ZipResponse {
- *   type: "zip",
- *   value: number
+ * Initializes the search form JS.
+ * @param {Object} opts - options for initialization as follows in pseudo typescript:
+ * initSearch: (opts: Options) => void;
+ * type Options = Navigate | Display
+ *
+ *
+ * // For navigating to near-me
+ * interface Navigate {
+ *   type: "navigate"
  * }
- * 
- * interface GeoResponse {
- *   type: "geolocation" 
- *   lat: number,
- *   lon: number
+ *
+ * // For displaying content on near-me
+ * interface Display {
+ *   type: "display",
+ *   zipCallback: (zip: number) => void,
+ *   geoCallback: (lat: number, lon: number) => void
+ *   geoErrorCallback: () => void
  * }
  */
-export const initSearch = (searchCallback) => {
+export const initSearch = (opts) => {
   const form = document.getElementById("js-submit-zip-form");
   const zipInput = document.getElementById("js-zip-input");
   const geolocationSubmit = document.getElementById("js-submit-geolocation");
@@ -28,7 +31,7 @@ export const initSearch = (searchCallback) => {
   }
 
   // setting up listeners
-  zipInput.addEventListener("input", (e) => {
+  zipInput.addEventListener("input", () => {
     // Calculate validity of the input.
     if (extractZip(zipInput)) {
       zipInput.setCustomValidity(""); // valid
@@ -57,19 +60,63 @@ export const initSearch = (searchCallback) => {
     } catch (err) {
       console.error(err);
     }
-    searchCallback({
-        type: "zip",
-        value: zipInput.value,
-    });
+    handleZipSearch(opts, zipInput.value);
   });
 
   geolocationSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    submitGeoLocation(searchCallback);
+    handleGeoSearch(opts);
   });
 
-  // TODO: parse query params to immediately callback
+  if (opts.type === "display") {
+    handleUrlParamsOnLoad(opts);
+  }
 };
+
+const handleZipSearch = (opts, zip) => {
+  if (opts.type === "navigate") {
+    const lang = document.documentElement.getAttribute("lang");
+    window.location.href =
+      lang === "en" ? `/near-me?zip=${zip}` : `/${lang}/near-me?zip=${zip}`;
+  } else if (opts.type === "display") {
+    opts.zipCallback(zip);
+  }
+};
+
+const handleGeoSearch = (opts) => {
+  if (opts.type === "navigate") {
+    const lang = document.documentElement.getAttribute("lang");
+    window.location.href =
+      lang === "en" ? "/near-me?locate=1" : "/${lang}/near-me?locate=1";
+  } else if (opts.type === "display") {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        opts.geoCallback(position.coords.latitude, position.coords.longitude);
+      },
+      () => {
+        opts.geoErrorCallback();
+      },
+      {
+        maximumAge: 1000 * 60 * 5, // 5 minutes
+        timeout: 1000 * 15, // 15 seconds
+      }
+    );
+  }
+};
+
+function handleUrlParamsOnLoad(opts) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const zip = urlParams.get("zip");
+  if (zip) {
+    const zipInput = document.getElementById("js-zip-input");
+    if (zipInput) {
+      zipInput.value = zip;
+    }
+    opts.zipCallback(zip);
+  } else if (urlParams.get("locate")) {
+    handleGeoSearch(opts);
+  }
+}
 
 function toggleVisibility(element, isVisible) {
   if (element) {
@@ -92,27 +139,3 @@ const extractZip = (zipInput) => {
 
   return matches[1];
 };
-
-
-async function submitGeoLocation(callback) {
-    const button = document.getElementById("js-submit-geolocation");
-    //toggleSubmitButtonState(button, false);
-    button.value = "Locating...";
-  
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            console.log("wow");
-            callback({
-                type: "geolocation",
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            });
-        }, () => {
-            // TODO error
-        },
-        {
-            maximumAge: 1000 * 60 * 5, // 5 minutes
-            timeout: 1000 * 15, // 15 seconds
-        }
-    );
-  }
