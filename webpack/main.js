@@ -1,6 +1,10 @@
+import "regenerator-runtime/runtime";
 import * as Sentry from "@sentry/browser";
 import { Integrations } from "@sentry/tracing";
 
+/**
+ * This is site wide JS. Add sparingly.
+ */
 window.addEventListener("load", () => {
   initMobileMenu();
   initSentry();
