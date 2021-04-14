@@ -89,7 +89,7 @@ const handleGeoSearch = (opts) => {
   if (opts.type === "navigate") {
     const lang = document.documentElement.getAttribute("lang");
     window.location.href =
-      lang === "en" ? "/near-me?locate=1" : "/${lang}/near-me?locate=1";
+      lang === "en" ? "/near-me?locate=1" : `/${lang}/near-me?locate=1`;
   } else if (opts.type === "display") {
     navigator.geolocation.getCurrentPosition(
       (position) => {
