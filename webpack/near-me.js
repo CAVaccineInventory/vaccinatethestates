@@ -10,7 +10,9 @@ const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 let mapInitializedResolver;
-const mapInitialized = new Promise(resolve => mapInitializedResolver = resolve);
+const mapInitialized = new Promise(
+  (resolve) => (mapInitializedResolver = resolve)
+);
 
 const initMap = (zip) => {
   mapboxgl.accessToken = mapboxToken;
