@@ -11,3 +11,4 @@ headline: Find a COVID-19 vaccine for yourself or a loved one
 site_description: Publishing up-to-date COVID-19 vaccine availability at hospitals and pharmacies across the United States.
 404_text:
     The page you've requested does not exist. If you're looking for help with finding vaccines, please check <a href="/">here</a>.
+enter_valid_zipcode: Please enter a valid zip code
