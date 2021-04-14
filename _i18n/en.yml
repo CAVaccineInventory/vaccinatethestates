@@ -15,3 +15,4 @@ enter_valid_zipcode: Please enter a valid zip code
 use_my_location: Use my location
 my_location: My location
 alert_detect: Failed to detect your location. Please try again or enter your zip code
+skip_to_content: Skip to content
