@@ -3,8 +3,6 @@
   <form
     class="flex flex-row"
     id="js-submit-zip-form"
-    action="{% link near-me.html %}"
-    method="GET"
   >
     <div class="relative location-inputs">
       <input
@@ -15,6 +13,12 @@
         autocomplete="off"
         required
       />
+      <div
+      id="js-my-location"
+      class="hidden absolute top-1/2 transform -translate-y-1/2 start-8 bg-gray-100 rounded-full px-3 py-1 text-sm pointer-events-none"
+    >
+    {% t my_location %}
+    </div>
       <div
         class="hidden absolute bg-white z-10 start-0 top-full flex flex-row border border-gray-200 rounded-full px-4 py-1 items-center space-s-2 mt-1 up-arrow"
         id="js-submit-geolocation"

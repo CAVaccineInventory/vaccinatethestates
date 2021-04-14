@@ -1,7 +1,7 @@
 import { t } from "./i18n.js";
 
 /**
- * Initializes the search form JS.
+ * Initializes the search JS.
  * @param {Object} opts - options for initialization as follows in pseudo typescript:
  * initSearch: (opts: Options) => void;
  * type Options = Navigate | Display
@@ -47,7 +47,7 @@ export const initSearch = (opts) => {
     toggleVisibility(myLocation, false);
   });
 
-  zipInput.addEventListener("blur", (e) => {
+  zipInput.addEventListener("blur", () => {
     setTimeout(() => {
       toggleVisibility(geolocationSubmit, false);
     }, 200);
@@ -65,6 +65,7 @@ export const initSearch = (opts) => {
 
   geolocationSubmit.addEventListener("click", (e) => {
     e.preventDefault();
+    toggleVisibility(myLocation, true);
     handleGeoSearch(opts);
   });
 
@@ -84,6 +85,7 @@ const handleZipSearch = (opts, zip) => {
 };
 
 const handleGeoSearch = (opts) => {
+  const myLocation = document.getElementById("js-my-location");
   if (opts.type === "navigate") {
     const lang = document.documentElement.getAttribute("lang");
     window.location.href =
@@ -93,7 +95,9 @@ const handleGeoSearch = (opts) => {
       (position) => {
         opts.geoCallback(position.coords.latitude, position.coords.longitude);
       },
-      () => {
+      (err) => {
+        console.warn(err);
+        toggleVisibility(myLocation, false);
         opts.geoErrorCallback();
       },
       {
@@ -107,12 +111,16 @@ const handleGeoSearch = (opts) => {
 function handleUrlParamsOnLoad(opts) {
   const urlParams = new URLSearchParams(window.location.search);
   const zip = urlParams.get("zip");
+  const lat = urlParams.get("lat");
+  const lon = urlParams.get("lon");
   if (zip) {
     const zipInput = document.getElementById("js-zip-input");
     if (zipInput) {
       zipInput.value = zip;
     }
     opts.zipCallback(zip);
+  } else if (lat && lon) {
+    opts.geoCallback(lat, lon);
   } else if (urlParams.get("locate")) {
     handleGeoSearch(opts);
   }

@@ -1,6 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import siteCard from "./templates/siteCard.handlebars";
 import { initSearch } from "./search.js";
+import { t } from "./i18n.js";
 
 window.addEventListener("load", () => load());
 
@@ -94,7 +95,7 @@ const load = () => {
       console.log(lat, lon);
     },
     geoErrorCallback: () => {
-      console.log("failed to get geo");
+      alert(t("alert_detect"));
     },
   });
   initMap();
