@@ -99,8 +99,11 @@ async function geocodeAndZoom(zip) {
   const response = await fetch(url);
 
   if (!response.ok) {
-    // TODO(skalnik): Move to sentry
-    alert("Could not retrieve the county data.");
+    Sentry.captureException(new Error("Could not geocode ZIP"), {
+      input: {
+        zip: zip,
+      },
+    });
     return;
   }
 
