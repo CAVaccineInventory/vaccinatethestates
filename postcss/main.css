@@ -26,3 +26,8 @@ a[class*=" border-"],
 a.no-underline {
   text-decoration: none;
 }
+
+.search-input {
+  background: url(/assets/img/search.svg) no-repeat scroll 8px 48%;
+  padding-inline-start: 32px;
+}

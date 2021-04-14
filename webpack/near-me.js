@@ -1,12 +1,16 @@
 import mapboxgl from "mapbox-gl";
 import siteCard from "./templates/siteCard.handlebars";
-import "regenerator-runtime/runtime";
+import { initSearch } from "./search.js";
+import { t } from "./i18n.js";
 
 window.addEventListener("load", () => load());
 
 const featureLayer = "jesse";
 const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
+
+let mapInitializedResolver;
+const mapInitialized = new Promise(resolve => mapInitializedResolver = resolve);
 
 const initMap = (zip) => {
   mapboxgl.accessToken = mapboxToken;
@@ -40,13 +44,10 @@ const initMap = (zip) => {
     map.getCanvas().style.cursor = "";
   });
 
-  if (zip) {
-    map.on("load", featureLayer, () => {
-      geocodeAndZoom(zip);
-    });
-  } else {
-    map.on("load", featureLayer, renderCardsFromMap);
-  }
+  map.on("load", featureLayer, () => {
+    mapInitializedResolver();
+    renderCardsFromMap();
+  });
 
   // Reload cards on map movement
   map.on("moveend", featureLayer, renderCardsFromMap);
@@ -91,6 +92,7 @@ const getUniqueFeatures = (array) => {
 };
 
 async function geocodeAndZoom(zip) {
+  await mapInitialized;
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
   const response = await fetch(url);
 
@@ -107,12 +109,17 @@ async function geocodeAndZoom(zip) {
 }
 
 const load = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const zip = urlParams.get("zip");
-
-  if (zip && /\d{5}/.test(zip)) {
-    initMap(zip);
-  } else {
-    initMap();
-  }
+  initSearch({
+    type: "display",
+    zipCallback: (zip) => {
+      geocodeAndZoom(zip);
+    },
+    geoCallback: (lat, lon) => {
+      console.log(lat, lon);
+    },
+    geoErrorCallback: () => {
+      alert(t("alert_detect"));
+    },
+  });
+  initMap();
 };
