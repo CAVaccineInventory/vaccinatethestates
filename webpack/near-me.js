@@ -128,7 +128,7 @@ function moveMap(lat, lon) {
 }
 
 const load = () => {
-  loadingSpinner = document.getElementById('loading-spinner');
+  loadingSpinner = document.getElementById("loading-spinner");
   initSearch({
     type: "display",
     zipCallback: (zip) => {
