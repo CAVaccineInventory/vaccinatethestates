@@ -6,6 +6,9 @@ url: https://beta.vaccinatethestates.com
 twitter: vaxthestates
 instagram: vaccinatethestates
 
+email:
+    outreach: outreach@vaccinateca.com
+
 include:
   - _redirects
 
