@@ -99,7 +99,9 @@ async function geocodeAndZoom(zip) {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
   const response = await fetch(url);
 
-  Sentry.addExtra("zip", zip);
+  Sentry.setContext("input", {
+    zip: zip,
+  });
 
   if (!response.ok) {
     Sentry.captureException(new Error("Could not geocode ZIP"));
