@@ -2,14 +2,21 @@ import mapboxgl from "mapbox-gl";
 import siteCard from "./templates/siteCard.handlebars";
 import { initSearch } from "./search.js";
 import { t } from "./i18n.js";
+import * as Sentry from "@sentry/browser";
 
 window.addEventListener("load", () => load());
 
 const featureLayer = "jesse";
+const mapboxToken =
+  "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
-const initMap = () => {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
+let mapInitializedResolver;
+const mapInitialized = new Promise(
+  (resolve) => (mapInitializedResolver = resolve)
+);
+
+const initMap = (zip) => {
+  mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
     style:
@@ -40,10 +47,8 @@ const initMap = () => {
     map.getCanvas().style.cursor = "";
   });
 
-  // Initial card load
   map.on("load", featureLayer, () => {
-    debugger;
-    document.querySelector("#loading").classList.add("hidden");
+    mapInitializedResolver();
     renderCardsFromMap();
   });
 
@@ -89,16 +94,46 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
+async function geocodeAndZoom(zip) {
+  await mapInitialized;
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
+  const response = await fetch(url);
+
+  Sentry.setContext("input", {
+    zip: zip,
+  });
+
+  if (!response.ok) {
+    Sentry.captureException(new Error("Could not geocode ZIP"));
+    return;
+  }
+
+  const json = await response.json();
+
+  if (json["features"].length < 1 || !json["features"][0]["center"]) {
+    Sentry.captureException(new Error("Could not geocode ZIP"));
+    return;
+  }
+
+  const center = json["features"][0]["center"];
+  moveMap(center[1], center[0]);
+}
+
+function moveMap(lat, lon) {
+  map.flyTo({ center: [lon, lat], zoom: 9 });
+}
+
 const load = () => {
   initSearch({
     type: "display",
     zipCallback: (zip) => {
-      console.log(zip);
+      geocodeAndZoom(zip);
     },
     geoCallback: (lat, lon) => {
-      console.log(lat, lon);
+      moveMap(lat, lon);
     },
     geoErrorCallback: () => {
+      Sentry.captureException(new Error("Could not geolocate user"));
       alert(t("alert_detect"));
     },
   });
