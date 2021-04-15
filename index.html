@@ -16,13 +16,48 @@ content_header: false
         <img
           class="transform scale-75 justify-self-center"
           src="/assets/img/front_page_illustration.png"
-          alt="{% t index.illustration %}"
+          alt="{% t illustration_alt %}"
           />
         <div class="self-center text-black md:text-lg">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus efficitur in ipsum sed ultrices. Pellentesque et vulputate tortor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc quis tincidunt sapien. Phasellus ac magna hendrerit, tincidunt libero eu, tempus lacus. Cras tincidunt nisl sollicitudin justo bibendum.
+            {% t home_body %}
           </p>
         </div>
       </div>
+
+
+  <div class="mt-16 flex flex-col items-center text-center">
+    <p class="mb-2">{% t home_corrections %}</p>
+    <a
+      href="https://airtable.com/shrFkXDQmJ9GVh1dN"
+      class="px-5 py-3 border border-gray-300 text-green-700 rounded-full hover:bg-green-700 hover:text-white"
+      >{% t home_feedback %}</a
+    >
+  </div>
+
+  <div class="mt-16">
+    <p class="text-center mb-8 text-gray-500">{% t home_from %}</p>
+    <div class="md:px-6 grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6">
+      {% for item in site.data.coverage %}
+      <a
+        class="no-underline hover:underline text-black max-w-xs justify-self-center {% if forloop.index <= 2 %} mb-4 {% endif %}"
+        href="{{ item.url }}"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <div class="no-underline flex flex-col items-center">
+          <div class="flex flex-col">
+            <div class="font-xl italic text-center">{{ item.text }}</div>
+          </div>
+          <img
+            class="float-start w-32 mt-3 object-contain"
+            src="/assets/img/coverage/{{ item.image }}"
+          />
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
 </div>
 <script src="assets/js/home.js"></script>
