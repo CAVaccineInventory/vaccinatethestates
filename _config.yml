@@ -6,6 +6,9 @@ url: https://beta.vaccinatethestates.com
 twitter: vaxthestates
 instagram: vaccinatethestates
 
+include:
+  - _redirects
+
 exclude:
   - netlify.toml
   - package.json
