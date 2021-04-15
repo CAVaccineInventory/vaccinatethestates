@@ -7,9 +7,9 @@ twitter: vaxthestates
 instagram: vaccinatethestates
 
 email:
-    outreach: outreach@vaccinateca.com
-    media: media@vaccinateca.com
-    partners: partners@vaccinateca.com
+    outreach: outreach@vaccinatethestates.com
+    media: media@vaccinatethestates.com
+    partners: partners@vaccinatethestates.com
 
 include:
   - _redirects
