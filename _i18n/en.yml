@@ -17,7 +17,7 @@ my_location: My location
 alert_detect: Failed to detect your location. Please try again or enter your zip code
 skip_to_content: Skip to content
 illustration_alt: Illustration of doctor administering vaccines
-home_body: Most over 16 are now eligible for free, safe, and reliable COVID-19 vaccines in the United States. But it can be difficult to find out where and how to get a shot. Enter your zip code to find confirmed vaccination locations near you, and learn how to make an appointment.
+home_body: Many over 16 are now eligible for free, safe, and reliable COVID-19 vaccines in the United States. But it can be difficult to find out where and how to get a shot. Enter your zip code to find confirmed vaccination locations near you, and learn how to make an appointment.
 home_corrections: If you have a missing location to report, <a href="https://airtable.com/shriM4cld0UfVf2ud?prefill_What+correction+are+you+reporting%3F=Add%20a%20missing%20hospital%2Fpharmacy" class="text-black">please let us know.</a>
 home_feedback: Let us know if you found this site useful!
 home_from: From the team behind <a class="text-gray-500" href="https://www.vaccinateca.com">VaccinateCA</a>
