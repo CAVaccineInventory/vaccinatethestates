@@ -18,6 +18,11 @@
           ]
         }
       }
+    },
+    "vial": {
+      "source": "mapbox://tileset-source/calltheshots/vial",
+      "minzoom": 2,
+      "maxzoom": 15
     }
   }
 }
