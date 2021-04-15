@@ -99,23 +99,17 @@ async function geocodeAndZoom(zip) {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
   const response = await fetch(url);
 
+  Sentry.addExtra("zip", zip);
+
   if (!response.ok) {
-    Sentry.captureException(new Error("Could not geocode ZIP"), {
-      input: {
-        zip: zip,
-      },
-    });
+    Sentry.captureException(new Error("Could not geocode ZIP"))
     return;
   }
 
   const json = await response.json();
 
   if (json["features"].length < 1 || !json["features"][0]["center"]) {
-    Sentry.captureException(new Error("Could not geocode ZIP"), {
-      input: {
-        zip: zip,
-      },
-    });
+    Sentry.captureException(new Error("Could not geocode ZIP"));
     return;
   }
 
