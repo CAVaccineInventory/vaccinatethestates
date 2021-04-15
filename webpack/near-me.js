@@ -102,7 +102,7 @@ async function geocodeAndZoom(zip) {
   Sentry.addExtra("zip", zip);
 
   if (!response.ok) {
-    Sentry.captureException(new Error("Could not geocode ZIP"))
+    Sentry.captureException(new Error("Could not geocode ZIP"));
     return;
   }
 
