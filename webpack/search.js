@@ -122,7 +122,7 @@ function handleUrlParamsOnLoad(opts) {
       zipInput.value = zip;
     }
     opts.zipCallback(zip, zoom);
-  } else if (lat && lon) {
+  } else if (lat && lng) {
     opts.geoCallback(lat, lng, zoom);
   } else if (urlParams.get("locate")) {
     handleGeoSearch(opts);

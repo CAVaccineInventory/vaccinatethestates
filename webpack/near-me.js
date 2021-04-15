@@ -125,8 +125,8 @@ async function geocodeAndZoom(zip, zoom) {
   moveMap(center[1], center[0], zoom);
 }
 
-function moveMap(lat, lng, zoom) {
-  console.log(zoom);
+async function moveMap(lat, lng, zoom) {
+  await mapInitialized;
   map.flyTo({ center: [lng, lat], zoom: zoom || 9 });
 }
 
