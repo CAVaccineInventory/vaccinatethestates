@@ -1,5 +1,5 @@
 import { t } from "./i18n.js";
-import { toggleVisibility } from './utils/dom.js'
+import { toggleVisibility } from "./utils/dom.js";
 
 /**
  * Initializes the search JS.

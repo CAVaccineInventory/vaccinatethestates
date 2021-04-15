@@ -4,7 +4,7 @@ import * as Sentry from "@sentry/browser";
 import siteCard from "./templates/siteCard.handlebars";
 import { initSearch } from "./search.js";
 import { t } from "./i18n.js";
-import { toggleVisibility } from './utils/dom.js'
+import { toggleVisibility } from "./utils/dom.js";
 
 window.addEventListener("load", () => load());
 
@@ -131,9 +131,8 @@ async function moveMap(lat, lng, zoom) {
 }
 
 const load = () => {
-
   loadingSpinnerElem = document.getElementById("js-loading-spinner");
-  zipErrorElem = document.getElementById("js-unknown-zip-code-alert")
+  zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
 
   initSearch({
     type: "display",
@@ -141,7 +140,7 @@ const load = () => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
     },
-    geoCallback: (lat, lng,  zoom) => {
+    geoCallback: (lat, lng, zoom) => {
       moveMap(lat, lng, zoom);
     },
     geoErrorCallback: () => {
