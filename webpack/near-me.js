@@ -41,7 +41,11 @@ const initMap = () => {
   });
 
   // Initial card load
-  map.on("load", featureLayer, renderCardsFromMap);
+  map.on("load", featureLayer, () => {
+    debugger;
+    document.querySelector("#loading").classList.add("hidden");
+    renderCardsFromMap();
+  });
 
   // Reload cards on map movement
   map.on("moveend", featureLayer, renderCardsFromMap);
