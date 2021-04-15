@@ -6,6 +6,7 @@ import * as Sentry from "@sentry/browser";
 
 window.addEventListener("load", () => load());
 
+let loadingSpinner;
 const featureLayer = "jesse";
 const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
@@ -61,6 +62,9 @@ const renderCardsFromMap = () => {
     initMap();
   }
 
+  if (loadingSpinner) {
+    loadingSpinner.classList.add("hidden");
+  }
   const features = getUniqueFeatures(map.queryRenderedFeatures()).slice(0, 10);
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
@@ -124,6 +128,7 @@ function moveMap(lat, lon) {
 }
 
 const load = () => {
+  loadingSpinner = document.getElementById("loading-spinner");
   initSearch({
     type: "display",
     zipCallback: (zip) => {
