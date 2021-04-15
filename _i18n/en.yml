@@ -24,3 +24,22 @@ home_from: From the team behind <a class="text-gray-500" href="https://www.vacci
 about_intro_1: Vaccinate The States is a community-driven effort to help Americans learn accurate, up-to-date, verified information about how to get the coronavirus vaccine.
 about_intro_2: Our team calls medical professionals at hundreds of potential vaccination sites daily, asking them if they have the vaccine and how to get an appointment. We also gather vaccine location information from official sources, including federal government agencies, county health departments, and healthcare providers. We compile what they say into a comprehensive map, and make it freely available on this site, to other publishers, and to public health initiatives.
 about_equity_title: Our Commitment to Equitable Access to Vaccine Information
+faq: Frequently Asked Questions (FAQ)
+faq_how: How can I help?
+faq_reporter: I am a reporter. Can I get in touch?
+faq_provider: I work at a medical provider! How do I ask you to update our information or make a request of you?
+faq_provider_answer: |
+    <p class="mb-2">We appreciate the work you are doing, and are here to support it!</p>
+    <p class="mb-2">Please text <a href="tel:+14153014597">(415) 301-4597</a> with your message, institutional affiliation, and an 
+    internal extension or contact name so we can call back to verify. We cannot receive photos at this number; 
+    text only, please.</p>
+    <p>One of the organizers will read your message and take action as soon as reasonably possible.</p>
+faq_org: I work in a community-facing organization or for the government. Can we discuss this?
+faq_toil: Does this effort increase or decrease toil in the healthcare system?
+faq_toil_answer: |
+    <p class="mb-2">Most hospitals will get thousands of phone calls per day. They are currently being slammed by many more people than usual asking them the same question: “Do you have the vaccine?”</p>
+    <p>By asking that question and publishing the answer, we can save their phone bandwidth for the day-to-day operations of the hospital. We also save people seeking the vaccine from having to call dozens of locations to find one that has availability.</p>
+faq_accurate: Is the information on this website accurate?
+faq_accurate_answer: |
+    <p class="mb-2">We publish only what the vaccine site told us when we called. The situation is complex, supplies may vary throughout the day, and not everyone at the site might have up-to-the-minute information as to what their policies actually are.</p>
+    <p>We’re doing our best, but can’t make any guarantees.</p>

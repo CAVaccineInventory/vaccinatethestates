@@ -8,6 +8,8 @@ instagram: vaccinatethestates
 
 email:
     outreach: outreach@vaccinateca.com
+    media: media@vaccinateca.com
+    partners: partners@vaccinateca.com
 
 include:
   - _redirects
