@@ -1,12 +1,15 @@
 import mapboxgl from "mapbox-gl";
+import * as Sentry from "@sentry/browser";
+
 import siteCard from "./templates/siteCard.handlebars";
 import { initSearch } from "./search.js";
 import { t } from "./i18n.js";
-import * as Sentry from "@sentry/browser";
+import { toggleVisibility } from './utils/dom.js'
 
 window.addEventListener("load", () => load());
 
-let loadingSpinner;
+let loadingSpinnerElem;
+let zipErrorElem;
 const featureLayer = "jesse";
 const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
@@ -61,10 +64,8 @@ const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
   }
+  toggleVisibility(loadingSpinnerElem, false);
 
-  if (loadingSpinner) {
-    loadingSpinner.classList.add("hidden");
-  }
   const features = getUniqueFeatures(map.queryRenderedFeatures()).slice(0, 10);
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
@@ -98,7 +99,7 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-async function geocodeAndZoom(zip) {
+async function geocodeAndZoom(zip, zoom) {
   await mapInitialized;
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
   const response = await fetch(url);
@@ -115,27 +116,33 @@ async function geocodeAndZoom(zip) {
   const json = await response.json();
 
   if (json["features"].length < 1 || !json["features"][0]["center"]) {
+    toggleVisibility(zipErrorElem, true);
     Sentry.captureException(new Error("Could not geocode ZIP"));
     return;
   }
 
   const center = json["features"][0]["center"];
-  moveMap(center[1], center[0]);
+  moveMap(center[1], center[0], zoom);
 }
 
-function moveMap(lat, lon) {
-  map.flyTo({ center: [lon, lat], zoom: 9 });
+function moveMap(lat, lng, zoom) {
+  console.log(zoom);
+  map.flyTo({ center: [lng, lat], zoom: zoom || 9 });
 }
 
 const load = () => {
-  loadingSpinner = document.getElementById("loading-spinner");
+
+  loadingSpinnerElem = document.getElementById("js-loading-spinner");
+  zipErrorElem = document.getElementById("js-unknown-zip-code-alert")
+
   initSearch({
     type: "display",
-    zipCallback: (zip) => {
-      geocodeAndZoom(zip);
+    zipCallback: (zip, zoom) => {
+      toggleVisibility(zipErrorElem, false);
+      geocodeAndZoom(zip, zoom);
     },
-    geoCallback: (lat, lon) => {
-      moveMap(lat, lon);
+    geoCallback: (lat, lng,  zoom) => {
+      moveMap(lat, lng, zoom);
     },
     geoErrorCallback: () => {
       Sentry.captureException(new Error("Could not geolocate user"));

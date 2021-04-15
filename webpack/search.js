@@ -1,4 +1,5 @@
 import { t } from "./i18n.js";
+import { toggleVisibility } from './utils/dom.js'
 
 /**
  * Initializes the search JS.
@@ -15,9 +16,9 @@ import { t } from "./i18n.js";
  * // For displaying content on near-me
  * interface Display {
  *   type: "display",
- *   zipCallback: (zip: number) => void,
- *   geoCallback: (lat: number, lon: number) => void
- *   geoErrorCallback: () => void
+ *   zipCallback: (zip: number, zoom?: number) => void,
+ *   geoCallback: (lat: number, lng: number, zoom?: number) => void
+ *   geoErrorCallback: (error) => void
  * }
  */
 export const initSearch = (opts) => {
@@ -98,7 +99,7 @@ const handleGeoSearch = (opts) => {
       (err) => {
         console.warn(err);
         toggleVisibility(myLocation, false);
-        opts.geoErrorCallback();
+        opts.geoErrorCallback(err);
       },
       {
         maximumAge: 1000 * 60 * 5, // 5 minutes
@@ -112,27 +113,19 @@ function handleUrlParamsOnLoad(opts) {
   const urlParams = new URLSearchParams(window.location.search);
   const zip = urlParams.get("zip");
   const lat = urlParams.get("lat");
-  const lon = urlParams.get("lon");
+  const lng = urlParams.get("lng");
+  const zoom = urlParams.get("zoom");
+
   if (zip) {
     const zipInput = document.getElementById("js-zip-input");
     if (zipInput) {
       zipInput.value = zip;
     }
-    opts.zipCallback(zip);
+    opts.zipCallback(zip, zoom);
   } else if (lat && lon) {
-    opts.geoCallback(lat, lon);
+    opts.geoCallback(lat, lng, zoom);
   } else if (urlParams.get("locate")) {
     handleGeoSearch(opts);
-  }
-}
-
-function toggleVisibility(element, isVisible) {
-  if (element) {
-    if (isVisible) {
-      element.classList.remove("hidden");
-    } else {
-      element.classList.add("hidden");
-    }
   }
 }
 
