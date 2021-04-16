@@ -90,7 +90,9 @@ const renderCardsFromMap = () => {
   }
   toggleVisibility(loadingSpinnerElem, false);
 
-  const features = getUniqueFeatures(map.queryRenderedFeatures({ layers: [featureLayer] })).slice(0, 10);
+  const features = getUniqueFeatures(
+    map.queryRenderedFeatures({ layers: [featureLayer] })
+  ).slice(0, 10);
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
