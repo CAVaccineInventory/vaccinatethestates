@@ -88,19 +88,27 @@ const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
   }
+
   toggleVisibility(loadingSpinnerElem, false);
 
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
   ).slice(0, 10);
+
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
   features.forEach((feature) => {
     const properties = feature.properties;
+    const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(properties.address)}`;
     const templateInfo = {
+      id: properties.id,
       name: properties.name,
       address: properties.address,
+      addressLink: gmapsLink,
+      hours: properties.hours,
+      notes: properties.public_notes,
+      website: properties.website,
     };
     const range = document
       .createRange()

@@ -1,10 +1,24 @@
-<div class="site-card rounded-lg mt-4 p-4 relative grid grid-cols-1
-    shadow-md">
-    <h4 class="font-bold text-lg">
-        {{name}}
-    </h4>
-    <div class="grid grid-cols-1">
-        <span class="font-bold">{{t "address"}}</span>
-        <span>{{address}}</span>
+<li id="{{id}}" class="site-card rounded-lg mt-4 relative grid grid-cols-1
+     border divide-y">
+    <div class="grid grid-cols-1 p-4">
+        <h4 class="font-bold text-lg">
+            {{name}}
+            {{#if website}}
+                &middot; <a href="{{website}}">Website</a>
+            {{/if}}
+        </h4>
+        <a href="{{addressLink}}">{{address}}</a>
     </div>
-</div>
+    {{#if hours}}
+        <div class="grid grid-cols-1 p-4">
+            <h5 class="font-bold">{{t "hours"}}</h5>
+            <p>{{hours}}</p>
+        </div>
+    {{/if}}
+    {{#if notes}}
+        <div class="grid grid-cols-1 p-4">
+            <h5 class="font-bold">{{t "notes"}}</h5>
+            <p>{{notes}}</p>
+        </div>
+    {{/if}}
+</li>
