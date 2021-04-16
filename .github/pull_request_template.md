@@ -16,5 +16,11 @@ Link to Deploy Preview: https://deploy-preview-NNN--beta-vaccinatethestates.netl
 
 _(Note: Use your best judgement for time management. If this PR is a minor content adjustment, you might not invest in the full list of QA checks below. But for medium-large PRs, we recommend a thorough review.)_
 
-#### Site
+### Site
 - [ ] I solemnly swear that I QA'd my change. My change does not break the site on localhost nor staging.
+
+#### Near Me
+- [ ] Geolocation works
+- [ ] Searching by zip works
+- [ ] Cards show useful information
+  - [ ] Cards address links to Google Maps
