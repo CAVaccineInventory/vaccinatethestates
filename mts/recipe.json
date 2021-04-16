@@ -1,24 +1,6 @@
 {
   "version": 1,
   "layers": {
-    "jesse": {
-      "source": "mapbox://tileset-source/calltheshots/jesse",
-      "minzoom": 0,
-      "maxzoom": 15,
-      "features": {
-        "attributes": {
-          "allowed_output": [
-            "name",
-            "phone",
-            "address",
-            "city",
-            "name",
-            "url",
-            "zip"
-          ]
-        }
-      }
-    },
     "vial": {
       "source": "mapbox://tileset-source/calltheshots/vial",
       "minzoom": 2,
