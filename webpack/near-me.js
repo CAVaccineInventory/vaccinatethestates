@@ -102,7 +102,9 @@ const renderCardsFromMap = () => {
 
   features.forEach((feature) => {
     const properties = feature.properties;
-    const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(properties.address)}`;
+    const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+      properties.address
+    )}`;
     const templateInfo = {
       id: properties.id,
       name: properties.name,
