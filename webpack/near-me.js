@@ -62,9 +62,18 @@ const initMap = (zip) => {
         "circle-color": "#00FF00",
       },
     });
+  });
 
-    mapInitializedResolver();
-    renderCardsFromMap();
+  // We want to make sure the vial data is fully loaded before we try to render
+  // cards and resolve the map initialization
+  map.on("sourcedata", () => {
+    if (map.getSource(featureLayer) && map.isSourceLoaded(featureLayer)) {
+      mapInitializedResolver();
+      renderCardsFromMap();
+
+      // We only need this on the initial load, so now we're done!
+      map.off("sourcedata");
+    }
   });
 
   // Reload cards on map movement
