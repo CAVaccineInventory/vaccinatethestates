@@ -91,6 +91,8 @@ const renderCardsFromMap = () => {
 
   toggleVisibility(loadingSpinnerElem, false);
 
+  // Eventually, we'll want some smarter sorting of what we show, but for now
+  // lets grab 10 unique things off the map
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
   ).slice(0, 10);
