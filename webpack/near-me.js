@@ -109,10 +109,10 @@ const getUniqueFeatures = (array) => {
   // or duplicated across tile boundaries and, as a result, features may appear
   // multiple times in query results.
   const uniqueFeatures = array.filter(function (el) {
-    if (existingFeatureKeys[el.id]) {
+    if (existingFeatureKeys[el.properties["id"]]) {
       return false;
     } else {
-      existingFeatureKeys[el.id] = true;
+      existingFeatureKeys[el.properties["id"]] = true;
       return true;
     }
   });
