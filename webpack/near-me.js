@@ -6,7 +6,7 @@ import * as Sentry from "@sentry/browser";
 
 window.addEventListener("load", () => load());
 
-const featureLayer = "jesse";
+const featureLayer = "vial";
 const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
@@ -19,8 +19,7 @@ const initMap = (zip) => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
-    style:
-      "mapbox://styles/calltheshots/ckn6plmc90jme17pqc65d55ld?optimize=true",
+    style: "mapbox://styles/mapbox/dark-v10",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
   });
@@ -47,7 +46,23 @@ const initMap = (zip) => {
     map.getCanvas().style.cursor = "";
   });
 
-  map.on("load", featureLayer, () => {
+  map.on("load", () => {
+    map.addSource(featureLayer, {
+      type: "vector",
+      url: "mapbox://calltheshots.vaccinatethestates",
+    });
+
+    map.addLayer({
+      "id": featureLayer,
+      "type": "circle",
+      "source": "vial",
+      "source-layer": "vial",
+      "paint": {
+        "circle-radius": 4,
+        "circle-color": "#00FF00",
+      },
+    });
+
     mapInitializedResolver();
     renderCardsFromMap();
   });
@@ -61,13 +76,15 @@ const renderCardsFromMap = () => {
     initMap();
   }
 
-  const features = getUniqueFeatures(map.queryRenderedFeatures()).slice(0, 10);
+  const features = getUniqueFeatures(map.queryRenderedFeatures({ layers: [featureLayer] })).slice(0, 10);
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
   features.forEach((feature) => {
+    const properties = feature.properties;
     const templateInfo = {
-      body: feature.id,
+      name: properties.name,
+      address: properties.address,
     };
     const range = document
       .createRange()
