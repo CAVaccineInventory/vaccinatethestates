@@ -5,3 +5,8 @@
     @apply sticky top-0 left-0;
   }
 }
+
+
+.mapboxgl-popup-close-button {
+  padding: 5px;
+}

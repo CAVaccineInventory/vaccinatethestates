@@ -1,0 +1,17 @@
+<div class="mx-1">
+  <h1 class="text-lg text-green-600">
+    {{name}}
+  </h1>
+
+  <div>
+    {{#if address}}
+        <a class="text-sm pt-2" href="{{addressLink}}">{{address}}</a>
+        {{#if website}}
+            &middot;
+        {{/if}}
+    {{/if}}
+    {{#if website}}
+        <a class="text-sm" href={{website}}>Website</span>
+    {{/if}}
+  </div>
+</div>

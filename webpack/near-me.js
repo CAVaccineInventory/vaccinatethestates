@@ -2,6 +2,7 @@ import mapboxgl from "mapbox-gl";
 import * as Sentry from "@sentry/browser";
 
 import siteCard from "./templates/siteCard.handlebars";
+import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
@@ -19,7 +20,7 @@ const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
 );
 
-const initMap = (zip) => {
+const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -30,7 +31,7 @@ const initMap = (zip) => {
 
   map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
-    const description = JSON.stringify(e.features[0].properties);
+    const props = e.features[0].properties;
 
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
@@ -39,7 +40,20 @@ const initMap = (zip) => {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
+    const addressLink = props.address
+      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+        props.address
+      )}`
+      : null;
+
+    const marker = mapMarker({
+      name: props.name,
+      address: props.address,
+      website: props.website,
+      notes: props.public_notes,
+      addressLink,
+    });
+    new mapboxgl.Popup().setLngLat(coordinates).setHTML(marker).addTo(map);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
