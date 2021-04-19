@@ -54,7 +54,10 @@ const initMap = () => {
       addressLink,
       isSuperSite: props.location_type === "Super Site",
     });
-    new mapboxgl.Popup({ maxWidth: "40%"}).setLngLat(coordinates).setHTML(marker).addTo(map);
+    new mapboxgl.Popup({ maxWidth: "40%" })
+      .setLngLat(coordinates)
+      .setHTML(marker)
+      .addTo(map);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -79,7 +82,9 @@ const initMap = () => {
       "paint": {
         "circle-radius": 4,
         "circle-color": [
-          "case", ["==", ["get", "location_type"], "Super Site"], "#007fff",
+          "case",
+          ["==", ["get", "location_type"], "Super Site"],
+          "#2563EB",
           "#059669",
         ],
         "circle-stroke-width": 1,
