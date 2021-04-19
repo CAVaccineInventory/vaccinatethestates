@@ -5,13 +5,13 @@
 
   <div>
     {{#if address}}
-        <a class="text-sm pt-2" href="{{addressLink}}">{{address}}</a>
+        <a class="text-sm pt-2" href="{{addressLink}}" target="_blank">{{address}}</a>
         {{#if website}}
             &middot;
         {{/if}}
     {{/if}}
     {{#if website}}
-        <a class="text-sm" href={{website}}>{{ t "website" }}</span>
+        <a class="text-sm" href={{website}} target="_blank">{{ t "website" }}</span>
     {{/if}}
   </div>
 </div>
