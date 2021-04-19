@@ -23,7 +23,7 @@ const initMap = (zip) => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/mapbox/dark-v10",
+    style: "mapbox://styles/mapbox/streets-v11",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
   });
@@ -63,7 +63,9 @@ const initMap = (zip) => {
       "source-layer": "vial",
       "paint": {
         "circle-radius": 4,
-        "circle-color": "#00FF00",
+        "circle-color": "#059669",
+        'circle-stroke-width': 1,
+        'circle-stroke-color': '#fff'
       },
     });
   });
