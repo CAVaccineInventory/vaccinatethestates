@@ -6,6 +6,7 @@ import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
+import { markdownify } from "./utils/markdown.js";
 
 window.addEventListener("load", () => load());
 
@@ -50,7 +51,6 @@ const initMap = () => {
       name: props.name,
       address: props.address,
       website: props.website,
-      notes: props.public_notes,
       addressLink,
     });
     new mapboxgl.Popup().setLngLat(coordinates).setHTML(marker).addTo(map);
@@ -127,7 +127,7 @@ const renderCardsFromMap = () => {
       address: properties.address,
       addressLink: gmapsLink,
       hours: properties.hours,
-      notes: properties.public_notes,
+      notes: properties.public_notes ? markdownify(properties.public_notes) : null,
       website: properties.website,
     };
     const range = document
