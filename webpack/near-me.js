@@ -52,8 +52,9 @@ const initMap = () => {
       address: props.address,
       website: props.website,
       addressLink,
+      isSuperSite: props.location_type === "Super Site",
     });
-    new mapboxgl.Popup().setLngLat(coordinates).setHTML(marker).addTo(map);
+    new mapboxgl.Popup({ maxWidth: "40%"}).setLngLat(coordinates).setHTML(marker).addTo(map);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -77,7 +78,10 @@ const initMap = () => {
       "source-layer": "vial",
       "paint": {
         "circle-radius": 4,
-        "circle-color": "#059669",
+        "circle-color": [
+          "case", ["==", ["get", "location_type"], "Super Site"], "#007fff",
+          "#059669",
+        ],
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
