@@ -52,9 +52,8 @@ const initMap = () => {
       address: props.address,
       website: props.website,
       addressLink,
-      isSuperSite: props.location_type === "Super Site",
     });
-    new mapboxgl.Popup({ maxWidth: "40%" })
+    new mapboxgl.Popup({ maxWidth: "50%" })
       .setLngLat(coordinates)
       .setHTML(marker)
       .addTo(map);
@@ -81,12 +80,7 @@ const initMap = () => {
       "source-layer": "vial",
       "paint": {
         "circle-radius": 4,
-        "circle-color": [
-          "case",
-          ["==", ["get", "location_type"], "Super Site"],
-          "#2563EB",
-          "#059669",
-        ],
+        "circle-color": "#059669",
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
