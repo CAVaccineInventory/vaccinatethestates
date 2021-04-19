@@ -10,7 +10,6 @@ import { markdownify } from "./utils/markdown.js";
 
 window.addEventListener("load", () => load());
 
-let loadingSpinnerElem;
 let zipErrorElem;
 const featureLayer = "vial";
 const mapboxToken =
@@ -110,7 +109,6 @@ const renderCardsFromMap = () => {
 
   const cardsContainer = document.getElementById("cards_container");
   const zoomedOut = document.getElementById("zoomed_out_view");
-  // toggleVisibility(loadingSpinnerElem, false);
 
   // Eventually, we'll want some smarter sorting of what we show, but for now
   // lets grab 10 unique things off the map
@@ -151,7 +149,6 @@ const renderCardsFromMap = () => {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOut, false);
   }
-
 };
 
 const getUniqueFeatures = (array) => {
@@ -203,7 +200,6 @@ async function moveMap(lat, lng, zoom) {
 }
 
 const load = () => {
-  loadingSpinnerElem = document.getElementById("js-loading-spinner");
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
 
   initSearch({

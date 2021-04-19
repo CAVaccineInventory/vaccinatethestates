@@ -11,7 +11,6 @@ content_header: false
     </div>
 
     <div class="lg:container mx-auto mt-4">
-
         <div class="results flex flex-col-reverse lg:grid lg:grid-cols-3">
           <div id="main" class="flex flex-col">
             <div id="zoomed_out_view" class="animate-fade-in-up flex flex-col items-center">
@@ -19,7 +18,7 @@ content_header: false
               <div> {% t home_body %} </div>
             </div>
             <div id="cards_container" class="hidden animate-fade-in-down">
-              <div class="text-2xl font-semibold mb-4">Vaccination Sites Near You</div>
+              <div class="text-2xl font-semibold mb-4">{% t nearme_title %}</div>
               <div id="js-unknown-zip-code-alert" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{% t zip_error %}</div>
               <ol id="cards"></ol>
             </div>
