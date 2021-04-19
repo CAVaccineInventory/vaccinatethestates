@@ -1,13 +1,13 @@
-<li id="{{id}}" class="site-card rounded-lg mt-4 relative grid grid-cols-1
+<li id="{{id}}" class="site-card rounded-lg mb-4 relative grid grid-cols-1
      border divide-y">
     <div class="grid grid-cols-1 p-4">
         <h4 class="font-bold text-lg">
             {{name}}
             {{#if website}}
-                &middot; <a href="{{website}}">Website</a>
+                &middot; <a href="{{website}}" target="_blank">Website</a>
             {{/if}}
         </h4>
-        <a href="{{addressLink}}">{{address}}</a>
+        <a href="{{addressLink}}" target="_blank">{{address}}</a>
     </div>
     {{#if hours}}
         <div class="grid grid-cols-1 p-4">
