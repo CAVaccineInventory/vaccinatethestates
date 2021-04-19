@@ -127,7 +127,9 @@ const renderCardsFromMap = () => {
       address: properties.address,
       addressLink: gmapsLink,
       hours: properties.hours,
-      notes: properties.public_notes ? markdownify(properties.public_notes) : null,
+      notes: properties.public_notes
+        ? markdownify(properties.public_notes)
+        : null,
       website: properties.website,
     };
     const range = document
