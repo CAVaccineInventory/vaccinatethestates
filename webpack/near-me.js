@@ -108,18 +108,22 @@ const renderCardsFromMap = () => {
     initMap();
   }
 
-  toggleVisibility(loadingSpinnerElem, false);
-
-  // Eventually, we'll want some smarter sorting of what we show, but for now
-  // lets grab 10 unique things off the map
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
-  ).slice(0, 10);
+  ).map((feature) => {
+    const ll = new mapboxgl.LngLat(...feature.geometry.coordinates);
+    feature["distance"] = ll.distanceTo(map.getCenter());
+    return feature;
+  });
+
+  features.sort((a, b) => a.distance - b.distance);
+
+  toggleVisibility(loadingSpinnerElem, false);
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
-  features.forEach((feature) => {
+  features.slice(0, 10).forEach((feature) => {
     const properties = feature.properties;
     const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
       properties.address
