@@ -64,8 +64,8 @@ const initMap = (zip) => {
       "paint": {
         "circle-radius": 4,
         "circle-color": "#059669",
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#fff'
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "#fff",
       },
     });
   });
