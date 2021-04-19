@@ -53,7 +53,10 @@ const initMap = () => {
       website: props.website,
       addressLink,
     });
-    new mapboxgl.Popup().setLngLat(coordinates).setHTML(marker).addTo(map);
+    new mapboxgl.Popup({ maxWidth: "50%" })
+      .setLngLat(coordinates)
+      .setHTML(marker)
+      .addTo(map);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
