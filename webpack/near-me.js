@@ -32,7 +32,7 @@ const initMap = () => {
 
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    types: "country,region,place,postcode,locality,neighborhood",
+    types: "country,region,place,postcode,locality,neighborhood,address",
     countries: "us",
   });
 
