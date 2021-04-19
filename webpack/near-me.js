@@ -108,7 +108,9 @@ const renderCardsFromMap = () => {
     initMap();
   }
 
-  toggleVisibility(loadingSpinnerElem, false);
+  const cardsContainer = document.getElementById("cards_container");
+  const zoomedOut = document.getElementById("zoomed_out_view");
+  // toggleVisibility(loadingSpinnerElem, false);
 
   // Eventually, we'll want some smarter sorting of what we show, but for now
   // lets grab 10 unique things off the map
@@ -141,6 +143,15 @@ const renderCardsFromMap = () => {
 
     cards.appendChild(range);
   });
+
+  if (map.getZoom() < 6) {
+    toggleVisibility(cardsContainer, false);
+    toggleVisibility(zoomedOut, true);
+  } else {
+    toggleVisibility(cardsContainer, true);
+    toggleVisibility(zoomedOut, false);
+  }
+
 };
 
 const getUniqueFeatures = (array) => {
