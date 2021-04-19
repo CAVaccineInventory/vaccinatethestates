@@ -30,6 +30,27 @@ const initMap = () => {
     zoom: 3, // starting zoom
   });
 
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    types: "country,region,place,postcode,locality,neighborhood",
+    countries: "us",
+  });
+
+  geocoder.addTo("#geocoder");
+  // Add geocoder result to container.
+  geocoder.on("result", function (e) {
+    console.log(e);
+    window.map.flyTo({
+      ...e.result,
+      zoom: 9,
+    });
+  });
+
+  // Clear results container when search is cleared.
+  geocoder.on("clear", function () {
+    console.log("clear");
+  });
+
   map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;

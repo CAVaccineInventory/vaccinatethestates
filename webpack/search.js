@@ -22,6 +22,10 @@ import { toggleVisibility } from "./utils/dom.js";
  * }
  */
 export const initSearch = (opts) => {
+  if (opts.type === "display") {
+    handleUrlParamsOnLoad(opts);
+  }
+
   const form = document.getElementById("js-submit-zip-form");
   const zipInput = document.getElementById("js-zip-input");
   const geolocationSubmit = document.getElementById("js-submit-geolocation");
@@ -69,10 +73,6 @@ export const initSearch = (opts) => {
     toggleVisibility(myLocation, true);
     handleGeoSearch(opts);
   });
-
-  if (opts.type === "display") {
-    handleUrlParamsOnLoad(opts);
-  }
 };
 
 const handleZipSearch = (opts, zip) => {
