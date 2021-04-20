@@ -225,15 +225,15 @@ const load = () => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
     },
-    geoCallback: (lat, lng, zoom) => {
+    locCallback: (lat, lng, zoom) => {
       moveMap(lat, lng, zoom);
+    },
+    geocoderCallback: (response) => {
+      moveMapForGeocoder(response);
     },
     geoErrorCallback: () => {
       Sentry.captureException(new Error("Could not geolocate user"));
       alert(t("alert_detect"));
     },
-    geocoderCallback: (response) => {
-      moveMapForGeocoder(response);
-    }
   });
 };
