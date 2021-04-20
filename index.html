@@ -6,16 +6,16 @@ order: 1
 content_header: false  
 ---
 <div class="flex flex-col items-center">
-    <div class="flex justify-center mb-8">
-    {% include search_form.html %}
-    </div>
 
     <div class="lg:container mx-auto mt-4">
-        <div class="results flex flex-col-reverse lg:grid lg:grid-cols-3">
-          <div id="main" class="flex flex-col">
-            <div id="zoomed_out_view" class="animate-fade-in-up flex flex-col items-center">
+        <div class="results flex flex-col-reverse lg:grid lg:grid-cols-5">
+          <div id="main" class="flex flex-col lg:col-span-2">
+            <div id="zoomed_out_view" class="animate-fade-in-up flex flex-col items-center lg:col-span-2">
               <h1 class="text-2xl md:text-3xl mb-8 font-semibold">{% t headline %}</h1>
               <div> {% t home_body %} </div>
+            </div>
+            <div class="flex justify-center my-8">
+            {% include search_form.html %}
             </div>
             <div id="cards_container" class="hidden animate-fade-in-down">
               <div class="text-2xl font-semibold mb-4">{% t nearme_title %}</div>
@@ -23,7 +23,7 @@ content_header: false
               <ol id="cards"></ol>
             </div>
           </div>
-          <div id="map" class="h-72 lg:ms-4 lg:h-screen lg:col-span-2"></div>
+          <div id="map" class="h-72 lg:ms-4 lg:h-screen lg:col-span-3"></div>
         </div>
     </div>
 
