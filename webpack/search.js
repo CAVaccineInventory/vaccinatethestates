@@ -3,19 +3,11 @@ import { toggleVisibility } from "./utils/dom.js";
 
 /**
  * Initializes the search JS.
- * @param {Object} opts - options for initialization as follows in pseudo typescript:
+ * @param {Object} opts: in pseudo typescript:
  * initSearch: (opts: Options) => void;
- * type Options = Navigate | Display
- *
- *
- * // For navigating to near-me
- * interface Navigate {
- *   type: "navigate"
- * }
  *
  * // For displaying content on near-me
- * interface Display {
- *   type: "display",
+ * interface Options {
  *   zipCallback: (zip: number, zoom?: number) => void,
  *   geoCallback: (lat: number, lng: number, zoom?: number) => void
  *   geoErrorCallback: (error) => void
@@ -61,7 +53,7 @@ export const initSearch = (opts) => {
     } catch (err) {
       console.error(err);
     }
-    handleZipSearch(opts, zipInput.value);
+    opts.zipCallback(zipInput.value);
   });
 
   geolocationSubmit.addEventListener("click", (e) => {
@@ -75,38 +67,22 @@ export const initSearch = (opts) => {
   }
 };
 
-const handleZipSearch = (opts, zip) => {
-  if (opts.type === "navigate") {
-    const lang = document.documentElement.getAttribute("lang");
-    window.location.href =
-      lang === "en" ? `/near-me?zip=${zip}` : `/${lang}/near-me?zip=${zip}`;
-  } else if (opts.type === "display") {
-    opts.zipCallback(zip);
-  }
-};
-
 const handleGeoSearch = (opts) => {
   const myLocation = document.getElementById("js-my-location");
-  if (opts.type === "navigate") {
-    const lang = document.documentElement.getAttribute("lang");
-    window.location.href =
-      lang === "en" ? "/near-me?locate=1" : `/${lang}/near-me?locate=1`;
-  } else if (opts.type === "display") {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        opts.geoCallback(position.coords.latitude, position.coords.longitude);
-      },
-      (err) => {
-        console.warn(err);
-        toggleVisibility(myLocation, false);
-        opts.geoErrorCallback(err);
-      },
-      {
-        maximumAge: 1000 * 60 * 5, // 5 minutes
-        timeout: 1000 * 15, // 15 seconds
-      }
-    );
-  }
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      opts.geoCallback(position.coords.latitude, position.coords.longitude);
+    },
+    (err) => {
+      console.warn(err);
+      toggleVisibility(myLocation, false);
+      opts.geoErrorCallback(err);
+    },
+    {
+      maximumAge: 1000 * 60 * 5, // 5 minutes
+      timeout: 1000 * 15, // 15 seconds
+    }
+  );
 };
 
 function handleUrlParamsOnLoad(opts) {

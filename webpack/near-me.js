@@ -10,7 +10,6 @@ import { markdownify } from "./utils/markdown.js";
 
 window.addEventListener("load", () => load());
 
-let loadingSpinnerElem;
 let zipErrorElem;
 const featureLayer = "vial";
 const mapboxToken =
@@ -108,6 +107,18 @@ const renderCardsFromMap = () => {
     initMap();
   }
 
+  const cardsContainer = document.getElementById("cards_container");
+  const zoomedOutContainer = document.getElementById("zoomed_out_view");
+
+  if (map.getZoom() < 6) {
+    toggleVisibility(cardsContainer, false);
+    toggleVisibility(zoomedOutContainer, true);
+    return;
+  } else {
+    toggleVisibility(cardsContainer, true);
+    toggleVisibility(zoomedOutContainer, false);
+  }
+
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
   ).map((feature) => {
@@ -117,8 +128,6 @@ const renderCardsFromMap = () => {
   });
 
   features.sort((a, b) => a.distance - b.distance);
-
-  toggleVisibility(loadingSpinnerElem, false);
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
@@ -196,11 +205,9 @@ async function moveMap(lat, lng, zoom) {
 }
 
 const load = () => {
-  loadingSpinnerElem = document.getElementById("js-loading-spinner");
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
 
   initSearch({
-    type: "display",
     zipCallback: (zip, zoom) => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
