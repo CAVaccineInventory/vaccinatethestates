@@ -140,7 +140,7 @@ const renderCardsFromMap = () => {
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
-  features.slice(0, 10).forEach((feature) => {
+  features.slice(0, 50).forEach((feature) => {
     const properties = feature.properties;
     const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
       properties.address
@@ -209,12 +209,12 @@ async function geocodeAndZoom(zip, zoom) {
 
 async function moveMap(lat, lng, zoom) {
   await mapInitialized;
-  map.flyTo({ center: [lng, lat], zoom: zoom || 9 });
+  map.flyTo({ center: [lng, lat], zoom: zoom || 13 });
 }
 
 async function moveMapForGeocoder(geocoderResponse) {
   await mapInitialized;
-  map.flyTo({ ...geocoderResponse.result, zoom: 9 });
+  map.flyTo({ ...geocoderResponse.result, zoom: 13 });
 }
 
 const load = () => {
