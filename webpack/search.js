@@ -1,5 +1,6 @@
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
+import {mapboxToken } from "./near-me.js";
 
 /**
  * Initializes the search JS.
@@ -7,6 +8,7 @@ import { toggleVisibility } from "./utils/dom.js";
  * initSearch: (opts: Options) => void;
  *
  * interface Options {
+ *   geocoderCallback: (result: GeocoderResult) => void,
  *   zipCallback: (zip: number, zoom?: number) => void,
  *   geoCallback: (lat: number, lng: number, zoom?: number) => void
  *   geoErrorCallback: (error) => void
@@ -17,51 +19,32 @@ export const initSearch = (opts) => {
     handleUrlParamsOnLoad(opts);
   }
 
-  const form = document.getElementById("js-submit-zip-form");
-  const zipInput = document.getElementById("js-zip-input");
-  const geolocationSubmit = document.getElementById("js-submit-geolocation");
-  const myLocation = document.getElementById("js-my-location");
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxToken,
+    types: "country,region,place,postcode,locality,neighborhood,address",
+    countries: "us",
+  });
+  geocoder.addTo("#geocoder");
+  geocoder.on("result", (result) => {
+    opts.geocoderCallback(result);
+  });
 
-  if (!zipInput) {
-    return;
-  }
+  const geolocationSubmit = document.getElementById("js-submit-geolocation");
+  const geocoderInput = document.querySelector(".mapboxgl-ctrl-geocoder--input");
 
   // setting up listeners
-  zipInput.addEventListener("input", () => {
-    // Calculate validity of the input.
-    if (extractZip(zipInput)) {
-      zipInput.setCustomValidity(""); // valid
-    } else {
-      zipInput.setCustomValidity(t("enter_valid_zipcode"));
-    }
+  geocoderInput.addEventListener("focus", () => {
+    toggleVisibility(geolocationSubmit, true);
   });
 
-  zipInput.addEventListener("focus", () => {
-    if (zipInput.value.length === 0) {
-      toggleVisibility(geolocationSubmit, true);
-    }
-    toggleVisibility(myLocation, false);
-  });
-
-  zipInput.addEventListener("blur", () => {
+  geocoderInput.addEventListener("blur", () => {
     setTimeout(() => {
       toggleVisibility(geolocationSubmit, false);
     }, 200);
   });
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    try {
-      e.target.checkValidity();
-    } catch (err) {
-      console.error(err);
-    }
-    opts.zipCallback(zipInput.value);
-  });
-
   geolocationSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    toggleVisibility(myLocation, true);
     handleGeoSearch(opts);
   });
 

@@ -12,7 +12,7 @@ window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
-const mapboxToken =
+export const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 let mapInitializedResolver;
@@ -27,25 +27,6 @@ const initMap = () => {
     style: "mapbox://styles/mapbox/streets-v11",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
-  });
-
-  const geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    types: "country,region,place,postcode,locality,neighborhood,address",
-    countries: "us",
-  });
-
-  geocoder.addTo("#geocoder");
-  geocoder.on("result", function (e) {
-    window.map.flyTo({
-      ...e.result,
-      zoom: 9,
-    });
-  });
-
-  // Clear results container when search is cleared.
-  geocoder.on("clear", function () {
-    console.log("clear");
   });
 
   map.on("click", featureLayer, function (e) {
@@ -231,9 +212,14 @@ async function moveMap(lat, lng, zoom) {
   map.flyTo({ center: [lng, lat], zoom: zoom || 9 });
 }
 
+async function moveMapForGeocoder(geocoderResponse) {
+  await mapInitialized;
+  map.flyTo({...geocoderResponse.result, zoom: 9});
+}
+
 const load = () => {
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
-
+  initMap();
   initSearch({
     zipCallback: (zip, zoom) => {
       toggleVisibility(zipErrorElem, false);
@@ -246,6 +232,8 @@ const load = () => {
       Sentry.captureException(new Error("Could not geolocate user"));
       alert(t("alert_detect"));
     },
+    geocoderCallback: (response) => {
+      moveMapForGeocoder(response);
+    }
   });
-  initMap();
 };

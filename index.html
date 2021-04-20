@@ -7,8 +7,29 @@ content_header: false
 ---
 <div class="flex flex-col items-center">
 
-  <div class="flex justify-center mt-4 lg:my-8">
+  <div class="relative flex flex-col justify-center mt-4 lg:my-8">
     <div id="geocoder"></div>
+    <div
+      class="hidden absolute top-full left-0 z-10 bg-white flex flex-row border border-gray-200 rounded-full px-4 py-1 items-center space-s-2 mt-1"
+      id="js-submit-geolocation"
+    >
+      <svg
+        width="14"
+        height="18"
+        viewBox="0 0 14 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11.7959 3.09937C10.653 1.59797 8.9051 0.746429 7.02275 0.746429C5.1404 0.746429 3.3925 1.59797 2.24964 3.09937C0.613787 5.25063 0.613787 8.23102 2.24964 10.3823L7.02275 16.612L11.7959 10.3823C13.4317 8.23102 13.4317 5.25063 11.7959 3.09937ZM7.02275 3.45791C8.74824 3.45791 10.16 4.86968 10.16 6.59517C10.16 8.32066 8.74824 9.73242 7.02275 9.73242C5.29726 9.73242 3.8855 8.32066 3.8855 6.59517C3.8855 4.86968 5.29726 3.45791 7.02275 3.45791Z"
+          fill="black"
+          stroke="black"
+          stroke-miterlimit="10"
+        />
+      </svg>
+
+      <div class="text-black">{% t use_my_location %}</div>
+    </div>
   </div>
 
   <div class="lg:container mx-auto mt-4">
