@@ -134,19 +134,27 @@ const renderCardsFromMap = () => {
 
   features.slice(0, 10).forEach((feature) => {
     const properties = feature.properties;
-    const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-      properties.address
-    )}`;
+
+    let gmapsLink = "";
+    if (properties["address"]) {
+      gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+        properties.address
+      )}`;
+    }
+
+    const moreInfo = properties["phone_number"] || properties["website"];
     const templateInfo = {
-      id: properties.id,
-      name: properties.name,
-      address: properties.address,
+      id: properties["id"],
+      name: properties["name"],
+      address: properties["address"],
       addressLink: gmapsLink,
-      hours: properties.hours,
-      notes: properties.public_notes
-        ? markdownify(properties.public_notes)
+      hours: properties["hours"],
+      moreInfo: moreInfo,
+      website: properties["website"],
+      phoneNumber: properties["phone_number"],
+      notes: properties["public_notes"]
+        ? markdownify(properties["public_notes"])
         : null,
-      website: properties.website,
     };
     const range = document
       .createRange()

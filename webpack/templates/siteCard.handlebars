@@ -1,24 +1,44 @@
 <li id="{{id}}" class="site-card rounded-lg mb-4 relative grid grid-cols-1
-     border divide-y">
-    <div class="grid grid-cols-1 p-4">
-        <h4 class="font-bold text-lg">
-            {{name}}
-            {{#if website}}
-                &middot; <a href="{{website}}" target="_blank">Website</a>
-            {{/if}}
-        </h4>
-        <a href="{{addressLink}}" target="_blank">{{address}}</a>
+     shadow-md border bg-white">
+    <div class="flex flex-row justify-between p-4">
+        <div class="grid grid-cols-1">
+            <h4 class="font-bold text-lg">
+                {{name}}
+            </h4>
+            <a href="{{addressLink}}" target="_blank">{{address}}</a>
+        </div>
+        <div class="rounded-full bg-gray-300 self-center px-4 py-2">
+            Call
+        </div>
     </div>
-    {{#if hours}}
-        <div class="grid grid-cols-1 p-4">
-            <h5 class="font-bold">{{t "hours"}}</h5>
-            <p>{{hours}}</p>
-        </div>
-    {{/if}}
-    {{#if notes}}
-        <div class="grid grid-cols-1 p-4">
-            <h5 class="font-bold">{{t "notes"}}</h5>
-            {{{notes}}}
-        </div>
-    {{/if}}
+    <details>
+        <summary class="p-4">
+            More details
+        </summary>
+        {{#if hours}}
+            <div class="grid grid-cols-1 p-4">
+                <h5 class="font-bold">{{{t "hours"}}}</h5>
+                <p>{{hours}}</p>
+            </div>
+        {{/if}}
+        {{#if notes}}
+            <div class="grid grid-cols-1 p-4">
+                <h5 class="font-bold">{{{t "notes"}}}</h5>
+                {{{notes}}}
+            </div>
+        {{/if}}
+        {{#if moreInfo}}
+            <div class="grid grid-cols-1 p-4">
+                <h5>{{{t "more_information"}}}</h5>
+                <div class="flex flex-row justify-between">
+                    {{#if website}}
+                        <a href="{{website}}">{{website}}</a>
+                    {{/if}}
+                    {{#if phoneNumber}}
+                        <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+    </details>
 </li>
