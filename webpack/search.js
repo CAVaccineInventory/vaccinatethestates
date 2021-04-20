@@ -6,7 +6,6 @@ import { toggleVisibility } from "./utils/dom.js";
  * @param {Object} opts: in pseudo typescript:
  * initSearch: (opts: Options) => void;
  *
- * // For displaying content on near-me
  * interface Options {
  *   zipCallback: (zip: number, zoom?: number) => void,
  *   geoCallback: (lat: number, lng: number, zoom?: number) => void
@@ -62,9 +61,7 @@ export const initSearch = (opts) => {
     handleGeoSearch(opts);
   });
 
-  if (opts.type === "display") {
-    handleUrlParamsOnLoad(opts);
-  }
+  handleUrlParamsOnLoad(opts);
 };
 
 const handleGeoSearch = (opts) => {
