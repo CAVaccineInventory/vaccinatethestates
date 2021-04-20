@@ -12,7 +12,7 @@ window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
-const mapboxToken =
+export const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 let mapInitializedResolver;
@@ -212,21 +212,28 @@ async function moveMap(lat, lng, zoom) {
   map.flyTo({ center: [lng, lat], zoom: zoom || 9 });
 }
 
+async function moveMapForGeocoder(geocoderResponse) {
+  await mapInitialized;
+  map.flyTo({ ...geocoderResponse.result, zoom: 9 });
+}
+
 const load = () => {
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
-
+  initMap();
   initSearch({
     zipCallback: (zip, zoom) => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
     },
-    geoCallback: (lat, lng, zoom) => {
+    locCallback: (lat, lng, zoom) => {
       moveMap(lat, lng, zoom);
+    },
+    geocoderCallback: (response) => {
+      moveMapForGeocoder(response);
     },
     geoErrorCallback: () => {
       Sentry.captureException(new Error("Could not geolocate user"));
       alert(t("alert_detect"));
     },
   });
-  initMap();
 };
