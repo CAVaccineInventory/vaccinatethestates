@@ -1,5 +1,9 @@
 <div class="pt-3 mt-3 text-gray-400 bg-white border-t-2 border-gray-200">
   <a href="{% link about-us.html %}">{% t footer_text %}</a>
+  <div class="flex items-center my-1">
+    <span class="me-2">{% t maps_sponsored_by %}</span>
+    <img class="inline" width="132" height="30" src="/assets/img/mapbox-logo-black.png" />
+  </div>
   <div class="my-1">{% include language_picker.html %}</div>
   <p>
     <a
