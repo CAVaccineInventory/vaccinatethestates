@@ -36,7 +36,9 @@ export const initSearch = (opts) => {
 
   const geolocationSubmit = document.getElementById("js-submit-geolocation");
   const geolocationSubmitText = document.getElementById("js-geolocation-text");
-  const geocoderInput = document.querySelector(".mapboxgl-ctrl-geocoder--input");
+  const geocoderInput = document.querySelector(
+    ".mapboxgl-ctrl-geocoder--input"
+  );
 
   // setting up listeners
   geocoderInput.addEventListener("focus", () => {
@@ -58,7 +60,7 @@ export const initSearch = (opts) => {
     if (!usingLocation) {
       toggleVisibility(geolocationSubmit, false);
     }
-  })
+  });
 
   geolocationSubmit.addEventListener("click", (e) => {
     e.preventDefault();

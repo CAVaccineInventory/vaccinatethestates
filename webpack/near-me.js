@@ -214,7 +214,7 @@ async function moveMap(lat, lng, zoom) {
 
 async function moveMapForGeocoder(geocoderResponse) {
   await mapInitialized;
-  map.flyTo({...geocoderResponse.result, zoom: 9});
+  map.flyTo({ ...geocoderResponse.result, zoom: 9 });
 }
 
 const load = () => {
