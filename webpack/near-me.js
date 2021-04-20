@@ -108,18 +108,31 @@ const renderCardsFromMap = () => {
   }
 
   const cardsContainer = document.getElementById("cards_container");
-  const zoomedOut = document.getElementById("zoomed_out_view");
+  const zoomedOutContainer = document.getElementById("zoomed_out_view");
 
-  // Eventually, we'll want some smarter sorting of what we show, but for now
-  // lets grab 10 unique things off the map
+  if (map.getZoom() < 6) {
+    toggleVisibility(cardsContainer, false);
+    toggleVisibility(zoomedOutContainer, true);
+    return;
+  } else {
+    toggleVisibility(cardsContainer, true);
+    toggleVisibility(zoomedOutContainer, false);
+  }
+
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
-  ).slice(0, 10);
+  ).map((feature) => {
+    const ll = new mapboxgl.LngLat(...feature.geometry.coordinates);
+    feature["distance"] = ll.distanceTo(map.getCenter());
+    return feature;
+  });
+
+  features.sort((a, b) => a.distance - b.distance);
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
-  features.forEach((feature) => {
+  features.slice(0, 10).forEach((feature) => {
     const properties = feature.properties;
     const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
       properties.address
@@ -141,14 +154,6 @@ const renderCardsFromMap = () => {
 
     cards.appendChild(range);
   });
-
-  if (map.getZoom() < 6) {
-    toggleVisibility(cardsContainer, false);
-    toggleVisibility(zoomedOut, true);
-  } else {
-    toggleVisibility(cardsContainer, true);
-    toggleVisibility(zoomedOut, false);
-  }
 };
 
 const getUniqueFeatures = (array) => {
