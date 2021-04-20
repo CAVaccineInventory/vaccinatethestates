@@ -5,7 +5,7 @@ import { toggleVisibility } from "./utils/dom.js";
  * Initializes the search JS.
  * @param {Object} opts: in pseudo typescript:
  * initSearch: (opts: Options) => void;
- * 
+ *
  * // For displaying content on near-me
  * interface Options {
  *   zipCallback: (zip: number, zoom?: number) => void,
