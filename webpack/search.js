@@ -1,6 +1,8 @@
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
-import {mapboxToken } from "./near-me.js";
+import { mapboxToken } from "./near-me.js";
+
+let usingLocation = false;
 
 /**
  * Initializes the search JS.
@@ -15,13 +17,13 @@ import {mapboxToken } from "./near-me.js";
  * }
  */
 
-let usingLocation = false;
-
 export const initSearch = (opts) => {
   if (opts.type === "display") {
     handleUrlParamsOnLoad(opts);
   }
 
+  // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
+  // blocked on https://github.com/mapbox/mapbox-gl-geocoder/issues/414
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxToken,
     types: "country,region,place,postcode,locality,neighborhood,address",
