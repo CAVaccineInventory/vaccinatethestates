@@ -10,7 +10,6 @@ import { markdownify } from "./utils/markdown.js";
 
 window.addEventListener("load", () => load());
 
-let loadingSpinnerElem;
 let zipErrorElem;
 const featureLayer = "vial";
 const mapboxToken =
@@ -121,7 +120,23 @@ const initMap = () => {
   });
 
   // Reload cards on map movement
-  map.on("moveend", featureLayer, renderCardsFromMap);
+  map.on("moveend", featureLayer, () => {
+    toggleCardVisibility();
+    renderCardsFromMap();
+  });
+};
+
+const toggleCardVisibility = () => {
+  const cardsContainer = document.getElementById("cards_container");
+  const zoomedOutContainer = document.getElementById("zoomed_out_view");
+  if (map.getZoom() < 6) {
+    toggleVisibility(cardsContainer, false);
+    toggleVisibility(zoomedOutContainer, true);
+    return;
+  } else {
+    toggleVisibility(cardsContainer, true);
+    toggleVisibility(zoomedOutContainer, false);
+  }
 };
 
 const renderCardsFromMap = () => {
@@ -129,18 +144,24 @@ const renderCardsFromMap = () => {
     initMap();
   }
 
-  toggleVisibility(loadingSpinnerElem, false);
+  const noSites = document.getElementById("js-no-sites-alert");
 
-  // Eventually, we'll want some smarter sorting of what we show, but for now
-  // lets grab 10 unique things off the map
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
-  ).slice(0, 10);
+  ).map((feature) => {
+    const ll = new mapboxgl.LngLat(...feature.geometry.coordinates);
+    feature["distance"] = ll.distanceTo(map.getCenter());
+    return feature;
+  });
+
+  toggleVisibility(noSites, !features.length);
+
+  features.sort((a, b) => a.distance - b.distance);
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
-  features.forEach((feature) => {
+  features.slice(0, 10).forEach((feature) => {
     const properties = feature.properties;
     const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
       properties.address
@@ -213,11 +234,9 @@ async function moveMap(lat, lng, zoom) {
 }
 
 const load = () => {
-  loadingSpinnerElem = document.getElementById("js-loading-spinner");
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
 
   initSearch({
-    type: "display",
     zipCallback: (zip, zoom) => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
