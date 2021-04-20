@@ -36,9 +36,7 @@ const initMap = () => {
   });
 
   geocoder.addTo("#geocoder");
-  // Add geocoder result to container.
   geocoder.on("result", function (e) {
-    console.log(e);
     window.map.flyTo({
       ...e.result,
       zoom: 9,
