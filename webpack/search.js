@@ -53,7 +53,7 @@ export const initSearch = (opts) => {
     } catch (err) {
       console.error(err);
     }
-    opts.zipCallback(zip);
+    opts.zipCallback(zipInput.value);
   });
 
   geolocationSubmit.addEventListener("click", (e) => {

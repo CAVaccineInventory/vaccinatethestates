@@ -203,7 +203,6 @@ const load = () => {
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
 
   initSearch({
-    type: "display",
     zipCallback: (zip, zoom) => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
