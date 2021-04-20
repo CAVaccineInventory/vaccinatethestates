@@ -99,17 +99,15 @@ const initMap = () => {
   });
 
   // Reload cards on map movement
-  map.on("moveend", featureLayer, renderCardsFromMap);
+  map.on("moveend", featureLayer, () => {
+    toggleCardVisibility();
+    renderCardsFromMap();
+  });
 };
 
-const renderCardsFromMap = () => {
-  if (!window.map) {
-    initMap();
-  }
-
+const toggleCardVisibility = () => {
   const cardsContainer = document.getElementById("cards_container");
   const zoomedOutContainer = document.getElementById("zoomed_out_view");
-
   if (map.getZoom() < 6) {
     toggleVisibility(cardsContainer, false);
     toggleVisibility(zoomedOutContainer, true);
@@ -118,6 +116,14 @@ const renderCardsFromMap = () => {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOutContainer, false);
   }
+};
+
+const renderCardsFromMap = () => {
+  if (!window.map) {
+    initMap();
+  }
+
+  const noSites = document.getElementById("js-no-sites-alert");
 
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
@@ -126,6 +132,8 @@ const renderCardsFromMap = () => {
     feature["distance"] = ll.distanceTo(map.getCenter());
     return feature;
   });
+
+  toggleVisibility(noSites, !features.length);
 
   features.sort((a, b) => a.distance - b.distance);
 

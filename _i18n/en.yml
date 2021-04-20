@@ -48,3 +48,4 @@ maps_sponsored_by: Maps sponsored by the <a target="_blank" href="https://www.ma
 zip_error: Failed to locate your zip code, please try again
 english: English
 spanish: Spanish
+no_sites: Sorry, we couldn't find any vaccination sites in the selected area. Please try zooming out or moving the map to see more vaccination sites.
