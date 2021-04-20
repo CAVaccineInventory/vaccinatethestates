@@ -26,9 +26,11 @@
   <meta property="og:site_name" content="{{ site.title }}" />
 
   <!-- TODO: switch twitter to summary_large_image once we get card image assets. add twitter:image -->
-  <meta name="twitter:card" content="summary" />
-  <meta property="twitter:title" content="{% t page.title %}" />
-  <meta name="twitter:site" content="@{{site.twitter}}" />
+  {%if site.twitter != nil %}
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="{% t page.title %}" />
+    <meta name="twitter:site" content="@{{site.twitter}}" />
+  {%endif%}
 
   <!-- TODO: missing image field (no card image asset), sameAs (unknown) -->
   <script type="application/ld+json">
