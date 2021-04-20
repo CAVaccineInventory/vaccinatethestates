@@ -10,13 +10,3 @@
 .mapboxgl-popup-close-button {
   padding: 5px;
 }
-
-/* search */
-.mapboxgl-ctrl-geocoder {
-  font-family: "DM Sans", sans-serif;
-  @apply shadow-none rounded-full border border-gray-300 hover:border-gray-400 md:w-80;
-}
-
-.mapboxgl-ctrl-geocoder--input:focus {
-  outline: none;
-}
