@@ -2,7 +2,8 @@
 
 @media (min-width: 1024px) {
   #map {
-    @apply sticky top-0 left-0;
+    @apply sticky top-2 left-0;
+    height: 90vh;
   }
 }
 
