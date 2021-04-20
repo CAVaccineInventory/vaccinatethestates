@@ -3,6 +3,7 @@
     <div>
       <a href="{% link about-us.html %}">{% t footer_text %}</a>
       <p>
+        {%if site.twitter != nil %}
         <a
           href="https://twitter.com/{{ site.twitter }}"
           target="_blank"
@@ -11,6 +12,7 @@
         >
           <img class="h-8 w-8 mr-1" src="/assets/img/twitter.svg" />
         </a>
+        {%endif%} {%if site.instagram != nil %}
         <a
           href="https://www.instagram.com/{{ site.instagram }}"
           target="_blank"
@@ -19,6 +21,7 @@
         >
           <img class="h-8 w-8 mx-1" src="/assets/img/instagram_gradient.png" />
         </a>
+        {%endif%}
       </p>
     </div>
     <div>
