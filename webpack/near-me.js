@@ -116,7 +116,7 @@ const toggleCardVisibility = () => {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOutContainer, false);
   }
-}
+};
 
 const renderCardsFromMap = () => {
   if (!window.map) {
