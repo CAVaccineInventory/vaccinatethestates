@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/browser";
 
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
-import { mapboxToken } from "./near-me.js";
+import { mapboxToken } from "./utils/constants.js";
 
 let usingLocation = false;
 let callbacks = null;
@@ -10,15 +10,17 @@ let callbacks = null;
 /**
  * Initializes the search JS.
  * @param {Object} callbacks: in pseudo typescript:
- * initSearch: (callbacks: Callbacks) => void;
+ * initSearch: (callbacks: Callbacks, parseQueryParams) => void;
  *
  * interface Callbacks {
- *   locCallback: (lat: number, lng: number, zoom: number) => void
+ *   locCallback: (lat: number, lng: number, zoom: number, source: Source) => void
  *   geoErrorCallback: (error) => void
  * }
+ *
+ * type Source = "params" | "search" | "locate"
  */
 
-export const initSearch = (cb) => {
+export const initSearch = (cb, parseQueryParams) => {
   callbacks = cb; // TODO: lots of assumptions here!!
 
   // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
@@ -36,7 +38,7 @@ export const initSearch = (cb) => {
       console.log(result);
       // TODO: different zooms based on type of place
       const [lng, lat] = result.center;
-      submitLocation(lat, lng, 12, true);
+      submitLocation(lat, lng, 12, "search");
     }
   });
 
@@ -75,10 +77,12 @@ export const initSearch = (cb) => {
     handleGeoSearch();
   });
 
-  handleUrlParamsOnLoad();
-  window.addEventListener("popstate", () => {
+  if (parseQueryParams) {
     handleUrlParamsOnLoad();
-  });
+    window.addEventListener("popstate", () => {
+      handleUrlParamsOnLoad();
+    });
+  }
 };
 
 const handleGeoSearch = () => {
@@ -91,7 +95,7 @@ const handleGeoSearch = () => {
         position.coords.latitude,
         position.coords.longitude,
         12,
-        false
+        "locate"
       );
     },
     (err) => {
@@ -99,7 +103,8 @@ const handleGeoSearch = () => {
       toggleVisibility(geolocationSubmit, false);
       console.warn(err);
       if (callbacks) {
-        callbacks.geoErrorCallback(err);
+        Sentry.captureException(new Error("Could not geolocate user"));
+        alert(t("alert_detect"));
       }
     },
     {
@@ -109,7 +114,7 @@ const handleGeoSearch = () => {
   );
 };
 
-async function geocodeZip(zip) {
+async function geocodeZip(zip, zoom) {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
   const response = await fetch(url);
 
@@ -131,15 +136,12 @@ async function geocodeZip(zip) {
   }
 
   const center = json["features"][0]["center"];
-  submitLocation(center[1], center[0], 12, false);
+  submitLocation(center[1], center[0], zoom || 12, "params");
 }
 
-const submitLocation = (lat, lng, zoom, pushState) => {
-  if (pushState) {
-    history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`);
-  }
+const submitLocation = (lat, lng, zoom, source) => {
   if (callbacks) {
-    callbacks.locCallback(lat, lng, zoom);
+    callbacks.locCallback(lat, lng, zoom, source);
   }
 };
 
@@ -151,9 +153,9 @@ const handleUrlParamsOnLoad = () => {
   const zoom = urlParams.get("zoom");
 
   if (zip) {
-    geocodeZip(zip);
+    geocodeZip(zip, zoom);
   } else if (lat && lng) {
-    submitLocation(lat, lng, zoom || 12, false);
+    submitLocation(lat, lng, zoom || 12, "params");
   } else if (urlParams.get("locate")) {
     handleGeoSearch();
   }

@@ -27,7 +27,18 @@ a.no-underline {
   text-decoration: none;
 }
 
-/* search */
+/* search. Overrule predefined search stylings when appropriate TODO: fully write our own css without importing theirs */
+#search-container {
+  transform: scale(
+    0.8
+  ); /* unfortunate hacks to undo their mediaquery styling */
+}
+@media (min-width: 640px) {
+  #search-container {
+    transform: scale(1);
+  }
+}
+
 .mapboxgl-ctrl-geocoder {
   font-family: "DM Sans", sans-serif;
   @apply shadow-none rounded-full border border-gray-300 hover:border-gray-400 md:w-80;

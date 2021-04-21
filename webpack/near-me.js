@@ -1,19 +1,16 @@
 import mapboxgl from "mapbox-gl";
-import * as Sentry from "@sentry/browser";
 
 import siteCard from "./templates/siteCard.handlebars";
 import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
-import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
 import { markdownify } from "./utils/markdown.js";
+import { mapboxToken } from "./utils/constants.js";
 
 window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
-export const mapboxToken =
-  "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -189,14 +186,16 @@ async function moveMap(lat, lng, zoom) {
 const load = () => {
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
   initMap();
-  initSearch({
-    locCallback: (lat, lng, zoom) => {
-      toggleVisibility(zipErrorElem, false);
-      moveMap(lat, lng, zoom);
+  initSearch(
+    {
+      locCallback: (lat, lng, zoom, source) => {
+        if (source === "search") {
+          history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`);
+        }
+        toggleVisibility(zipErrorElem, false);
+        moveMap(lat, lng, zoom);
+      },
     },
-    geoErrorCallback: () => {
-      Sentry.captureException(new Error("Could not geolocate user"));
-      alert(t("alert_detect"));
-    },
-  });
+    true
+  );
 };

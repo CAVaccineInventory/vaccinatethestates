@@ -12,6 +12,7 @@ module.exports = {
   "entry": {
     "main": "./webpack/main.js",
     "near-me": "./webpack/near-me.js",
+    "about-us": "./webpack/about-us.js",
   },
   "output": {
     "path": path.resolve(__dirname, "assets/js"),
