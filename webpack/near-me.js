@@ -206,25 +206,33 @@ class Site {
     this.properties = properties;
   }
   action() {
-    switch (this.properties["appointment_method"]) {
-      case "web":
-        if (this.properties["website"]) {
-          return {
-            label: "visit",
-            href: this.properties["website"],
-          };
-        }
-        break;
-      case "phone":
-        if (this.properties["phone_number"]) {
-          return {
-            label: "call",
-            href: `tel:${this.properties["phone_number"]}`,
-          };
-        }
-        break;
-      default:
+    const method = this.properties["appointment_method"];
+    if (method === "web" && this.properties["website"]) {
+      return {
+        label: "book_appt",
+        href: this.properties["website"],
+      };
+    } else if (method === "phone" && this.properties["phone_number"]) {
+      return {
+        label: "call",
+        href: `tel:${this.properties["phone_number"]}`,
+      };
+    } else {
+      // `appointment_method` is set to `other` or does not have the needed
+      // info, so lets try it ourselves
+      if (this.properties["website"]) {
+        return {
+          label: "book_appt",
+          href: this.properties["website"],
+        };
+      } else if (this.properties["phone_number"]) {
+        return {
+          label: "call",
+          href: `tel:${this.properties["phone_number"]}`,
+        };
+      } else {
         return;
+      }
     }
   }
   googleMapsLink() {
