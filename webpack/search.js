@@ -1,37 +1,41 @@
+import * as Sentry from "@sentry/browser";
+
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./near-me.js";
 
 let usingLocation = false;
+let callbacks = [];
 
 /**
  * Initializes the search JS.
- * @param {Object} opts: in pseudo typescript:
- * initSearch: (opts: Options) => void;
+ * @param {Object} callbacks: in pseudo typescript:
+ * initSearch: (callbacks: Callbacks) => void;
  *
- * interface Options {
- *   geocoderCallback: (result: GeocoderResult) => void,
- *   zipCallback: (zip: number, zoom?: number) => void,
- *   locCallback: (lat: number, lng: number, zoom?: number) => void
+ * interface Callbacks {
+ *   locCallback: (lat: number, lng: number, zoom: number) => void
  *   geoErrorCallback: (error) => void
  * }
  */
 
-export const initSearch = (opts) => {
-  if (opts.type === "display") {
-    handleUrlParamsOnLoad(opts);
-  }
+export const initSearch = (cb) => {
+  callbacks.push(cb);
 
   // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
   // blocked on https://github.com/mapbox/mapbox-gl-geocoder/issues/414
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxToken,
-    types: "country,region,place,postcode,locality,neighborhood,address",
+    types: "region,place,postcode,locality,neighborhood,address",
     countries: "us",
   });
   geocoder.addTo("#geocoder");
-  geocoder.on("result", (result) => {
-    opts.geocoderCallback(result);
+  geocoder.on("result", ({ result } ) => {
+    if (result && result.center) {
+      console.log(result);
+      // TODO: different zooms based on type of place
+      const [lng, lat] = result.center;
+      submitLocation(lat, lng, 12, true);
+    }
   });
 
   const geolocationSubmit = document.getElementById("js-submit-geolocation");
@@ -66,25 +70,30 @@ export const initSearch = (opts) => {
     e.preventDefault();
     usingLocation = true;
     geolocationSubmitText.textContent = t("getting_location");
-    handleGeoSearch(opts);
+    handleGeoSearch();
   });
 
-  handleUrlParamsOnLoad(opts);
+  handleUrlParamsOnLoad();
+  window.addEventListener("popstate", () => {
+    handleUrlParamsOnLoad();
+  });
 };
 
-const handleGeoSearch = (opts) => {
+const handleGeoSearch = () => {
   const geolocationSubmit = document.getElementById("js-submit-geolocation");
   navigator.geolocation.getCurrentPosition(
     (position) => {
       usingLocation = false;
       toggleVisibility(geolocationSubmit, false);
-      opts.locCallback(position.coords.latitude, position.coords.longitude);
+      submitLocation(position.coords.latitude, position.coords.longitude, 12, true);
     },
     (err) => {
       usingLocation = false;
       toggleVisibility(geolocationSubmit, false);
       console.warn(err);
-      opts.geoErrorCallback(err);
+      callbacks.forEach(cb => {
+        cb.geoErrorCallback(err);
+      })
     },
     {
       maximumAge: 1000 * 60 * 5, // 5 minutes
@@ -93,7 +102,39 @@ const handleGeoSearch = (opts) => {
   );
 };
 
-function handleUrlParamsOnLoad(opts) {
+async function geocodeZip(zip) {
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
+  const response = await fetch(url);
+
+  Sentry.setContext("input", {
+    zip: zip,
+  });
+
+  if (!response.ok) {
+    Sentry.captureException(new Error("Could not geocode ZIP"));
+    return;
+  }
+
+  const json = await response.json();
+
+  if (json["features"].length < 1 || !json["features"][0]["center"]) {
+    toggleVisibility(zipErrorElem, true);
+    Sentry.captureException(new Error("Could not geocode ZIP"));
+    return;
+  }
+
+  const center = json["features"][0]["center"];
+  submitLocation(center[1], center[0], 12, false);
+}
+
+const submitLocation = (lat, lng, zoom, pushState) => {
+  if (pushState) {
+    history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`)
+  }
+  callbacks.forEach(cb => cb.locCallback(lat, lng, zoom));
+}
+
+const handleUrlParamsOnLoad = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const zip = urlParams.get("zip");
   const lat = urlParams.get("lat");
@@ -101,14 +142,10 @@ function handleUrlParamsOnLoad(opts) {
   const zoom = urlParams.get("zoom");
 
   if (zip) {
-    const zipInput = document.getElementById("js-zip-input");
-    if (zipInput) {
-      zipInput.value = zip;
-    }
-    opts.zipCallback(zip, zoom);
+    geocodeZip(zip);
   } else if (lat && lng) {
-    opts.locCallback(lat, lng, zoom);
+    callbacks.forEach(cb => cb.locCallback(lat, lng, zoom));
   } else if (urlParams.get("locate")) {
-    handleGeoSearch(opts);
+    handleGeoSearch();
   }
 }
