@@ -263,6 +263,9 @@ class Site {
       phoneNumber: this.properties["phone_number"],
       appointmentDetails: this.appointmentDetails(),
       notes: this.notes(),
+      vaccinefinder: this.properties.hasOwnProperty("vaccinefinder_location_id"),
+      vaccinespotter: this.properties.hasOwnProperty("vaccinespotter_location_id"),
+      google: this.properties.hasOwnProperty("google_place_id"),
     };
   }
 }
