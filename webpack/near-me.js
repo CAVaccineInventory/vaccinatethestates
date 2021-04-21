@@ -181,55 +181,18 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-async function geocodeAndZoom(zip, zoom) {
-  await mapInitialized;
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zip}.json?country=us&limit=1&types=postcode&access_token=${mapboxToken}`;
-  const response = await fetch(url);
-
-  Sentry.setContext("input", {
-    zip: zip,
-  });
-
-  if (!response.ok) {
-    Sentry.captureException(new Error("Could not geocode ZIP"));
-    return;
-  }
-
-  const json = await response.json();
-
-  if (json["features"].length < 1 || !json["features"][0]["center"]) {
-    toggleVisibility(zipErrorElem, true);
-    Sentry.captureException(new Error("Could not geocode ZIP"));
-    return;
-  }
-
-  const center = json["features"][0]["center"];
-  moveMap(center[1], center[0], zoom);
-}
-
 async function moveMap(lat, lng, zoom) {
   await mapInitialized;
-  map.flyTo({ center: [lng, lat], zoom: zoom || 13 });
-}
-
-async function moveMapForGeocoder(geocoderResponse) {
-  await mapInitialized;
-  map.flyTo({ ...geocoderResponse.result, zoom: 13 });
+  map.flyTo({ center: [lng, lat], zoom: zoom });
 }
 
 const load = () => {
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
   initMap();
   initSearch({
-    zipCallback: (zip, zoom) => {
-      toggleVisibility(zipErrorElem, false);
-      geocodeAndZoom(zip, zoom);
-    },
     locCallback: (lat, lng, zoom) => {
+      toggleVisibility(zipErrorElem, false);
       moveMap(lat, lng, zoom);
-    },
-    geocoderCallback: (response) => {
-      moveMapForGeocoder(response);
     },
     geoErrorCallback: () => {
       Sentry.captureException(new Error("Could not geolocate user"));
