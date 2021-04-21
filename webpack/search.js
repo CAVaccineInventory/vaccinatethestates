@@ -5,7 +5,7 @@ import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./near-me.js";
 
 let usingLocation = false;
-let callbacks = [];
+let callbacks = null;
 
 /**
  * Initializes the search JS.
@@ -19,7 +19,7 @@ let callbacks = [];
  */
 
 export const initSearch = (cb) => {
-  callbacks.push(cb);
+  callbacks = cb; // TODO: lots of assumptions here!!
 
   // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
   // blocked on https://github.com/mapbox/mapbox-gl-geocoder/issues/414
@@ -91,9 +91,9 @@ const handleGeoSearch = () => {
       usingLocation = false;
       toggleVisibility(geolocationSubmit, false);
       console.warn(err);
-      callbacks.forEach(cb => {
-        cb.geoErrorCallback(err);
-      })
+      if (callbacks) {
+        callbacks.geoErrorCallback(err);
+      }
     },
     {
       maximumAge: 1000 * 60 * 5, // 5 minutes
@@ -131,7 +131,9 @@ const submitLocation = (lat, lng, zoom, pushState) => {
   if (pushState) {
     history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`)
   }
-  callbacks.forEach(cb => cb.locCallback(lat, lng, zoom));
+  if (callbacks) {
+    callbacks.locCallback(lat, lng, zoom);
+  }
 }
 
 const handleUrlParamsOnLoad = () => {
@@ -144,7 +146,7 @@ const handleUrlParamsOnLoad = () => {
   if (zip) {
     geocodeZip(zip);
   } else if (lat && lng) {
-    callbacks.forEach(cb => cb.locCallback(lat, lng, zoom));
+    submitLocation(lat, lng, zoom || 12, false)
   } else if (urlParams.get("locate")) {
     handleGeoSearch();
   }
