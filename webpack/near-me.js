@@ -203,7 +203,6 @@ const load = () => {
 
 class Site {
   constructor(properties) {
-    console.log(properties);
     this.properties = properties;
   }
   action() {
