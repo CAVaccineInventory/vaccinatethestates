@@ -53,10 +53,16 @@
         <div class="flex flex-row justify-between px-4 py-2 text-sm">
             <div class="grid grid-col-1">
                 {{#if vaccinefinder}}
-                    <p>{{t "data_from"}} vaccinefinder</p>
+                    <p>
+                        {{t "data_from"}}
+                        <a href="https://vaccinefinder.org">VaccineFinder</a>
+                    </p>
                 {{/if}}
                 {{#if vaccinespotter}}
-                    <p>{{t "data_from"}} vaccinespotter</p>
+                    <p>
+                        {{t "data_from"}}
+                        <a href="https://www.vaccinespotter.org">Vaccine Spotter</a>
+                    </p>
                 {{/if}}
                 {{#if google}}
                     <p>{{t "data_from"}} google</p>
