@@ -36,3 +36,8 @@ a.no-underline {
 .mapboxgl-ctrl-geocoder--input:focus {
   outline: none;
 }
+
+/* site cards */
+#cards > li > details[open] > summary {
+  @apply pb-0 border-b border-gray-300;
+}
