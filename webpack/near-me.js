@@ -141,35 +141,11 @@ const renderCardsFromMap = () => {
   cards.innerHTML = "";
 
   features.slice(0, 50).forEach((feature) => {
-    const properties = feature.properties;
+    const site = new Site(feature.properties);
 
-    let gmapsLink = "";
-    if (properties["address"]) {
-      gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-        properties.address
-      )}`;
-    }
-
-    const moreInfo = properties["phone_number"] || properties["website"];
-    const templateInfo = {
-      id: properties["id"],
-      name: properties["name"],
-      address: properties["address"],
-      addressLink: gmapsLink,
-      hours: properties["hours"],
-      moreInfo: moreInfo,
-      website: properties["website"],
-      phoneNumber: properties["phone_number"],
-      appointmentDetails: properties["appointment_details"]
-        ? markdownify(properties["appointment_details"])
-        : null,
-      notes: properties["public_notes"]
-        ? markdownify(properties["public_notes"])
-        : null,
-    };
     const range = document
       .createRange()
-      .createContextualFragment(siteCard(templateInfo));
+      .createContextualFragment(siteCard(site.context()));
 
     cards.appendChild(range);
   });
@@ -248,3 +224,46 @@ const load = () => {
     },
   });
 };
+
+
+class Site {
+  constructor(properties) {
+    this.properties = properties;
+  }
+  googleMapsLink() {
+    if (this.properties["address"]) {
+      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+        this.properties["address"]
+      )}`;
+    } else {
+      return null;
+    }
+  }
+  hasMoreInfo() {
+    return this.properties["phone_number"] || this.properties["website"];
+  }
+  appointmentDetails() {
+    return this.properties["appointment_details"]
+      ? markdownify(this.properties["appointment_details"])
+      : null;
+  }
+  notes() {
+    return this.properties["public_notes"]
+      ? markdownify(this.properties["public_notes"])
+      : null;
+  }
+  context() {
+    return {
+      id: this.properties["id"],
+      name: this.properties["name"],
+      address: this.properties["address"],
+      addressLink: this.googleMapsLink(),
+      hours: this.properties["hours"],
+      moreInfo: this.hasMoreInfo(),
+      website: this.properties["website"],
+      phoneNumber: this.properties["phone_number"],
+      appointmentDetails: this.appointmentDetails(),
+      notes: this.notes(),
+    };
+  }
+}
