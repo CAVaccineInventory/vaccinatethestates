@@ -225,7 +225,6 @@ const load = () => {
   });
 };
 
-
 class Site {
   constructor(properties) {
     this.properties = properties;
