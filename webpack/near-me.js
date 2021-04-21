@@ -212,10 +212,7 @@ class Site {
         label: "book_appt",
         href: this.properties["website"],
       };
-    } else if (
-      this.properties["phone_number"] === "phone" &&
-      this.properties["phone_number"]
-    ) {
+    } else if (method === "phone" && this.properties["phone_number"]) {
       return {
         label: "call",
         href: `tel:${this.properties["phone_number"]}`,
