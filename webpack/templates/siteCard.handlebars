@@ -12,29 +12,29 @@
         </div>
     </div>
     <details>
-        <summary class="p-4">
+        <summary class="px-4 py-2">
             More details
         </summary>
         {{#if appointmentDetails}}
-            <div class="grid grid-cols-1 p-4">
+            <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "appointment_details"}}</h5>
                 <p>{{appointmentDetails}}</p>
             </div>
         {{/if}}
         {{#if hours}}
-            <div class="grid grid-cols-1 p-4">
+            <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "hours"}}</h5>
                 <p>{{hours}}</p>
             </div>
         {{/if}}
         {{#if notes}}
-            <div class="grid grid-cols-1 p-4">
+            <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "notes"}}</h5>
                 {{{notes}}}
             </div>
         {{/if}}
         {{#if moreInfo}}
-            <div class="grid grid-cols-1 p-4">
+            <div class="grid grid-cols-1 px-4 py-2">
                 <h5>{{{t "more_information"}}}</h5>
                 <div class="flex flex-row justify-between">
                     {{#if website}}
