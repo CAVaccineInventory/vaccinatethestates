@@ -8,7 +8,7 @@
             <a href="{{addressLink}}" target="_blank">{{address}}</a>
         </div>
         <div class="rounded-full bg-gray-300 self-center px-4 py-2">
-            Call
+            {{t "call"}}
         </div>
     </div>
     <details>
@@ -17,13 +17,13 @@
         </summary>
         {{#if hours}}
             <div class="grid grid-cols-1 p-4">
-                <h5 class="font-bold">{{{t "hours"}}}</h5>
+                <h5 class="font-bold">{{t "hours"}}</h5>
                 <p>{{hours}}</p>
             </div>
         {{/if}}
         {{#if notes}}
             <div class="grid grid-cols-1 p-4">
-                <h5 class="font-bold">{{{t "notes"}}}</h5>
+                <h5 class="font-bold">{{t "notes"}}</h5>
                 {{{notes}}}
             </div>
         {{/if}}

@@ -2,9 +2,10 @@ warning: Not even Beta. This map contains unvalidated data. Do not rely on it.
 home_title: Vaccination Sites Near Me
 aboutus_title: About Us
 volunteer_title: Volunteer
-hours: Hours&colon;
-notes: Notes&colon;
-more_information: For more information&colon;
+call: Call
+hours: Hours
+notes: Notes
+more_information: For more information
 footer_text: A collaborative effort by Call the Shots, Inc and other interested people.
 find_vaccine: Find <span class="hidden md:inline">Vaccine</span>
 enter_zip: Enter ZIP
