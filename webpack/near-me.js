@@ -224,7 +224,19 @@ class Site {
         }
         break;
       default:
-        return;
+        if (this.properties["website"]) {
+          return {
+            label: "visit",
+            href: this.properties["website"],
+          };
+        } else if (this.properties["phone_number"]) {
+          return {
+            label: "call",
+            href: `tel:${this.properties["phone_number"]}`,
+          };
+        } else {
+          return;
+        }
     }
   }
   googleMapsLink() {
