@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-200">
+<nav class="bg-white border-b border-gray-200 z-40 fixed w-full">
   <div class="mx-auto">
     <div class="ps-4 ps-4 pe-2 xl:px-8">
       <div class="flex items-center h-16">
@@ -6,13 +6,23 @@
           <div class="flex-shrink-0">
             <a
               href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}/"
-              class="flex items-center space-s-3"
+              class="flex items-center space-s-3 hidden md:block"
             >
               <img class="h-8" src="/assets/img/logo.svg" />
+            </a>
+            <a
+              href="{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}/"
+              class="flex items-center space-s-3 block md:hidden"
+            >
+              <img class="h-8" src="/assets/img/small_logo.svg" />
             </a>
           </div>
 
           <a class="sr-only" href="#main">{% t skip_to_content %}</a>
+
+        <div class="">
+          {% include search_form.html %}
+        </div>
 
           <!-- desktop nav -->
           <div class="hidden lg:block">

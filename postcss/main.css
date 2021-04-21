@@ -33,6 +33,11 @@ a.no-underline {
   @apply shadow-none rounded-full border border-gray-300 hover:border-gray-400 md:w-80;
 }
 
+.mapboxgl-ctrl-geocoder--input {
+  height: 36px!important;
+  padding: 6px 35px!important;
+}
+
 .mapboxgl-ctrl-geocoder--input:focus {
   outline: none;
 }
