@@ -27,6 +27,8 @@ export const initSearch = (cb) => {
     accessToken: mapboxToken,
     types: "region,place,postcode,locality,neighborhood,address",
     countries: "us",
+    placeholder: t("search_hint"),
+    language: document.documentElement.getAttribute("lang") || "en",
   });
   geocoder.addTo("#geocoder");
   geocoder.on("result", ({ result }) => {
