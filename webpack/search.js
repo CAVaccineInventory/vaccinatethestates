@@ -85,7 +85,7 @@ const handleGeoSearch = () => {
     (position) => {
       usingLocation = false;
       toggleVisibility(geolocationSubmit, false);
-      submitLocation(position.coords.latitude, position.coords.longitude, 12, true);
+      submitLocation(position.coords.latitude, position.coords.longitude, 12, false);
     },
     (err) => {
       usingLocation = false;
