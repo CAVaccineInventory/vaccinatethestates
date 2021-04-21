@@ -12,7 +12,7 @@ window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
-const mapboxToken =
+export const mapboxToken =
   "pk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZoMmlsNjBlMDQydXA2MXNmZWQwOGoifQ.rirOl_C4pftVf9LgxW5EGw";
 
 let mapInitializedResolver;
@@ -99,17 +99,15 @@ const initMap = () => {
   });
 
   // Reload cards on map movement
-  map.on("moveend", featureLayer, renderCardsFromMap);
+  map.on("moveend", featureLayer, () => {
+    toggleCardVisibility();
+    renderCardsFromMap();
+  });
 };
 
-const renderCardsFromMap = () => {
-  if (!window.map) {
-    initMap();
-  }
-
+const toggleCardVisibility = () => {
   const cardsContainer = document.getElementById("cards_container");
   const zoomedOutContainer = document.getElementById("zoomed_out_view");
-
   if (map.getZoom() < 6) {
     toggleVisibility(cardsContainer, false);
     toggleVisibility(zoomedOutContainer, true);
@@ -118,6 +116,14 @@ const renderCardsFromMap = () => {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOutContainer, false);
   }
+};
+
+const renderCardsFromMap = () => {
+  if (!window.map) {
+    initMap();
+  }
+
+  const noSites = document.getElementById("js-no-sites-alert");
 
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
@@ -127,12 +133,14 @@ const renderCardsFromMap = () => {
     return feature;
   });
 
+  toggleVisibility(noSites, !features.length);
+
   features.sort((a, b) => a.distance - b.distance);
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
 
-  features.slice(0, 10).forEach((feature) => {
+  features.slice(0, 50).forEach((feature) => {
     const properties = feature.properties;
 
     let gmapsLink = "";
@@ -210,24 +218,31 @@ async function geocodeAndZoom(zip, zoom) {
 
 async function moveMap(lat, lng, zoom) {
   await mapInitialized;
-  map.flyTo({ center: [lng, lat], zoom: zoom || 9 });
+  map.flyTo({ center: [lng, lat], zoom: zoom || 13 });
+}
+
+async function moveMapForGeocoder(geocoderResponse) {
+  await mapInitialized;
+  map.flyTo({ ...geocoderResponse.result, zoom: 13 });
 }
 
 const load = () => {
   zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
-
+  initMap();
   initSearch({
     zipCallback: (zip, zoom) => {
       toggleVisibility(zipErrorElem, false);
       geocodeAndZoom(zip, zoom);
     },
-    geoCallback: (lat, lng, zoom) => {
+    locCallback: (lat, lng, zoom) => {
       moveMap(lat, lng, zoom);
+    },
+    geocoderCallback: (response) => {
+      moveMapForGeocoder(response);
     },
     geoErrorCallback: () => {
       Sentry.captureException(new Error("Could not geolocate user"));
       alert(t("alert_detect"));
     },
   });
-  initMap();
 };

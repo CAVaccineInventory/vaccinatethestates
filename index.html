@@ -6,11 +6,9 @@ order: 1
 content_header: false  
 ---
 <div class="flex flex-col items-center">
-
-  <div class="flex justify-center mt-4 lg:my-8">
+  <div class="mt-4 lg:my-8">
     {% include search_form.html %}
   </div>
-
   <div class="lg:container mx-auto mt-4">
     <div class="results flex flex-col-reverse lg:grid lg:grid-cols-5">
       <div id="main" class="flex flex-col lg:col-span-2">
@@ -23,11 +21,12 @@ content_header: false
         <div id="cards_container" class="hidden animate-fade-in-down">
           <div class="text-2xl font-semibold mb-4 mt-2 lg:mt-0">{% t home_title %}</div>
           <div id="js-unknown-zip-code-alert" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{% t zip_error %}</div>
+          <div id="js-no-sites-alert" class="hidden bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">{% t no_sites %}</div>
           <ol id="cards"></ol>
         </div>
       </div>
 
-      <div id="map" class="h-72 lg:ms-4 lg:h-screen lg:col-span-3"></div>
+      <div id="map" class="h-72 bg-gray-200 lg:ms-4 lg:h-screen lg:col-span-3"></div>
 
     </div>
   </div>

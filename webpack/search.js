@@ -1,5 +1,8 @@
 import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
+import { mapboxToken } from "./near-me.js";
+
+let usingLocation = false;
 
 /**
  * Initializes the search JS.
@@ -7,57 +10,62 @@ import { toggleVisibility } from "./utils/dom.js";
  * initSearch: (opts: Options) => void;
  *
  * interface Options {
+ *   geocoderCallback: (result: GeocoderResult) => void,
  *   zipCallback: (zip: number, zoom?: number) => void,
- *   geoCallback: (lat: number, lng: number, zoom?: number) => void
+ *   locCallback: (lat: number, lng: number, zoom?: number) => void
  *   geoErrorCallback: (error) => void
  * }
  */
-export const initSearch = (opts) => {
-  const form = document.getElementById("js-submit-zip-form");
-  const zipInput = document.getElementById("js-zip-input");
-  const geolocationSubmit = document.getElementById("js-submit-geolocation");
-  const myLocation = document.getElementById("js-my-location");
 
-  if (!zipInput) {
-    return;
+export const initSearch = (opts) => {
+  if (opts.type === "display") {
+    handleUrlParamsOnLoad(opts);
   }
 
-  // setting up listeners
-  zipInput.addEventListener("input", () => {
-    // Calculate validity of the input.
-    if (extractZip(zipInput)) {
-      zipInput.setCustomValidity(""); // valid
-    } else {
-      zipInput.setCustomValidity(t("enter_valid_zipcode"));
-    }
+  // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
+  // blocked on https://github.com/mapbox/mapbox-gl-geocoder/issues/414
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxToken,
+    types: "country,region,place,postcode,locality,neighborhood,address",
+    countries: "us",
+  });
+  geocoder.addTo("#geocoder");
+  geocoder.on("result", (result) => {
+    opts.geocoderCallback(result);
   });
 
-  zipInput.addEventListener("focus", () => {
-    if (zipInput.value.length === 0) {
+  const geolocationSubmit = document.getElementById("js-submit-geolocation");
+  const geolocationSubmitText = document.getElementById("js-geolocation-text");
+  const geocoderInput = document.querySelector(
+    ".mapboxgl-ctrl-geocoder--input"
+  );
+
+  // setting up listeners
+  geocoderInput.addEventListener("focus", () => {
+    if (!usingLocation && !geocoderInput.value) {
+      geolocationSubmitText.textContent = t("my_location");
       toggleVisibility(geolocationSubmit, true);
     }
-    toggleVisibility(myLocation, false);
   });
 
-  zipInput.addEventListener("blur", () => {
+  geocoderInput.addEventListener("blur", () => {
     setTimeout(() => {
-      toggleVisibility(geolocationSubmit, false);
+      if (!usingLocation) {
+        toggleVisibility(geolocationSubmit, false);
+      }
     }, 200);
   });
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    try {
-      e.target.checkValidity();
-    } catch (err) {
-      console.error(err);
+  geocoderInput.addEventListener("input", () => {
+    if (!usingLocation) {
+      toggleVisibility(geolocationSubmit, false);
     }
-    opts.zipCallback(zipInput.value);
   });
 
   geolocationSubmit.addEventListener("click", (e) => {
     e.preventDefault();
-    toggleVisibility(myLocation, true);
+    usingLocation = true;
+    geolocationSubmitText.textContent = t("getting_location");
     handleGeoSearch(opts);
   });
 
@@ -65,14 +73,17 @@ export const initSearch = (opts) => {
 };
 
 const handleGeoSearch = (opts) => {
-  const myLocation = document.getElementById("js-my-location");
+  const geolocationSubmit = document.getElementById("js-submit-geolocation");
   navigator.geolocation.getCurrentPosition(
     (position) => {
-      opts.geoCallback(position.coords.latitude, position.coords.longitude);
+      usingLocation = false;
+      toggleVisibility(geolocationSubmit, false);
+      opts.locCallback(position.coords.latitude, position.coords.longitude);
     },
     (err) => {
+      usingLocation = false;
+      toggleVisibility(geolocationSubmit, false);
       console.warn(err);
-      toggleVisibility(myLocation, false);
       opts.geoErrorCallback(err);
     },
     {
@@ -96,20 +107,8 @@ function handleUrlParamsOnLoad(opts) {
     }
     opts.zipCallback(zip, zoom);
   } else if (lat && lng) {
-    opts.geoCallback(lat, lng, zoom);
+    opts.locCallback(lat, lng, zoom);
   } else if (urlParams.get("locate")) {
     handleGeoSearch(opts);
   }
 }
-
-const extractZip = (zipInput) => {
-  // Extract the five-digit component from a five- or nine-digit zip surrounded
-  // by optional whitespace.  This syntax isn't enforced by a pattern attribute,
-  // because then the pattern would have to be copied in more than one place.
-  const matches = zipInput.value.match(/^\s*(\d{5})(?:-\d{4})?\s*$/);
-  if (!matches) {
-    return null;
-  }
-
-  return matches[1];
-};

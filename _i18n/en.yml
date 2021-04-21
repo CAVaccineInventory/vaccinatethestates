@@ -16,6 +16,7 @@ site_description: Publishing up-to-date COVID-19 vaccine availability at hospita
 enter_valid_zipcode: Please enter a valid zip code
 use_my_location: Use my location
 my_location: My location
+getting_location: Getting location...
 alert_detect: Failed to detect your location. Please try again or enter your zip code
 skip_to_content: Skip to content
 illustration_alt: Illustration of doctor administering vaccines
@@ -49,3 +50,4 @@ maps_sponsored_by: Maps sponsored by the <a target="_blank" href="https://www.ma
 zip_error: Failed to locate your zip code, please try again
 english: English
 spanish: Spanish
+no_sites: Sorry, we couldn't find any vaccination sites in the selected area. Please try zooming out or moving the map to see more vaccination sites.
