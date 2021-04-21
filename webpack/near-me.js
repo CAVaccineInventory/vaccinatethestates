@@ -152,6 +152,7 @@ const renderCardsFromMap = () => {
       moreInfo: moreInfo,
       website: properties["website"],
       phoneNumber: properties["phone_number"],
+      appointmentDetails: properties["appointment_details"],
       notes: properties["public_notes"]
         ? markdownify(properties["public_notes"])
         : null,
