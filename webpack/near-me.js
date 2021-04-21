@@ -192,6 +192,28 @@ class Site {
   constructor(properties) {
     this.properties = properties;
   }
+  action() {
+    switch (this.properties["appointment_method"]) {
+      case "web":
+        if (this.properties["website"]) {
+          return {
+            label: "visit",
+            href: this.properties["website"],
+          };
+        }
+        break;
+      case "phone":
+        if (this.properties["phone_number"]) {
+          return {
+            label: "call",
+            href: `tel:${this.properties["phone_number"]}`,
+          };
+        }
+        break;
+      default:
+        return;
+    }
+  }
   googleMapsLink() {
     if (this.properties["address"]) {
       return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
@@ -220,6 +242,7 @@ class Site {
       name: this.properties["name"],
       address: this.properties["address"],
       addressLink: this.googleMapsLink(),
+      action: this.action(),
       hours: this.properties["hours"],
       moreInfo: this.hasMoreInfo(),
       website: this.properties["website"],
