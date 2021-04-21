@@ -6,6 +6,7 @@ call: Call
 hours: Hours
 notes: Notes
 more_information: For more information
+appointment_details: Appointment details
 footer_text: A collaborative effort by Call the Shots, Inc and other interested people.
 find_vaccine: Find <span class="hidden md:inline">Vaccine</span>
 enter_zip: Enter ZIP
