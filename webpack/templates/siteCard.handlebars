@@ -13,12 +13,12 @@
     </div>
     <details>
         <summary class="px-4 py-2">
-            More details
+            {{t "more_details"}}
         </summary>
         {{#if appointmentDetails}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "appointment_details"}}</h5>
-                <p>{{appointmentDetails}}</p>
+                {{{appointmentDetails}}}
             </div>
         {{/if}}
         {{#if hours}}
@@ -36,7 +36,7 @@
         {{#if moreInfo}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5>{{{t "more_information"}}}</h5>
-                <div class="flex flex-row justify-between">
+                <div class="flex flex-row justify-between text-sm">
                     {{#if website}}
                         <a href="{{website}}">{{website}}</a>
                     {{/if}}
@@ -46,12 +46,13 @@
                 </div>
             </div>
         {{/if}}
-        <div class="flex flex-row justify-between px-4 py-2">
+        <div class="flex flex-row justify-between px-4 py-2 text-sm">
             <div>
-                Data from idk
+                {{t "data_from"}} idk
             </div>
             <div>
-                Something look wrong? <a href="">Let us know</a>
+                {{t "correction" }}
+                <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}">{{t "correction_link"}}</a>
             </div>
         </div>
     </details>
