@@ -3,8 +3,8 @@ layout: base
 title: home_title
 add_to_nav: false 
 order: 1
-content_header: false  
 ---
+<link href="assets/css/near-me.css" rel="stylesheet" />
 <div class="flex flex-col items-center">
   <div class="mt-4 lg:my-8">
     {% include search_form.html %}
@@ -26,12 +26,12 @@ content_header: false
         </div>
       </div>
 
-      <div id="map" class="h-72 bg-gray-200 lg:ms-4 lg:h-screen lg:col-span-3"></div>
+      <div id="map" class="h-72 bg-gray-200 lg:ms-4 lg:col-span-3"></div>
 
     </div>
   </div>
 
-  <div class="mt-16 flex flex-col items-center text-center">
+  <div class="my-8 flex flex-col items-center text-center">
     <p class="mb-2">{% t home_corrections %}</p>
     <a
       href="https://airtable.com/shrFkXDQmJ9GVh1dN"
@@ -39,34 +39,6 @@ content_header: false
       >{% t home_feedback %}</a
     >
   </div>
-
-  <div class="mt-16">
-    <p class="text-center mb-8 text-gray-500">{% t home_from %}</p>
-    <div class="md:px-6 grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6">
-      {% for item in site.data.coverage %}
-      <a
-        class="no-underline hover:underline text-black max-w-xs justify-self-center {% if forloop.index <= 2 %} mb-4 {% endif %}"
-        href="{{ item.url }}"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <div class="no-underline flex flex-col items-center">
-          <div class="flex flex-col">
-            <div class="font-xl italic text-center">{{ item.text }}</div>
-          </div>
-          <img
-            class="float-start w-32 mt-3 object-contain"
-            src="/assets/img/coverage/{{ item.image }}"
-          />
-        </div>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
 </div>
 
-<link
-href="assets/css/near-me.css"
-rel="stylesheet"
-/>
 <script src="assets/js/near-me.js"></script>

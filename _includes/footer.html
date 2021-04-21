@@ -1,6 +1,7 @@
 <div class="pt-3 mt-3 text-gray-400 bg-white border-t-2 border-gray-200">
   <div class="flex flex-col lg:flex-row lg:justify-between">
     <div>
+      {% tf footer_about_us.html %}
       <a href="{% link about-us.html %}">{% t footer_text %}</a>
       <p>
         {%if site.twitter != nil %}
