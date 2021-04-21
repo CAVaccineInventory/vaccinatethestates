@@ -183,7 +183,7 @@ const getUniqueFeatures = (array) => {
 
 async function moveMap(lat, lng, zoom) {
   await mapInitialized;
-  map.flyTo({ center: [lng, lat], zoom: zoom});
+  map.flyTo({ center: [lng, lat], zoom: zoom });
 }
 
 const load = () => {

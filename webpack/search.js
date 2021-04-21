@@ -29,7 +29,7 @@ export const initSearch = (cb) => {
     countries: "us",
   });
   geocoder.addTo("#geocoder");
-  geocoder.on("result", ({ result } ) => {
+  geocoder.on("result", ({ result }) => {
     if (result && result.center) {
       console.log(result);
       // TODO: different zooms based on type of place
@@ -85,7 +85,12 @@ const handleGeoSearch = () => {
     (position) => {
       usingLocation = false;
       toggleVisibility(geolocationSubmit, false);
-      submitLocation(position.coords.latitude, position.coords.longitude, 12, false);
+      submitLocation(
+        position.coords.latitude,
+        position.coords.longitude,
+        12,
+        false
+      );
     },
     (err) => {
       usingLocation = false;
@@ -129,12 +134,12 @@ async function geocodeZip(zip) {
 
 const submitLocation = (lat, lng, zoom, pushState) => {
   if (pushState) {
-    history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`)
+    history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`);
   }
   if (callbacks) {
     callbacks.locCallback(lat, lng, zoom);
   }
-}
+};
 
 const handleUrlParamsOnLoad = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -146,8 +151,8 @@ const handleUrlParamsOnLoad = () => {
   if (zip) {
     geocodeZip(zip);
   } else if (lat && lng) {
-    submitLocation(lat, lng, zoom || 12, false)
+    submitLocation(lat, lng, zoom || 12, false);
   } else if (urlParams.get("locate")) {
     handleGeoSearch();
   }
-}
+};
