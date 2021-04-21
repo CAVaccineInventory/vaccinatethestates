@@ -210,7 +210,7 @@ class Site {
     const method = this.properties["appointment_method"];
     if (method === "web" && this.properties["website"]) {
       return {
-        label: "visit",
+        label: "book_appt",
         href: this.properties["website"],
       };
     } else if (this.properties["phone_number"] === "phone" && this.properties["phone_number"]) {
@@ -223,7 +223,7 @@ class Site {
       // info, so lets try it ourselves
       if (this.properties["website"]) {
         return {
-          label: "visit",
+          label: "book_appt",
           href: this.properties["website"],
         };
       } else if (this.properties["phone_number"]) {
