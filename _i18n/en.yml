@@ -5,7 +5,6 @@ volunteer_title : Volunteer
 hours: Hours
 notes: Notes
 website: Website
-footer_text: A collaborative effort by Call the Shots, Inc and other interested people.
 find_vaccine: Find <span class="hidden md:inline">Vaccine</span>
 headline: Find a COVID-19 vaccine for yourself or a loved one 
 site_description: Publishing up-to-date COVID-19 vaccine availability at hospitals and pharmacies across the United States.
@@ -20,7 +19,7 @@ illustration_alt: Illustration of doctor administering vaccines
 home_body: <p>Many over 16 are now eligible for free, safe, and reliable COVID-19 vaccines in the United States. But it can be difficult to find out where and how to get a shot.</p><p class="mt-2">Search to find confirmed vaccination locations near you, and learn how to make an appointment.</p>
 home_corrections: If you have a missing location to report, <a href="https://airtable.com/shriM4cld0UfVf2ud?prefill_What+correction+are+you+reporting%3F=Add%20a%20missing%20hospital%2Fpharmacy" class="text-black">please let us know.</a>
 home_feedback: Let us know if you found this site useful!
-home_from: From the team behind <a href="https://www.vaccinateca.com">VaccinateCA</a>
+home_from: From the team behind <a target="_blank" href="https://www.vaccinateca.com">VaccinateCA</a>
 about_intro_1: Vaccinate The States is a community-driven effort to help Americans learn accurate, up-to-date, verified information about how to get the coronavirus vaccine.
 about_intro_2: Our team calls medical professionals at hundreds of potential vaccination sites daily, asking them if they have the vaccine and how to get an appointment. We also gather vaccine location information from official sources, including federal government agencies, county health departments, and healthcare providers. We compile what they say into a comprehensive map, and make it freely available on this site, to other publishers, and to public health initiatives.
 about_equity_title: Our Commitment to Equitable Access to Vaccine Information
