@@ -138,26 +138,27 @@ const renderCardsFromMap = () => {
   cards.innerHTML = "";
 
   features.slice(0, 50).forEach((feature) => {
-    const properties = feature.properties;
-    const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-      properties.address
-    )}`;
-    const templateInfo = {
-      id: properties.id,
-      name: properties.name,
-      address: properties.address,
-      addressLink: gmapsLink,
-      hours: properties.hours,
-      notes: properties.public_notes
-        ? markdownify(properties.public_notes)
-        : null,
-      website: properties.website,
-    };
+    const site = new Site(feature.properties);
+
     const range = document
       .createRange()
-      .createContextualFragment(siteCard(templateInfo));
+      .createContextualFragment(siteCard(site.context()));
 
     cards.appendChild(range);
+  });
+
+  // Ensure only one card can be open at a time
+  // From https://stackoverflow.com/questions/16751345/automatically-close-all-the-other-details-tags-after-opening-a-specific-detai
+  const details = document.querySelectorAll("details");
+
+  details.forEach((targetDetail) => {
+    targetDetail.addEventListener("click", () => {
+      details.forEach((detail) => {
+        if (detail !== targetDetail) {
+          detail.removeAttribute("open");
+        }
+      });
+    });
   });
 };
 
@@ -199,3 +200,75 @@ const load = () => {
     true
   );
 };
+
+class Site {
+  constructor(properties) {
+    this.properties = properties;
+  }
+  action() {
+    switch (this.properties["appointment_method"]) {
+      case "web":
+        if (this.properties["website"]) {
+          return {
+            label: "visit",
+            href: this.properties["website"],
+          };
+        }
+        break;
+      case "phone":
+        if (this.properties["phone_number"]) {
+          return {
+            label: "call",
+            href: `tel:${this.properties["phone_number"]}`,
+          };
+        }
+        break;
+      default:
+        return;
+    }
+  }
+  googleMapsLink() {
+    if (this.properties["address"]) {
+      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+        this.properties["address"]
+      )}`;
+    } else {
+      return null;
+    }
+  }
+  hasMoreInfo() {
+    return this.properties["phone_number"] || this.properties["website"];
+  }
+  appointmentDetails() {
+    return this.properties["appointment_details"]
+      ? markdownify(this.properties["appointment_details"])
+      : null;
+  }
+  notes() {
+    return this.properties["public_notes"]
+      ? markdownify(this.properties["public_notes"])
+      : null;
+  }
+  context() {
+    return {
+      id: this.properties["id"],
+      name: this.properties["name"],
+      address: this.properties["address"],
+      addressLink: this.googleMapsLink(),
+      action: this.action(),
+      hours: this.properties["hours"],
+      moreInfo: this.hasMoreInfo(),
+      website: this.properties["website"],
+      phoneNumber: this.properties["phone_number"],
+      appointmentDetails: this.appointmentDetails(),
+      notes: this.notes(),
+      vaccinefinder: this.properties.hasOwnProperty(
+        "vaccinefinder_location_id"
+      ),
+      vaccinespotter: this.properties.hasOwnProperty(
+        "vaccinespotter_location_id"
+      ),
+      google: this.properties.hasOwnProperty("google_place_id"),
+    };
+  }
+}
