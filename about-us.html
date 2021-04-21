@@ -3,49 +3,82 @@ layout: base
 permalink: /about-us
 title: aboutus_title
 add_to_nav: true
-order: 3
-content_header: true 
+order: 2
 ---
 
-<p class="mb-2"> {% t about_intro_1 %} </p>
-<p class="mb-2"> {% t about_intro_2 %} </p>
+<div class="container mx-auto">
+  <div class="mx-auto">
+    <div class="py-6">
+      <h1 class="text-4xl font-bold leading-tight text-gray-900">
+        {% t page.title %}
+      </h1>
+    </div>
+  </div>
 
-<h2 class="text-2xl font-bold leading-tight text-gray-900 mt-8 mb-4">
-  {% t about_equity_title %}
-</h2>
+  <p class="mb-2"> {% t about_intro_1 %} </p>
+  <p class="mb-2"> {% t about_intro_2 %} </p>
 
-{% tf about_equity.html %}
 
-<h2 class="text-2xl font-bold leading-tight text-gray-900 mt-8 mb-4">
-  {% t faq %}</h2>
+  <p class="mt-8 text-center mb-4 text-gray-500">{% t home_from %}</p>
+  <div class="md:px-6 grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-6">
+    {% for item in site.data.coverage %}
+    <a
+      class="no-underline hover:underline text-black max-w-xs justify-self-center {% if forloop.index <= 2 %} mb-4 {% endif %}"
+      href="{{ item.url }}"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <div class="no-underline flex flex-col items-center">
+        <div class="flex flex-col">
+          <div class="font-xl italic text-center">{{ item.text }}</div>
+        </div>
+        <img
+          class="float-start w-32 mt-3 object-contain"
+          src="/assets/img/coverage/{{ item.image }}"
+        />
+      </div>
+    </a>
+    {% endfor %}
+  </div>
 
-<h3 class="text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
-  {% t faq_how %}</h3>
+  <h2 class="text-2xl font-bold leading-tight text-gray-900 mt-8 mb-4">
+    {% t about_equity_title %}
+  </h2>
 
-  {% tf faq_how_answer.html %}
+  {% tf about_equity.html %}
 
-<h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
-  {% t faq_reporter %}
-  </h3>
-  {% tf faq_reporter_answer.html %}
+  <h2 class="text-2xl font-bold leading-tight text-gray-900 mt-8 mb-4">
+    {% t faq %}</h2>
 
-<h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
-  {% t faq_provider %}
-  </h3>
-  {% t faq_provider_answer %}
+  <h3 class="text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
+    {% t faq_how %}</h3>
 
-<h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
-  {% t faq_org %}
-  </h3>
-  {% tf faq_org_answer.html %}
+    {% tf faq_how_answer.html %}
 
-<h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
-  {% t faq_toil %}
-  </h3>
-  {% t faq_toil_answer %}
+  <h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
+    {% t faq_reporter %}
+    </h3>
+    {% tf faq_reporter_answer.html %}
 
-<h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
-  {% t faq_accurate %}
-  </h3>
-  {% t faq_accurate_answer %}
-<div class="mb-5"></div>
+  <h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
+    {% t faq_provider %}
+    </h3>
+    {% t faq_provider_answer %}
+
+  <h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
+    {% t faq_org %}
+    </h3>
+    {% tf faq_org_answer.html %}
+
+  <h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
+    {% t faq_toil %}
+    </h3>
+    {% t faq_toil_answer %}
+
+  <h3 class="mt-5 text-lg font-bold mb-2 bg-yellow-300 px-1 py-1">
+    {% t faq_accurate %}
+    </h3>
+    {% t faq_accurate_answer %}
+  <div class="mb-5"></div>
+
+</div>
