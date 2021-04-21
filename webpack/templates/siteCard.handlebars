@@ -18,19 +18,23 @@
         {{#if appointmentDetails}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "appointment_details"}}</h5>
-                {{{appointmentDetails}}}
+                <div class="text-sm">
+                    {{{appointmentDetails}}}
+                </div>
             </div>
         {{/if}}
         {{#if hours}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "hours"}}</h5>
-                <p>{{hours}}</p>
+                <p class="text-sm">{{hours}}</p>
             </div>
         {{/if}}
         {{#if notes}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold">{{t "notes"}}</h5>
-                {{{notes}}}
+                <div class="text-sm">
+                    {{{notes}}}
+                </div>
             </div>
         {{/if}}
         {{#if moreInfo}}
