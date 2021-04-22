@@ -4,12 +4,12 @@ aboutus_title: About Us
 volunteer_title: Volunteer
 call: Call
 visit: Visit
-hours: Hours
-notes: Notes
+hours: "Hours:"
+notes: "Notes:"
 more_details: More details
 data_from: Data from
-more_information: For more information
-appointment_details: Appointment details
+more_information: "For more information:"
+appointment_details: "Appointment details:"
 correction: Something look wrong?
 correction_link: Let us know
 footer_text: A collaborative effort by Call the Shots, Inc and other interested people.

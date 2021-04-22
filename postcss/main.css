@@ -50,5 +50,5 @@ a.no-underline {
 
 /* site cards */
 #cards > li > details[open] > summary {
-  @apply pb-0 border-b border-gray-300;
+  @apply border-b border-gray-300;
 }

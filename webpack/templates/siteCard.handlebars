@@ -2,7 +2,7 @@
      shadow-md border bg-white">
     <div class="flex flex-row justify-between p-4">
         <div class="grid grid-cols-1 me-1">
-            <h4 class="font-bold text-lg">
+            <h4 class="text-green-600 font-bold text-lg">
                 {{name}}
             </h4>
             <a class="text-sm" href="{{addressLink}}" target="_blank">{{address}}</a>
@@ -14,12 +14,12 @@
         {{/if}}
     </div>
     <details>
-        <summary class="px-4 py-2">
+        <summary class="px-4 py-2 outline-none cursor-pointer">
             {{t "more_details"}}
         </summary>
         {{#if appointmentDetails}}
             <div class="grid grid-cols-1 px-4 py-2">
-                <h5 class="font-bold">{{t "appointment_details"}}</h5>
+                <h5 class="font-bold mb-1">{{t "appointment_details"}}</h5>
                 <div class="text-sm">
                     {{{appointmentDetails}}}
                 </div>
@@ -27,13 +27,13 @@
         {{/if}}
         {{#if hours}}
             <div class="grid grid-cols-1 px-4 py-2">
-                <h5 class="font-bold">{{t "hours"}}</h5>
+                <h5 class="font-bold mb-1">{{t "hours"}}</h5>
                 <p class="text-sm">{{hours}}</p>
             </div>
         {{/if}}
         {{#if notes}}
             <div class="grid grid-cols-1 px-4 py-2">
-                <h5 class="font-bold">{{t "notes"}}</h5>
+                <h5 class="font-bold mb-1">{{t "notes"}}</h5>
                 <div class="text-sm">
                     {{{notes}}}
                 </div>
@@ -41,13 +41,19 @@
         {{/if}}
         {{#if moreInfo}}
             <div class="grid grid-cols-1 px-4 py-2">
-                <h5 class="font-bold">{{{t "more_information"}}}</h5>
-                <div class="flex flex-row justify-between text-sm">
+                <h5 class="font-bold mb-1">{{{t "more_information"}}}</h5>
+                <div class="flex flex-row flex-wrap justify-between text-sm">
                     {{#if website}}
-                        <a href="{{website}}">{{website}}</a>
+                        <div class="flex flex-row">
+                            <img class="h-5 mb-1 me-2" src="/assets/img/link.svg" />
+                            <a href="{{website}}" class="break-all" target="_blank">{{website}}</a>
+                        </div>
                     {{/if}}
                     {{#if phoneNumber}}
-                        <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
+                        <div class="flex flex-row">
+                            <img class="h-5 me-2" src="/assets/img/phone.svg" />
+                            <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
+                        </div>
                     {{/if}}
                 </div>
             </div>
@@ -57,22 +63,22 @@
                 {{#if vaccinefinder}}
                     <p>
                         {{t "data_from"}}
-                        <a href="https://vaccinefinder.org">VaccineFinder</a>
+                        <a href="https://vaccinefinder.org" target="_blank">VaccineFinder</a>
                     </p>
                 {{/if}}
                 {{#if vaccinespotter}}
                     <p>
                         {{t "data_from"}}
-                        <a href="https://www.vaccinespotter.org">Vaccine Spotter</a>
+                        <a href="https://www.vaccinespotter.org" target="_blank">Vaccine Spotter</a>
                     </p>
                 {{/if}}
                 {{#if google}}
-                    <p>{{t "data_from"}} google</p>
+                    <p>{{t "data_from"}} Google</p>
                 {{/if}}
             </div>
             <div class="text-right">
                 {{t "correction" }}
-                <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}">{{t "correction_link"}}</a>
+                <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}" target="_blank">{{t "correction_link"}}</a>
             </div>
         </div>
     </details>
