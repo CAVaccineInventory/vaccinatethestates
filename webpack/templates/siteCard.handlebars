@@ -1,18 +1,34 @@
 <li id="{{id}}" class="site-card rounded-lg mb-4 relative grid grid-cols-1
      shadow-md border bg-white">
-    <div class="flex flex-row justify-between p-4">
-        <div class="grid grid-cols-1 me-1">
+        <div class="p-4">
             <h4 class="text-green-600 font-bold text-lg">
                 {{name}}
             </h4>
             <a class="text-sm" href="{{addressLink}}" target="_blank">{{address}}</a>
+            {{#if aboveTheFold}}
+                <h5 class="font-bold my-1">{{ t aboveTheFold.label }}</h5>
+                {{#if aboveTheFold.info}}
+                    <div class="text-sm">
+                        {{{aboveTheFold.info}}}
+                    </div>
+                {{else}}
+                    <div class="flex flex-row flex-wrap justify-between text-sm">
+                        {{#if aboveTheFold.website}}
+                            <div class="flex flex-row">
+                                <img class="h-5 mb-1 me-2" src="/assets/img/link.svg" />
+                                <a href="{{website}}" class="break-all" target="_blank">{{website}}</a>
+                            </div>
+                        {{/if}}
+                        {{#if aboveTheFold.phoneNumber}}
+                            <div class="flex flex-row">
+                                <img class="h-5 me-2" src="/assets/img/phone.svg" />
+                                <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
+                            </div>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            {{/if}}
         </div>
-        {{#if action}}
-            <a class="rounded-full bg-gray-300 self-center px-4 py-2 text-black
-                      hover:bg-gray-400"
-                href="{{action.href}}">{{t action.label}}</a>
-        {{/if}}
-    </div>
     <details>
         <summary class="px-4 py-2 outline-none cursor-pointer">
             {{t "more_details"}}

@@ -195,36 +195,22 @@ class Site {
   constructor(properties) {
     this.properties = properties;
   }
-  action() {
-    const method = this.properties["appointment_method"];
-    if (method === "web" && this.properties["website"]) {
+
+  aboveTheFold() {
+    if (this.properties["appointment_details"]) {
       return {
-        label: "book_appt",
-        href: this.properties["website"],
+        label: "appointment_details",
+        info: this.appointmentDetails(),
       };
-    } else if (method === "phone" && this.properties["phone_number"]) {
+    } else if (this.hasMoreInfo()) {
       return {
-        label: "call",
-        href: `tel:${this.properties["phone_number"]}`,
+        label: "contact",
+        website: this.properties["website"],
+        phoneNumber: this.properties["phone_number"],
       };
-    } else {
-      // `appointment_method` is set to `other` or does not have the needed
-      // info, so lets try it ourselves
-      if (this.properties["website"]) {
-        return {
-          label: "book_appt",
-          href: this.properties["website"],
-        };
-      } else if (this.properties["phone_number"]) {
-        return {
-          label: "call",
-          href: `tel:${this.properties["phone_number"]}`,
-        };
-      } else {
-        return;
-      }
     }
   }
+
   googleMapsLink() {
     if (this.properties["address"]) {
       return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
@@ -234,26 +220,30 @@ class Site {
       return null;
     }
   }
+
   hasMoreInfo() {
     return this.properties["phone_number"] || this.properties["website"];
   }
+
   appointmentDetails() {
     return this.properties["appointment_details"]
       ? markdownify(this.properties["appointment_details"])
       : null;
   }
+
   notes() {
     return this.properties["public_notes"]
       ? markdownify(this.properties["public_notes"])
       : null;
   }
+
   context() {
     return {
       id: this.properties["id"],
       name: this.properties["name"],
       address: this.properties["address"],
       addressLink: this.googleMapsLink(),
-      action: this.action(),
+      aboveTheFold: this.aboveTheFold(),
       hours: this.properties["hours"],
       moreInfo: this.hasMoreInfo(),
       website: this.properties["website"],
