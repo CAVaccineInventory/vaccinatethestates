@@ -1,11 +1,10 @@
 import mapboxgl from "mapbox-gl";
 
-import siteCard from "./templates/siteCard.handlebars";
 import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
 import { toggleVisibility } from "./utils/dom.js";
-import { markdownify } from "./utils/markdown.js";
 import { mapboxToken } from "./utils/constants.js";
+import { siteCard } from "./site.js";
 
 window.addEventListener("load", () => load());
 
@@ -138,17 +137,7 @@ const renderCardsFromMap = () => {
   cards.innerHTML = "";
 
   features.slice(0, 50).forEach((feature) => {
-    const site = new Site(feature.properties);
-
-    const range = document
-      .createRange()
-      .createContextualFragment(siteCard(site.context()));
-    const details = range.querySelector("details");
-    details.addEventListener("click", (e) => {
-      details.blur();
-    });
-
-    cards.appendChild(range);
+    cards.appendChild(siteCard(feature.properties));
   });
 };
 
@@ -190,83 +179,3 @@ const load = () => {
     true
   );
 };
-
-class Site {
-  constructor(properties) {
-    this.properties = properties;
-  }
-  action() {
-    const method = this.properties["appointment_method"];
-    if (method === "web" && this.properties["website"]) {
-      return {
-        label: "book_appt",
-        href: this.properties["website"],
-      };
-    } else if (method === "phone" && this.properties["phone_number"]) {
-      return {
-        label: "call",
-        href: `tel:${this.properties["phone_number"]}`,
-      };
-    } else {
-      // `appointment_method` is set to `other` or does not have the needed
-      // info, so lets try it ourselves
-      if (this.properties["website"]) {
-        return {
-          label: "book_appt",
-          href: this.properties["website"],
-        };
-      } else if (this.properties["phone_number"]) {
-        return {
-          label: "call",
-          href: `tel:${this.properties["phone_number"]}`,
-        };
-      } else {
-        return;
-      }
-    }
-  }
-  googleMapsLink() {
-    if (this.properties["address"]) {
-      return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-        this.properties["address"]
-      )}`;
-    } else {
-      return null;
-    }
-  }
-  hasMoreInfo() {
-    return this.properties["phone_number"] || this.properties["website"];
-  }
-  appointmentDetails() {
-    return this.properties["appointment_details"]
-      ? markdownify(this.properties["appointment_details"])
-      : null;
-  }
-  notes() {
-    return this.properties["public_notes"]
-      ? markdownify(this.properties["public_notes"])
-      : null;
-  }
-  context() {
-    return {
-      id: this.properties["id"],
-      name: this.properties["name"],
-      address: this.properties["address"],
-      addressLink: this.googleMapsLink(),
-      action: this.action(),
-      hours: this.properties["hours"],
-      moreInfo: this.hasMoreInfo(),
-      website: this.properties["website"],
-      phoneNumber: this.properties["phone_number"],
-      appointmentDetails: this.appointmentDetails(),
-      notes: this.notes(),
-      vaccinefinder: this.properties.hasOwnProperty(
-        "vaccinefinder_location_id"
-      ),
-      vaccinespotter: this.properties.hasOwnProperty(
-        "vaccinespotter_location_id"
-      ),
-      google: this.properties.hasOwnProperty("google_place_id"),
-    };
-  }
-}
