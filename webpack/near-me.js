@@ -4,7 +4,7 @@ import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
 import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
-import { siteCard } from './site.js';
+import { siteCard } from "./site.js";
 
 window.addEventListener("load", () => load());
 
