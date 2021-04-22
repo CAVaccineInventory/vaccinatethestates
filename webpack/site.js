@@ -33,6 +33,12 @@ class Site {
       detailsIsUrl = true;
     } catch (e) {}
 
+    // sometimes our websites are entered without http/https in front which will break link tags
+    let website = this.properties["website"];
+    if (website && !website.startsWith("http")) {
+      website = `//${website}`;
+    }
+
     if (method === "web" && detailsIsUrl) {
       return {
         isSite: true,
@@ -45,11 +51,11 @@ class Site {
         label: "call",
         href: `tel:${details}`,
       };
-    } else if (this.properties["website"]) {
+    } else if (website) {
       return {
         isSite: true,
         label: "visit_site",
-        href: this.properties["website"],
+        href: website,
       };
     } else if (this.properties["phone_number"]) {
       return {
