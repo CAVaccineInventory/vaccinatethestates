@@ -15,7 +15,7 @@
       "maxzoom": 5,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367]
-      }
+      },
       "tiles": {
         "union": [ {
           "group_by": [ "county" ]
