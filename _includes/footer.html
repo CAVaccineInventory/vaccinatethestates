@@ -24,14 +24,28 @@
         {%endif%}
       </p>
     </div>
-    <div>
-      <span class="me-2">{% t maps_sponsored_by %}</span>
-      <img
-        class="inline"
-        width="132"
-        height="30"
-        src="/assets/img/mapbox-logo-black.png"
-      />
+    <div class="flex flex-col">
+      <div class="flex justify-end">
+        <span class="me-2">{% t maps_sponsored_by %}</span>
+        <img
+          class="inline"
+          width="132"
+          height="30"
+          src="/assets/img/mapbox-logo-black.png"
+        />
+      </div>
+      <div class="flex justify-end">
+        <span class="me-2"
+          >Data ©20xx. Boston Children’s Hospital. All rights reserved</span
+        >
+        <a href="https://vaccinefinder.org" target="_blank">
+          <img
+            class="inline object-contain"
+            width="100"
+            src="/assets/img/vaccinefinder_logo.png"
+          />
+        </a>
+      </div>
     </div>
   </div>
 </div>
