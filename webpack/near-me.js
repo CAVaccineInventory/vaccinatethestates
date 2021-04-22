@@ -143,6 +143,10 @@ const renderCardsFromMap = () => {
     const range = document
       .createRange()
       .createContextualFragment(siteCard(site.context()));
+    const details = range.querySelector("details");
+    details.addEventListener("click", (e) => {
+      details.blur();
+    });
 
     cards.appendChild(range);
   });
