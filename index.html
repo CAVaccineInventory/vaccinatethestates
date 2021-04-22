@@ -6,17 +6,17 @@ order: 1
 ---
 <link href="assets/css/near-me.css" rel="stylesheet" />
 <div class="flex flex-col items-center">
-  <div class="lg:container mx-auto mt-12">
+  <div class="container mx-auto mt-4 lg:mt-8">
     <div class="results flex flex-col-reverse lg:grid lg:grid-cols-5">
       <div id="main" class="flex flex-col lg:col-span-2">
 
         <div id="zoomed_out_view" class="animate-fade-in-up flex-col items-center lg:col-span-2">
-          <h1 class="text-2xl md:text-3xl mt-2 mb-2 lg:mt-0 lg:mb-8 font-semibold">{% t headline %}</h1>
+          <h1 class="text-2xl md:text-3xl mt-4 mb-2 lg:mt-0 lg:mb-8 font-semibold">{% t headline %}</h1>
           <div> {% t home_body %} </div>
         </div>
 
         <div id="cards_container" class="hidden animate-fade-in-down">
-          <div class="text-2xl font-semibold mb-4 mt-2 lg:mt-0">{% t home_title %}</div>
+          <div class="text-2xl font-semibold mb-4 mt-4 lg:mt-0">{% t home_title %}</div>
           <div id="js-unknown-zip-code-alert" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">{% t zip_error %}</div>
           <div id="js-no-sites-alert" class="hidden bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">{% t no_sites %}</div>
           <ol id="cards" class="space-y-4"></ol>
