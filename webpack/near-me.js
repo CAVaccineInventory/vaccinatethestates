@@ -97,8 +97,8 @@ const initMap = () => {
 
   // Reload cards on map movement
   map.on("moveend", featureLayer, () => {
+    toggleCardVisibility();
     debounce(() => {
-      toggleCardVisibility();
       renderCardsFromMap();
     });
   });
