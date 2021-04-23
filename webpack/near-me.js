@@ -5,7 +5,6 @@ import { initSearch } from "./search.js";
 import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { siteCard } from "./site.js";
-import { debounce } from "./utils/misc.js";
 
 window.addEventListener("load", () => load());
 
@@ -63,8 +62,9 @@ const initMap = () => {
     map.getCanvas().style.cursor = "";
   });
 
+  const sourceId = "vialSource";
   map.on("load", () => {
-    map.addSource(featureLayer, {
+    map.addSource(sourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",
     });
@@ -72,8 +72,21 @@ const initMap = () => {
     map.addLayer({
       "id": featureLayer,
       "type": "circle",
-      "source": "vial",
-      "source-layer": "vial",
+      "source": sourceId,
+      "source-layer": "vialHigh",
+      "paint": {
+        "circle-radius": 4,
+        "circle-color": "#059669",
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "#fff",
+      },
+    });
+
+    map.addLayer({
+      "id": "vialLow",
+      "type": "circle",
+      "source": sourceId,
+      "source-layer": "vialLow",
       "paint": {
         "circle-radius": 4,
         "circle-color": "#059669",
@@ -86,7 +99,7 @@ const initMap = () => {
   // We want to make sure the vial data is fully loaded before we try to render
   // cards and resolve the map initialization
   map.on("sourcedata", () => {
-    if (map.getSource(featureLayer) && map.isSourceLoaded(featureLayer)) {
+    if (map.getSource(sourceId) && map.isSourceLoaded(sourceId)) {
       mapInitializedResolver();
       renderCardsFromMap();
 
@@ -96,11 +109,9 @@ const initMap = () => {
   });
 
   // Reload cards on map movement
-  map.on("moveend", featureLayer, () => {
+  map.on("moveend", () => {
     toggleCardVisibility();
-    debounce(() => {
-      renderCardsFromMap();
-    });
+    renderCardsFromMap();
   });
 };
 

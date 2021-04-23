@@ -1,15 +1,64 @@
 {
   "version": 1,
   "layers": {
-    "vial": {
+    "vialLow": {
       "source": "mapbox://tileset-source/calltheshots/vial",
-      "minzoom": 2,
+      "minzoom": 0,
+      "maxzoom": 5,
+      "features": {
+        "bbox": [-179.149, -14.549, 179.779, 71.367],
+        "attributes": {
+          "allowed_output": [
+            "id",
+            "name"
+          ],
+          "zoom_element": [ "hours", "public_notes", "appointment_details" ]
+        }
+      },
+      "tiles": {
+        "limit": [
+          [
+            "lowest_where_in_distance",
+            true,
+            16384,
+            "id"
+          ]
+        ]
+      }
+    },
+    "vialHigh": {
+      "source": "mapbox://tileset-source/calltheshots/vial",
+      "minzoom": 6,
       "maxzoom": 10,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367],
         "attributes": {
+          "allowed_output": [
+            "appointment_method",
+            "appointment_details",
+            "website",
+            "phone_number",
+            "address",
+            "public_notes",
+            "id",
+            "name",
+            "hours",
+            "vaccinefinder_location_id",
+            "vaccinespotter_location_id",
+            "google_place_id"
+          ],
           "zoom_element": [ "hours", "public_notes", "appointment_details" ]
         }
+      },
+      "tiles": {
+        "limit": [
+          [
+            "lowest_where",
+            true,
+            2128,
+            "id"
+          ]
+        ]
       }
     }
   }
