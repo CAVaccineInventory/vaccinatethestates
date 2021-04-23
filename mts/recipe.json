@@ -4,22 +4,19 @@
     "vial": {
       "source": "mapbox://tileset-source/calltheshots/vial",
       "minzoom": 2,
-      "maxzoom": 10,
-      "features": {
-        "bbox": [-179.149, -14.549, 179.779, 71.367]
-      }
-    },
-    "vial2": {
-      "source": "mapbox://tileset-source/calltheshots/vial",
-      "minzoom": 2,
-      "maxzoom": 5,
+      "maxzoom": 6,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367]
       },
       "tiles": {
-        "union": [ {
-          "group_by": [ "county" ]
-        } ]
+        "limit": [
+          [
+            "lowest_where_in_distance",
+            ["<=", ["zoom"], 3],
+            1024,
+            "null"
+          ]
+        ]
       }
     }
   }
