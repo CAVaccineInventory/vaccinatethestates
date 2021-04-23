@@ -12,8 +12,14 @@
         "limit": [
           [
             "lowest_where_in_distance",
-            ["<=", ["zoom"], 3],
-            1024,
+            ["<", ["zoom"], 4],
+            16384,
+            "null"
+          ],
+          [
+            "lowest_where_in_distance",
+            ["==", ["zoom"], 4],
+            4096,
             "null"
           ]
         ]
