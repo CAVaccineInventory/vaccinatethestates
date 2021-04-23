@@ -110,11 +110,9 @@ const initMap = () => {
   });
 
   // Reload cards on map movement
-  map.on("moveend", featureLayer, () => {
+  map.on("moveend", () => {
     toggleCardVisibility();
-    debounce(() => {
-      renderCardsFromMap();
-    });
+    renderCardsFromMap();
   });
 };
 
