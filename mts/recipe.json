@@ -22,10 +22,16 @@
             "vaccinespotter_location_id",
             "google_place_id"
           ]
-        },
-        "filter": [ "any",
-          [ ">=", ["zoom"], 6],
-          [ "<", ["random"] , ["/", ["-", ["^", 2, 53], 1], 3] ]
+        }
+      },
+      "tiles": {
+        "limit": [
+          [
+            "lowest_where",
+            true,
+            2000,
+            "null"
+          ]
         ]
       }
     }
