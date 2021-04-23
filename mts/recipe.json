@@ -4,7 +4,7 @@
     "vial": {
       "source": "mapbox://tileset-source/calltheshots/vial",
       "minzoom": 2,
-      "maxzoom": 9,
+      "maxzoom": 7,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367],
         "attributes": {
@@ -22,16 +22,10 @@
             "vaccinespotter_location_id",
             "google_place_id"
           ]
-        }
-      },
-      "tiles": {
-        "limit": [
-          [
-            "lowest_where",
-            true,
-            2000,
-            "null"
-          ]
+        },
+        "filter": [ "any",
+          [ ">=", ["zoom"], 6],
+          [ "<", ["random"] , ["/", ["-", ["^", 2, 53], 1], 2] ]
         ]
       }
     }
