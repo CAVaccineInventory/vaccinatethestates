@@ -1,8 +1,8 @@
 <div class="pt-3 mt-3 text-gray-400 bg-white border-t-2 border-gray-200">
   <div class="flex flex-col lg:flex-row lg:justify-between">
-    <div>
+    <div class="text-center md:text-left mb-2">
       {% tf footer_about_us.html %}
-      <p>
+      <p class="mt-1">
         {%if site.twitter != nil %}
         <a
           href="https://twitter.com/{{ site.twitter }}"
@@ -26,21 +26,19 @@
     </div>
     <div class="flex flex-col">
       <div class="flex justify-start lg:justify-end">
-        <span class="me-2">{% t maps_sponsored_by %}</span>
+        <span class="lg:text-right me-2">{% t maps_sponsored_by %}</span>
         <img
           class="inline object-contain"
           width="100"
           src="/assets/img/mapbox-logo-black.png"
         />
       </div>
-      <div class="flex justify-start lg:justify-end">
-        <span class="me-2"
-          >Data ©20xx. Boston Children’s Hospital. All rights reserved</span
-        >
+      <div class="flex justify-start lg:justify-end mt-2">
+        <span class="me-2">Some data provided by</span>
         <a href="https://vaccinefinder.org" target="_blank">
           <img
-            class="inline object-contain"
-            width="100"
+            class="inline object-contain mb-1"
+            width="135"
             src="/assets/img/vaccinefinder_logo.png"
           />
         </a>
