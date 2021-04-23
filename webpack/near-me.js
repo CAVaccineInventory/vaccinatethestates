@@ -63,8 +63,9 @@ const initMap = () => {
     map.getCanvas().style.cursor = "";
   });
 
+  const sourceId = "vialSource";
   map.on("load", () => {
-    map.addSource(featureLayer, {
+    map.addSource(sourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vtstest",
     });
@@ -72,7 +73,7 @@ const initMap = () => {
     map.addLayer({
       "id": featureLayer,
       "type": "circle",
-      "source": "vial",
+      "source": sourceId,
       "source-layer": "vialHigh",
       "paint": {
         "circle-radius": 4,
@@ -85,7 +86,7 @@ const initMap = () => {
     map.addLayer({
       "id": "vialLow",
       "type": "circle",
-      "source": "vial",
+      "source": sourceId,
       "source-layer": "vialLow",
       "paint": {
         "circle-radius": 4,
@@ -99,7 +100,7 @@ const initMap = () => {
   // We want to make sure the vial data is fully loaded before we try to render
   // cards and resolve the map initialization
   map.on("sourcedata", () => {
-    if (map.getSource(featureLayer) && map.isSourceLoaded(featureLayer)) {
+    if (map.getSource(sourceId) && map.isSourceLoaded(sourceId)) {
       mapInitializedResolver();
       renderCardsFromMap();
 
