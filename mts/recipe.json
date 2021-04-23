@@ -28,10 +28,11 @@
         "limit": [
           [
             "lowest_where",
-            true
-            256,
+            true,
+            2048,
             "null"
           ]
+        ]
       }
     }
   }
