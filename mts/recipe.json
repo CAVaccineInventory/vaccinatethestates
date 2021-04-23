@@ -3,7 +3,7 @@
   "layers": {
     "vialLow": {
       "source": "mapbox://tileset-source/calltheshots/vial",
-      "minzoom": 2,
+      "minzoom": 0,
       "maxzoom": 5,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367],
@@ -29,7 +29,7 @@
     "vialHigh": {
       "source": "mapbox://tileset-source/calltheshots/vial",
       "minzoom": 6,
-      "maxzoom": 8,
+      "maxzoom": 10,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367],
         "attributes": {
