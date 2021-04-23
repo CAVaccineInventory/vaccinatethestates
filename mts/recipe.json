@@ -21,7 +21,8 @@
             "vaccinefinder_location_id",
             "vaccinespotter_location_id",
             "google_place_id"
-          ]
+          ],
+          "zoom_element": [ "hours", "public_notes", "appointment_details" ]
         }
       },
       "tiles": {
