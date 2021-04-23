@@ -6,7 +6,23 @@
       "minzoom": 2,
       "maxzoom": 9,
       "features": {
-        "bbox": [-179.149, -14.549, 179.779, 71.367]
+        "bbox": [-179.149, -14.549, 179.779, 71.367],
+        "attributes": {
+          "allowed_output": [
+            "appointment_method",
+            "appointment_details",
+            "website",
+            "phone_number",
+            "address",
+            "public_notes",
+            "id",
+            "name",
+            "hours",
+            "vaccinefinder_location_id",
+            "vaccinespotter_location_id",
+            "google_place_id"
+          ]
+        }
       },
       "tiles": {
         "limit": [
