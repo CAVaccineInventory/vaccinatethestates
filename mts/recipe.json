@@ -1,9 +1,34 @@
 {
   "version": 1,
   "layers": {
-    "vial": {
+    "vialLow": {
       "source": "mapbox://tileset-source/calltheshots/vial",
       "minzoom": 2,
+      "maxzoom": 5,
+      "features": {
+        "bbox": [-179.149, -14.549, 179.779, 71.367],
+        "attributes": {
+          "allowed_output": [
+            "id",
+            "name"
+          ],
+          "zoom_element": [ "hours", "public_notes", "appointment_details" ]
+        }
+      },
+      "tiles": {
+        "limit": [
+          [
+            "lowest_where_in_distance",
+            true,
+            16384,
+            "id"
+          ]
+        ]
+      }
+    },
+    "vialHigh": {
+      "source": "mapbox://tileset-source/calltheshots/vial",
+      "minzoom": 6,
       "maxzoom": 8,
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367],
@@ -30,8 +55,8 @@
           [
             "lowest_where",
             true,
-            2000,
-            "null"
+            2128,
+            "id"
           ]
         ]
       }

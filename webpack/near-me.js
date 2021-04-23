@@ -73,7 +73,20 @@ const initMap = () => {
       "id": featureLayer,
       "type": "circle",
       "source": "vial",
-      "source-layer": "vial",
+      "source-layer": "vialHigh",
+      "paint": {
+        "circle-radius": 4,
+        "circle-color": "#059669",
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "#fff",
+      },
+    });
+
+    map.addLayer({
+      "id": "vialLow",
+      "type": "circle",
+      "source": "vial",
+      "source-layer": "vialLow",
       "paint": {
         "circle-radius": 4,
         "circle-color": "#059669",
