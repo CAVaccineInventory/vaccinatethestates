@@ -66,7 +66,7 @@ const initMap = () => {
   map.on("load", () => {
     map.addSource(sourceId, {
       type: "vector",
-      url: "mapbox://calltheshots.vtstest",
+      url: "mapbox://calltheshots.vaccinatethestates",
     });
 
     map.addLayer({
