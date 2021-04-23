@@ -4,7 +4,7 @@
     "vial": {
       "source": "mapbox://tileset-source/calltheshots/vial",
       "minzoom": 2,
-      "maxzoom": 10,
+      "maxzoom": 8
       "features": {
         "bbox": [-179.149, -14.549, 179.779, 71.367],
         "attributes": {
@@ -29,7 +29,7 @@
           [
             "lowest_where",
             true,
-            512,
+            1500,
             "null"
           ]
         ]
