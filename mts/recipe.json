@@ -29,7 +29,7 @@
           [
             "lowest_where",
             true
-            16384,
+            256,
             "null"
           ]
       }
