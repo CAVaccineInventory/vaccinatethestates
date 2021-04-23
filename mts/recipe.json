@@ -6,7 +6,10 @@
       "minzoom": 2,
       "maxzoom": 10,
       "features": {
-        "bbox": [-179.149, -14.549, 179.779, 71.367]
+        "bbox": [-179.149, -14.549, 179.779, 71.367],
+        "attributes": {
+          "zoom_element": [ "hours", "public_notes", "appointment_details" ]
+        }
       }
     }
   }
