@@ -13,7 +13,7 @@ more_information: "For more information:"
 appointment_details: "Appointment details:"
 correction: Something look wrong?
 correction_link: Let us know
-footer_text: A collaborative effort by Call the Shots, Inc and other interested people.
+footer_text: A collaborative effort by Call The Shots, Inc. and other interested people.
 enter_zip: Enter ZIP
 headline: Find a COVID-19 vaccine for yourself or a loved one
 website: Website
@@ -34,10 +34,9 @@ home_body: |
 home_corrections: If you have a missing location to report, <a href="https://airtable.com/shriM4cld0UfVf2ud?prefill_What+correction+are+you+reporting%3F=Add%20a%20missing%20hospital%2Fpharmacy" class="text-black">please let us know.</a>
 home_feedback: Let us know if you found this site useful!
 about_intro: |
-    Vaccinate The States is a nonprofit, community-driven effort that helps
-    Americans learn accurate, up-to-date information about how to get the
-    coronavirus vaccine. We are building the most comprehensive map of
-    vaccination sites in the United States.
+    Vaccinate The States is a non-profit, non-partisan, community-driven effort that helps Americans
+    learn accurate, up-to-date information about how to get the coronavirus vaccine. We are building
+    the most comprehensive list of vaccination sites in the United States.
 about_how_we_work_title: How We Work
 about_how_we_work: |
     Our team calls medical professionals at hundreds of potential vaccination sites
@@ -66,12 +65,18 @@ faq_provider_answer: |
 faq_org: I work in a community-facing organization or for the government. Can we discuss this?
 faq_accurate: Is the information on this website accurate?
 faq_accurate_answer: |
-    <p class="mb-2">We publish only what we have collected from official sources
-    or direct phone calls to vaccination sites. The situation is complex,
-    supplies may vary throughout the day, and not everyone at the site might
-    have up-to-the-minute information as to what their policies actually
-    are.</p>
-    <p>We’re doing our best, but can’t make any guarantees.</p>
+    <p class="mb-2">We rely primarily on official sources or direct phone calls to vaccination
+    sites. We also use unofficial sources where we believe they provide accurate information about
+    vaccination clinics not available from other sources.. The situation is complicated and changes
+    rapidly; even official sources are sometimes incorrect or out-of-date.</p>
+    <p class="mb-2">Our efforts are relied upon by governmental entities and some of the largest
+    publishers in the world.</p>
+    <p class="mb-2">While we make substantial efforts to provide the most accurate, up to date
+    information available to us, we can't guarantee the current accuracy of everything
+    published.</p>
+    <p>Some of our location data is provided by <a
+    href="https://vaccinefinder.org/" target="_blank">VaccineFinder.org</a>. That data is ©2021. Boston Children’s
+    Hospital. All rights reserved.</p>
 faq_worked_on_this: Some of us who worked on this project on Day 1
 maps_sponsored_by: Maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
 zip_error: Failed to locate your zip code, please try again
