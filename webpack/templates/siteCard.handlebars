@@ -61,17 +61,17 @@
                 </div>
             </div>
         {{/if}}
-        <div class="flex flex-row justify-between px-4 py-2 text-sm">
+        <div class="flex flex-row flex-wrap justify-between px-4 py-2 text-sm">
             <div class="grid grid-col-1">
                 {{#if vaccinefinder}}
                     <p>
                         {{t "data_from"}}
                         <a href="https://vaccinefinder.org" target="_blank">
-                        <img
-                        class="inline object-contain"
-                        width="100"
-                        src="/assets/img/vaccinefinder_logo.png"
-                        />
+                            <img
+                                alt="VaccineFinder"
+                                class="inline h-3 mb-1"
+                                src="/assets/img/vaccinefinder_logo.png"
+                            />
                         </a>
                     </p>
                 {{/if}}
