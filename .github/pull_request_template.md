@@ -8,7 +8,7 @@
     Replace the NNN in the URL below with the ID of this Pull Request.
     That's the URL where Netlify will automatically deploy a staging build.
 -->
-Link to Deploy Preview: https://deploy-preview-NNN--beta-vaccinatethestates.netlify.app/
+Link to Deploy Preview: https://deploy-preview-NNN--vaccinatethestates.netlify.app/
 
 ---
 
