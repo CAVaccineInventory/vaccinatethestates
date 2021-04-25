@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+require 'yaml'
+
+translation_keys = YAML.load_file('_i18n/en.yml').keys
+files = Dir.glob("**/*.{html,handlebars,js}").reject { |f| f =~ /_i18n|node_modules|_site|assets/ }
+detected_keys = []
+
+translation_keys.each do |key|
+  files.each do |file_name|
+    if File.foreach(file_name).grep(/#{key}/).any?
+      detected_keys << key
+      break
+    end
+  end
+end
+
+unused_keys = translation_keys - detected_keys
+
+if unused_keys.size > 0
+  puts "😭 Found unused translation keys: #{unused_keys.join(", ")}"
+  exit 1
+else
+  puts "🎉 Found no unused keys!"
+  exit 0
+end
