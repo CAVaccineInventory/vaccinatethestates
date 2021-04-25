@@ -2,7 +2,13 @@ import mapboxgl from "mapbox-gl";
 
 import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
-import { toggleVisibility, isSelected, select, deselect, toggleSelect } from "./utils/dom.js";
+import {
+  toggleVisibility,
+  isSelected,
+  select,
+  deselect,
+  toggleSelect,
+} from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { siteCard } from "./site.js";
@@ -195,7 +201,9 @@ document.addEventListener("siteCardSelected", (ev) => {
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: ["vial"] })
   );
-  const matches = features.filter((x) => x.properties && x.properties.id === siteId);
+  const matches = features.filter(
+    (x) => x.properties && x.properties.id === siteId
+  );
   const feature = matches && matches.length > 0 && matches[0];
 
   if (!feature) {
