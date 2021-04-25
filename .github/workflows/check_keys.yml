@@ -2,7 +2,7 @@ name: Check for unused translation strings
 on: pull_request
 
 jobs:
-  lint:
+  check_translations:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,5 +17,5 @@ jobs:
         node-version: '15'
 
     - name: Run
-      run: script/check_translation_keys
+      run: script/check_translations
 
