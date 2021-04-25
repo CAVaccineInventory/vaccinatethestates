@@ -1,4 +1,3 @@
-warning: Not even Beta. This map contains unvalidated data. Do not rely on it.
 home_title: Vaccination Sites Near Me
 aboutus_title: About Us
 volunteer_title: Volunteer
@@ -14,11 +13,8 @@ appointment_details: "Appointment details:"
 correction: Something look wrong?
 correction_link: Let us know
 report_missing: Report a missing location.
-footer_text: A collaborative effort by Call The Shots, Inc. and other interested people.
-enter_zip: Enter ZIP
 headline: Find a COVID-19 vaccine for yourself or a loved one
 website: Website
-find_vaccine: Find <span class="hidden md:inline">Vaccine</span>
 site_description: Publishing up-to-date COVID-19 vaccine availability at hospitals and pharmacies across the United States.
 404_text:
     The page you've requested does not exist. If you're looking for help with finding vaccines, please check <a href="/">here</a>.
@@ -27,7 +23,6 @@ my_location: My location
 getting_location: Getting location...
 alert_detect: Failed to detect your location. Please try again or enter your zip code
 skip_to_content: Skip to content
-illustration_alt: Illustration of doctor administering vaccines
 home_body: |
     <p class="mb-2">Everyone over 16 in the US is now eligible for a free, safe, and reliable COVID-19 vaccination.</p>
     <p class="mb-2">Find vaccination sites near you, and learn how to make an appointment.</p>
