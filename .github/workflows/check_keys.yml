@@ -1,0 +1,21 @@
+name: Check for unused translation strings
+on: pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Setup
+      uses: ruby/setup-ruby@v1
+      with:
+        node-version: '15'
+
+    - name: Run
+      run: script/check_translation_keys
+
