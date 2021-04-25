@@ -17,8 +17,9 @@ end
 unused_keys = translation_keys - detected_keys
 
 if unused_keys.size > 0
-  puts "Found unused translation keys: #{unused_keys.join(", ")}"
+  puts "😭 Found unused translation keys: #{unused_keys.join(", ")}"
   exit 1
 else
+  puts "🎉 Found no unused keys!"
   exit 0
 end
