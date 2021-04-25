@@ -26,3 +26,20 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Apply lint fixes 🤖
+
+  check_translations:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Setup
+      uses: ruby/setup-ruby@v1
+      with:
+        node-version: '15'
+
+    - name: Run
+      run: script/check_translations
