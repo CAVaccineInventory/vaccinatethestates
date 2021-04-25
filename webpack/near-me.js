@@ -50,6 +50,10 @@ const initMap = () => {
     }
 
     displayPopup(props, coordinates);
+
+    document.dispatchEvent(new CustomEvent("markerSelected", {
+      detail: { siteId: props.id },
+    }));
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -153,9 +157,7 @@ const renderCardsFromMap = () => {
   });
 
   if (selectedSiteId && !isSmallScreen()) {
-    const selectedSite = document.getElementById(selectedSiteId);
-    select(selectedSite);
-    selectedSite && selectedSite.scrollIntoView({ behavior: "smooth" });
+    selectSite(selectedSiteId);
   }
 
   document.querySelectorAll(".site-card").forEach((card) => {
@@ -213,6 +215,22 @@ document.addEventListener("siteCardDeselected", (ev) => {
   selectedMarkerPopup && selectedMarkerPopup.remove();
   selectedMarkerPopup = false;
 });
+
+document.addEventListener("markerSelected", (ev) => {
+  if (isSmallScreen()) return;
+  selectSite(ev.detail.siteId);
+});
+
+const selectSite = (siteId) => {
+  const site = document.getElementById(siteId);
+  select(site);
+  site && site.scrollIntoView({ behavior: "smooth" });
+
+  if (selectedSiteId && selectedSiteId != siteId) {
+    deselect(document.getElementById(selectedSiteId));
+  }
+  selectedSiteId = siteId;
+};
 
 const displayPopup = (props, coordinates) => {
   if (selectedMarkerPopup) {
