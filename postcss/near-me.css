@@ -10,3 +10,7 @@
 .mapboxgl-popup-close-button {
   padding: 5px;
 }
+
+.site-card.is-selected {
+  @apply border-2 border-green-600;
+}

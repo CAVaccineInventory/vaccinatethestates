@@ -9,3 +9,5 @@ export function debounce(func, timeout = 300) {
     }, timeout);
   };
 }
+
+export const isSmallScreen = () => window.innerWidth < 1024;

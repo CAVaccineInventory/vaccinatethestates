@@ -2,14 +2,21 @@ import mapboxgl from "mapbox-gl";
 
 import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
-import { toggleVisibility } from "./utils/dom.js";
+import { toggleVisibility, isSelected, select, deselect, toggleSelect } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
+import { isSmallScreen } from "./utils/misc.js";
 import { siteCard } from "./site.js";
 
 window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
+
+// State tracking for selected site card
+let selectedSiteId = false;
+
+// State tracking for selected marker popup
+let selectedMarkerPopup = false;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -36,22 +43,7 @@ const initMap = () => {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    const addressLink = props.address
-      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-        props.address
-      )}`
-      : null;
-
-    const marker = mapMarker({
-      name: props.name,
-      address: props.address,
-      website: props.website,
-      addressLink,
-    });
-    new mapboxgl.Popup({ maxWidth: "50%" })
-      .setLngLat(coordinates)
-      .setHTML(marker)
-      .addTo(map);
+    displayPopup(props, coordinates);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -153,6 +145,97 @@ const renderCardsFromMap = () => {
   features.slice(0, 50).forEach((feature) => {
     cards.appendChild(siteCard(feature.properties));
   });
+
+  if (selectedSiteId && !isSmallScreen()) {
+    const selectedSite = document.getElementById(selectedSiteId);
+    select(selectedSite);
+    selectedSite.scrollIntoView({ behavior: "smooth" });
+
+    // TODO: this is not working as intended
+    if (selectedSite.getBoundingClientRect().top <= 0) {
+      window.scrollTo({
+        top: document.getElementsByTagName("nav")[0].offsetHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+  }
+
+  document.querySelectorAll(".site-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      if (isSmallScreen()) {
+        return;
+      }
+
+      toggleSelect(card);
+      if (isSelected(card)) {
+        if (selectedSiteId && selectedSiteId != card.id) {
+          deselect(document.getElementById(selectedSiteId));
+        }
+        selectedSiteId = card.id;
+        document.dispatchEvent(
+          new CustomEvent("siteCardSelected", {
+            detail: { siteId: card.id },
+          })
+        );
+      } else {
+        selectedSiteId = false;
+        document.dispatchEvent(
+          new CustomEvent("siteCardDeselected", {
+            detail: { siteId: card.id },
+          })
+        );
+      }
+    });
+  });
+};
+
+document.addEventListener("siteCardSelected", (ev) => {
+  const siteId = ev.detail.siteId;
+  const features = getUniqueFeatures(
+    map.queryRenderedFeatures({ layers: ["vial"] })
+  );
+  const matches = features.filter((x) => x.properties && x.properties.id === siteId);
+  const feature = matches && matches.length > 0 && matches[0];
+
+  if (!feature) {
+    return;
+  }
+
+  const coordinates = feature.geometry.coordinates.slice();
+  const props = feature.properties;
+
+  displayPopup(props, coordinates);
+});
+
+const displayPopup = (props, coordinates) => {
+  if (selectedMarkerPopup) {
+    selectedMarkerPopup.remove();
+  }
+
+  const addressLink = props.address
+    ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+      props.address
+    )}`
+    : null;
+
+  const marker = mapMarker({
+    name: props.name,
+    address: props.address,
+    website: props.website,
+    addressLink,
+  });
+  const popup = new mapboxgl.Popup({
+    maxWidth: "50%",
+    focusAfterOpen: false,
+  })
+    .setLngLat(coordinates)
+    .setHTML(marker)
+    .addTo(map);
+
+  if (selectedMarkerPopup != popup) {
+    selectedMarkerPopup = popup;
+  }
 };
 
 const getUniqueFeatures = (array) => {
