@@ -51,9 +51,11 @@ const initMap = () => {
 
     displayPopup(props, coordinates);
 
-    document.dispatchEvent(new CustomEvent("markerSelected", {
-      detail: { siteId: props.id },
-    }));
+    document.dispatchEvent(
+      new CustomEvent("markerSelected", {
+        detail: { siteId: props.id },
+      })
+    );
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -268,9 +270,11 @@ const displayPopup = (props, coordinates) => {
     .addTo(map);
 
   popup.on("close", () => {
-    document.dispatchEvent(new CustomEvent("markerDeselected", {
-      detail: { siteId: props.id },
-    }));
+    document.dispatchEvent(
+      new CustomEvent("markerDeselected", {
+        detail: { siteId: props.id },
+      })
+    );
   });
 
   if (selectedMarkerPopup != popup) {
