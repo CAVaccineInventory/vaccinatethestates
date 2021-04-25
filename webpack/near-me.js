@@ -221,6 +221,16 @@ document.addEventListener("markerSelected", (ev) => {
   selectSite(ev.detail.siteId);
 });
 
+document.addEventListener("markerDeselected", (ev) => {
+  if (isSmallScreen()) return;
+
+  deselect(document.getElementById(ev.detail.id));
+  if (selectedSiteId) {
+    deselect(document.getElementById(selectedSiteId));
+    selectedSiteId = false;
+  }
+});
+
 const selectSite = (siteId) => {
   const site = document.getElementById(siteId);
   select(site);
@@ -256,6 +266,12 @@ const displayPopup = (props, coordinates) => {
     .setLngLat(coordinates)
     .setHTML(marker)
     .addTo(map);
+
+  popup.on("close", () => {
+    document.dispatchEvent(new CustomEvent("markerDeselected", {
+      detail: { siteId: props.id },
+    }));
+  });
 
   if (selectedMarkerPopup != popup) {
     selectedMarkerPopup = popup;
