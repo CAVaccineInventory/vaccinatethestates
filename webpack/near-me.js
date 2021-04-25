@@ -155,16 +155,7 @@ const renderCardsFromMap = () => {
   if (selectedSiteId && !isSmallScreen()) {
     const selectedSite = document.getElementById(selectedSiteId);
     select(selectedSite);
-    selectedSite.scrollIntoView({ behavior: "smooth" });
-
-    // TODO: this is not working as intended
-    if (selectedSite.getBoundingClientRect().top <= 0) {
-      window.scrollTo({
-        top: document.getElementsByTagName("nav")[0].offsetHeight,
-        left: 0,
-        behavior: "smooth",
-      });
-    }
+    selectedSite && selectedSite.scrollIntoView({ behavior: "smooth" });
   }
 
   document.querySelectorAll(".site-card").forEach((card) => {
@@ -199,7 +190,7 @@ const renderCardsFromMap = () => {
 document.addEventListener("siteCardSelected", (ev) => {
   const siteId = ev.detail.siteId;
   const features = getUniqueFeatures(
-    map.queryRenderedFeatures({ layers: ["vial"] })
+    map.queryRenderedFeatures({ layers: [featureLayer] })
   );
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
@@ -214,6 +205,13 @@ document.addEventListener("siteCardSelected", (ev) => {
   const props = feature.properties;
 
   displayPopup(props, coordinates);
+});
+
+document.addEventListener("siteCardDeselected", (ev) => {
+  if (isSmallScreen()) return;
+
+  selectedMarkerPopup && selectedMarkerPopup.remove();
+  selectedMarkerPopup = false;
 });
 
 const displayPopup = (props, coordinates) => {
