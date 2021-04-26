@@ -50,12 +50,7 @@ const initMap = () => {
     }
 
     displayPopup(props, coordinates);
-
-    document.dispatchEvent(
-      new CustomEvent("markerSelected", {
-        detail: { siteId: props.id },
-      })
-    );
+    handleMarkerSelected(props.id);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -174,25 +169,16 @@ const renderCardsFromMap = () => {
           deselect(document.getElementById(selectedSiteId));
         }
         selectedSiteId = card.id;
-        document.dispatchEvent(
-          new CustomEvent("siteCardSelected", {
-            detail: { siteId: card.id },
-          })
-        );
+        handleSiteCardSelected(card.id);
       } else {
         selectedSiteId = false;
-        document.dispatchEvent(
-          new CustomEvent("siteCardDeselected", {
-            detail: { siteId: card.id },
-          })
-        );
+        handleSiteCardDeselected(card.id);
       }
     });
   });
 };
 
-document.addEventListener("siteCardSelected", (ev) => {
-  const siteId = ev.detail.siteId;
+const handleSiteCardSelected = (siteId) => {
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
   );
@@ -209,35 +195,31 @@ document.addEventListener("siteCardSelected", (ev) => {
   const props = feature.properties;
 
   displayPopup(props, coordinates);
-});
+};
 
-document.addEventListener("siteCardDeselected", (ev) => {
-  if (isSmallScreen()) return;
-
+const handleSiteCardDeselected = (siteId) => {
   selectedMarkerPopup && selectedMarkerPopup.remove();
   selectedMarkerPopup = false;
-});
+};
 
-document.addEventListener("markerSelected", (ev) => {
+const handleMarkerSelected = (siteId) => {
   if (isSmallScreen()) {
     return;
   }
-  selectSite(ev.detail.siteId);
-});
+  selectSite(siteId);
+};
 
-document.addEventListener("markerDeselected", (ev) => {
-  if (isSmallScreen()) return;
-
-  deselect(document.getElementById(ev.detail.id));
+const handleMarkerDeselected = (siteId) => {
+  deselect(document.getElementById(siteId));
   // This event is fired when the mapbox popup is closed
   // which is when either (1) user closes the popup, or
   // (2) user selects a different card. We only want to
   // deselect the card if it's senario (1).
-  if (selectedSiteId === ev.detail.siteId) {
+  if (selectedSiteId === siteId) {
     deselect(document.getElementById(selectedSiteId));
     selectedSiteId = false;
   }
-});
+};
 
 const selectSite = (siteId) => {
   const site = document.getElementById(siteId);
@@ -287,13 +269,7 @@ const displayPopup = (props, coordinates) => {
     .setHTML(marker)
     .addTo(map);
 
-  popup.on("close", () => {
-    document.dispatchEvent(
-      new CustomEvent("markerDeselected", {
-        detail: { siteId: props.id },
-      })
-    );
-  });
+  popup.on("close", () => handleMarkerDeselected(props.id));
 
   if (selectedMarkerPopup !== popup) {
     selectedMarkerPopup = popup;
