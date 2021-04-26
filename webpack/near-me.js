@@ -246,7 +246,9 @@ const selectSite = (siteId) => {
   // appears to scroll the page to "random" places.
   if (site) {
     site.scrollIntoView();
-    const navHeight = document.getElementsByTagName("nav")[0].getBoundingClientRect().height;
+    const navHeight = document
+      .getElementsByTagName("nav")[0]
+      .getBoundingClientRect().height;
     if (site.getBoundingClientRect().top < navHeight) {
       window.scrollTo(0, window.scrollY - navHeight);
     }
