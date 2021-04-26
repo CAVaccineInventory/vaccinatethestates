@@ -240,7 +240,17 @@ document.addEventListener("markerDeselected", (ev) => {
 const selectSite = (siteId) => {
   const site = document.getElementById(siteId);
   select(site);
-  site && site.scrollIntoView({ behavior: "smooth" });
+
+  // Scroll the site into viewport. For some reason, if smooth
+  // scrolling is enabled via scrollIntoView, window.scrollTo
+  // appears to scroll the page to "random" places.
+  if (site) {
+    site.scrollIntoView();
+    const navHeight = document.getElementsByTagName("nav")[0].getBoundingClientRect().height;
+    if (site.getBoundingClientRect().top < navHeight) {
+      window.scrollTo(0, window.scrollY - navHeight);
+    }
+  }
 
   if (selectedSiteId && selectedSiteId != siteId) {
     deselect(document.getElementById(selectedSiteId));
