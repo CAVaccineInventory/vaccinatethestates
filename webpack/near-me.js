@@ -227,7 +227,11 @@ document.addEventListener("markerDeselected", (ev) => {
   if (isSmallScreen()) return;
 
   deselect(document.getElementById(ev.detail.id));
-  if (selectedSiteId) {
+  // This event is fired when the mapbox popup is closed
+  // which is when either (1) user closes the popup, or
+  // (2) user selects a different card. We only want to
+  // deselect the card if it's senario (1).
+  if (selectedSiteId == ev.detail.siteId) {
     deselect(document.getElementById(selectedSiteId));
     selectedSiteId = false;
   }
