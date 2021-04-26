@@ -1,0 +1,7 @@
+# Global owners
+* @CAVaccineInventory/site-approvers
+
+/_i18n/ @CAVaccineInventory/translation-approvers
+
+/_i18n/en/* @CAVaccineInventory/prose-approvers
+/_i18n/en.yml @CAVaccineInventory/prose-approvers
