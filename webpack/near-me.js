@@ -170,7 +170,7 @@ const renderCardsFromMap = () => {
 
       toggleSelect(card);
       if (isSelected(card)) {
-        if (selectedSiteId && selectedSiteId != card.id) {
+        if (selectedSiteId && selectedSiteId !== card.id) {
           deselect(document.getElementById(selectedSiteId));
         }
         selectedSiteId = card.id;
@@ -219,7 +219,9 @@ document.addEventListener("siteCardDeselected", (ev) => {
 });
 
 document.addEventListener("markerSelected", (ev) => {
-  if (isSmallScreen()) return;
+  if (isSmallScreen()) {
+    return;
+  }
   selectSite(ev.detail.siteId);
 });
 
@@ -231,7 +233,7 @@ document.addEventListener("markerDeselected", (ev) => {
   // which is when either (1) user closes the popup, or
   // (2) user selects a different card. We only want to
   // deselect the card if it's senario (1).
-  if (selectedSiteId == ev.detail.siteId) {
+  if (selectedSiteId === ev.detail.siteId) {
     deselect(document.getElementById(selectedSiteId));
     selectedSiteId = false;
   }
@@ -293,7 +295,7 @@ const displayPopup = (props, coordinates) => {
     );
   });
 
-  if (selectedMarkerPopup != popup) {
+  if (selectedMarkerPopup !== popup) {
     selectedMarkerPopup = popup;
   }
 };
