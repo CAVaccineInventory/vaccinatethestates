@@ -10,7 +10,7 @@ import {
   toggleSelect,
 } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
-import { isSmallScreen } from "./utils/misc.js";
+import { isSmallScreen, remToPixels } from "./utils/misc.js";
 import { siteCard } from "./site.js";
 
 window.addEventListener("load", () => load());
@@ -225,17 +225,11 @@ const selectSite = (siteId) => {
   const site = document.getElementById(siteId);
   select(site);
 
-  // Scroll the site into viewport. For some reason, if smooth
-  // scrolling is enabled via scrollIntoView, window.scrollTo
-  // appears to scroll the page to "random" places.
+  // Scroll the site into viewport
   if (site) {
-    site.scrollIntoView();
-    const navHeight = document
-      .getElementsByTagName("nav")[0]
-      .getBoundingClientRect().height;
-    if (site.getBoundingClientRect().top < navHeight) {
-      window.scrollTo(0, window.scrollY - navHeight);
-    }
+    const mapTop = remToPixels(6); // aligns card with map
+    const offsetY = site.offsetTop - mapTop;
+    window.scrollTo({ left: 0, top: offsetY, behavior: "smooth" });
   }
 
   if (selectedSiteId && selectedSiteId != siteId) {

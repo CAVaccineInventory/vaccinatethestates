@@ -11,3 +11,7 @@ export function debounce(func, timeout = 300) {
 }
 
 export const isSmallScreen = () => window.innerWidth < 1024;
+
+export const remToPixels = (rem) => {
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+};
