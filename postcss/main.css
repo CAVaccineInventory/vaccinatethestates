@@ -11,6 +11,17 @@
   }
 }
 
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+nav {
+  top: env(safe-area-inset-top, 0);
+  right: env(safe-area-inset-right, 0);
+  left: env(safe-area-inset-left, 0);
+}
+
 /* Add underlines to links... */
 a {
   color: #0366d6;
