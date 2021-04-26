@@ -42,6 +42,10 @@ const initMap = () => {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;
 
+    map.flyTo({
+      center: coordinates,
+    });
+
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
     // over the copy being pointed to.
