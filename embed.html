@@ -8,11 +8,17 @@ add_to_nav: false
 <div>
   <div class="flex flex-col-reverse lg:grid lg:grid-cols-5">
     <div id="main" class="flex flex-col lg:col-span-2 p-4">
-      <div id="cards_container">
+
+      <div id="zoomed_out_view" class="animate-fade-in-up flex-col items-center lg:col-span-2">
+        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">{% t embed_zoomed_out%}</div>
+      </div>
+
+      <div id="cards_container" class="hidden animate-fade-in-down">
         <ol id="cards" class="space-y-4"></ol>
-        <div class="block lg:hidden">
-          {% include embed_credits.html %}
-        </div>
+      </div>
+
+      <div class="block lg:hidden mt-2">
+        {% include embed_credits.html %}
       </div>
     </div>
 

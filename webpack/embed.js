@@ -4,7 +4,7 @@ import { initMap, moveMap } from "./near-me.js";
 window.addEventListener("load", () => load());
 
 const load = () => {
-  initMap({ renderZoomedOutView: false });
+  initMap();
   initSearch(
     {
       locCallback: (lat, lng, zoom, source) => {

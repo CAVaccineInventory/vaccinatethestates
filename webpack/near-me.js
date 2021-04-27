@@ -24,15 +24,7 @@ const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
 );
 
-/**
- * Initializes the map + cards JS.
- * @param {Object} options: Options
- *
- * interface Options {
- *   renderZoomedOutView: boolean
- * }
- */
-export const initMap = (options) => {
+export const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -127,9 +119,7 @@ export const initMap = (options) => {
 
   // Reload cards on map movement
   map.on("moveend", () => {
-    if (options.renderZoomedOutView) {
-      toggleCardVisibility();
-    }
+    toggleCardVisibility();
 
     // When a marker is selected, it is centered in the map,
     // which raises the `moveend` event and we want to scroll
