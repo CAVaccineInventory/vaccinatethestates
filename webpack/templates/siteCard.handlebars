@@ -8,7 +8,7 @@
             <a class="text-sm" href="{{addressLink}}" target="_blank">{{address}}</a>
         </div>
         {{#if action}}
-            <a class="rounded-full bg-green-600 self-center px-4 py-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex" 
+            <a class="rounded-full bg-green-600 self-start px-4 py-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex" 
                     href="{{action.href}}" 
                     {{#if action.isSite}}target="_blank"{{/if}}>
                 <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
