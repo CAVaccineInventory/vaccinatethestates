@@ -42,6 +42,6 @@ module.exports = {
     require("tailwindcss-rtl"),
   ],
   variants: {
-    fontWeight: ['active', 'focus', 'hover'],
+    fontWeight: ["active", "focus", "hover"],
   },
 };
