@@ -10,7 +10,7 @@ import {
   toggleSelect,
 } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
-import { isSmallScreen, remToPixels } from "./utils/misc.js";
+import { isSmallScreen } from "./utils/misc.js";
 import { siteCard } from "./site.js";
 
 window.addEventListener("load", () => load());
@@ -38,13 +38,14 @@ const initMap = () => {
   });
 
   // Generic map click event
-  map.on("click", (e) => {
+  map.on("click", () => {
     // If user clicks on any point of the map, we reset
     // the states so that card selection logic runs correctly.
     // This is overridden by `featureLayer` click event after
     selectedSiteId = null;
     selectedMarkerPopup = null;
   });
+
   // Feature-layer specific click event
   map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
@@ -53,10 +54,7 @@ const initMap = () => {
     // Set states before zooming so that when zooming
     // finishes, handler will read the correct states
     // (select the correct card, scroll vs no scroll, etc.)
-    handleMarkerSelected(props.id);
-    map.flyTo({
-      center: coordinates,
-    });
+    handleMarkerSelected(props.id, coordinates);
 
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
@@ -67,12 +65,13 @@ const initMap = () => {
 
     displayPopup(props, coordinates);
   });
+
   // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on("mouseenter", featureLayer, function () {
+  map.on("mouseenter", featureLayer, () => {
     map.getCanvas().style.cursor = "pointer";
   });
   // Change it back to a pointer when it leaves.
-  map.on("mouseleave", featureLayer, function () {
+  map.on("mouseleave", featureLayer, () => {
     map.getCanvas().style.cursor = "";
   });
 
@@ -190,7 +189,7 @@ const renderCardsFromMap = () => {
         handleSiteCardSelected(card.id);
       } else {
         selectedSiteId = null;
-        handleSiteCardDeselected(card.id);
+        handleSiteCardDeselected();
       }
     });
   });
@@ -215,15 +214,18 @@ const handleSiteCardSelected = (siteId) => {
   displayPopup(props, coordinates);
 };
 
-const handleSiteCardDeselected = (siteId) => {
+const handleSiteCardDeselected = () => {
   selectedMarkerPopup && selectedMarkerPopup.remove();
   selectedMarkerPopup = null;
 };
 
-const handleMarkerSelected = (siteId) => {
+const handleMarkerSelected = (siteId, coordinates) => {
   selectedSiteId = siteId;
   selectSite(selectedSiteId);
   scrollToCard = !isSmallScreen();
+  map.flyTo({
+    center: coordinates,
+  });
 };
 
 const handleMarkerDeselected = (siteId) => {
@@ -251,9 +253,7 @@ const selectSite = (siteId) => {
 
   // Scroll the site into viewport
   if (site && scrollToCard) {
-    const mapTop = remToPixels(6); // aligns card with map
-    const offsetY = site.offsetTop - mapTop;
-    window.scrollTo({ left: 0, top: offsetY, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   if (selectedSiteId && selectedSiteId !== siteId) {
