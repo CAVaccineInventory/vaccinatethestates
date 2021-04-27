@@ -221,9 +221,15 @@ const handleMarkerSelected = (siteId) => {
   }
   selectedSiteId = siteId;
   scrollToCard = true;
+  selectSite(selectedSiteId);
 };
 
 const handleMarkerDeselected = (siteId) => {
+  // Ignore when user clicks on the same opened marker
+  if (selectedMarkerPopup) {
+    return;
+  }
+
   deselect(document.getElementById(siteId));
   // This event is fired when the mapbox popup is closed
   // which is when either (1) user closes the popup, or
@@ -233,6 +239,8 @@ const handleMarkerDeselected = (siteId) => {
     deselect(document.getElementById(selectedSiteId));
     selectedSiteId = null;
   }
+
+  selectedMarkerPopup = null;
 };
 
 const selectSite = (siteId) => {
@@ -246,7 +254,7 @@ const selectSite = (siteId) => {
     window.scrollTo({ left: 0, top: offsetY, behavior: "smooth" });
   }
 
-  if (selectedSiteId && selectedSiteId != siteId) {
+  if (selectedSiteId && selectedSiteId !== siteId) {
     deselect(document.getElementById(selectedSiteId));
   }
   selectedSiteId = siteId;
@@ -281,6 +289,8 @@ const displayPopup = (props, coordinates) => {
 
   if (selectedMarkerPopup !== popup) {
     selectedMarkerPopup = popup;
+  } else {
+    selectedMarkerPopup = null;
   }
 };
 
