@@ -181,10 +181,6 @@ const renderCardsFromMap = () => {
 
   document.querySelectorAll(".site-card").forEach((card) => {
     card.addEventListener("click", () => {
-      if (isSmallScreen()) {
-        return;
-      }
-
       toggleSelect(card);
       if (isSelected(card)) {
         if (selectedSiteId && selectedSiteId !== card.id) {
