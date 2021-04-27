@@ -25,17 +25,17 @@ const initMobileMenu = () => {
   }
 
   mobileMenuButton.addEventListener("click", (e) => {
-      mobileMenuActivator.classList.toggle("hidden");
-      mobileMenuActivator.classList.toggle("block");
+    mobileMenuActivator.classList.toggle("hidden");
+    mobileMenuActivator.classList.toggle("block");
 
-      mobileMenuDeactivator.classList.toggle("hidden");
-      mobileMenuDeactivator.classList.toggle("block");
+    mobileMenuDeactivator.classList.toggle("hidden");
+    mobileMenuDeactivator.classList.toggle("block");
 
-      mobileMenu.classList.toggle("hidden");
-      mobileMenu.classList.toggle("block");
+    mobileMenu.classList.toggle("hidden");
+    mobileMenu.classList.toggle("block");
 
-      e.preventDefault();
-    });
+    e.preventDefault();
+  });
 };
 
 const initSentry = () => {
