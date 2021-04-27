@@ -19,8 +19,8 @@ let zipErrorElem;
 const featureLayer = "vial";
 
 // State tracking for map & list user interactions
-let selectedSiteId = false;
-let selectedMarkerPopup = false;
+let selectedSiteId = null;
+let selectedMarkerPopup = null;
 let scrollToCard = false;
 
 let mapInitializedResolver;
@@ -184,7 +184,7 @@ const renderCardsFromMap = () => {
         selectedSiteId = card.id;
         handleSiteCardSelected(card.id);
       } else {
-        selectedSiteId = false;
+        selectedSiteId = null;
         handleSiteCardDeselected(card.id);
       }
     });
@@ -212,7 +212,7 @@ const handleSiteCardSelected = (siteId) => {
 
 const handleSiteCardDeselected = (siteId) => {
   selectedMarkerPopup && selectedMarkerPopup.remove();
-  selectedMarkerPopup = false;
+  selectedMarkerPopup = null;
 };
 
 const handleMarkerSelected = (siteId) => {
@@ -231,7 +231,7 @@ const handleMarkerDeselected = (siteId) => {
   // deselect the card if it's senario (1).
   if (selectedSiteId === siteId) {
     deselect(document.getElementById(selectedSiteId));
-    selectedSiteId = false;
+    selectedSiteId = null;
   }
 };
 
