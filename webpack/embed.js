@@ -16,6 +16,7 @@ const load = () => {
     },
     {
       type: "map",
+      parseQueryParams: true,
     }
   );
 };

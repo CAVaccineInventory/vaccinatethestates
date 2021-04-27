@@ -23,7 +23,8 @@ let callbacks = null;
  * type Source = "params" | "search" | "locate"
  *
  * interface Options {
- *   type: "standalone" | "map"
+ *   type: "standalone" | "map",
+ *   parseQueryParams: boolean
  * }
  */
 export const initSearch = (cb, options) => {
@@ -35,10 +36,12 @@ export const initSearch = (cb, options) => {
     window.map.addControl(geocoder);
   }
 
-  handleUrlParamsOnLoad();
-  window.addEventListener("popstate", () => {
+  if (options.parseQueryParams) {
     handleUrlParamsOnLoad();
-  });
+    window.addEventListener("popstate", () => {
+      handleUrlParamsOnLoad();
+    });
+  }
 };
 
 const initMapboxGeocoder = () => {

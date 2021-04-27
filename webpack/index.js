@@ -16,6 +16,7 @@ const load = () => {
     },
     {
       type: "standalone",
+      parseQueryParams: true,
     }
   );
 };
