@@ -10,6 +10,7 @@ export const siteCard = (props) => {
     .createContextualFragment(siteCardTemplate(site.context()));
   const details = range.querySelector("details");
   details.addEventListener("click", (e) => {
+    e.stopPropagation();
     details.blur();
   });
   return range;

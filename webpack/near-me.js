@@ -2,14 +2,26 @@ import mapboxgl from "mapbox-gl";
 
 import mapMarker from "./templates/mapMarker.handlebars";
 import { initSearch } from "./search.js";
-import { toggleVisibility } from "./utils/dom.js";
+import {
+  toggleVisibility,
+  isSelected,
+  select,
+  deselect,
+  toggleSelect,
+} from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
+import { isSmallScreen } from "./utils/misc.js";
 import { siteCard } from "./site.js";
 
 window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
+
+// State tracking for map & list user interactions
+let selectedSiteId = null;
+let selectedMarkerPopup = null;
+let scrollToCard = false;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -25,9 +37,24 @@ const initMap = () => {
     zoom: 3, // starting zoom
   });
 
+  // Generic map click event
+  map.on("click", () => {
+    // If user clicks on any point of the map, we reset
+    // the states so that card selection logic runs correctly.
+    // This is overridden by `featureLayer` click event after
+    selectedSiteId = null;
+    selectedMarkerPopup = null;
+  });
+
+  // Feature-layer specific click event
   map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;
+
+    // Set states before zooming so that when zooming
+    // finishes, handler will read the correct states
+    // (select the correct card, scroll vs no scroll, etc.)
+    handleMarkerSelected(props.id, coordinates);
 
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
@@ -36,29 +63,15 @@ const initMap = () => {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
 
-    const addressLink = props.address
-      ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-        props.address
-      )}`
-      : null;
-
-    const marker = mapMarker({
-      name: props.name,
-      address: props.address,
-      website: props.website,
-      addressLink,
-    });
-    new mapboxgl.Popup({ maxWidth: "50%" })
-      .setLngLat(coordinates)
-      .setHTML(marker)
-      .addTo(map);
+    displayPopup(props, coordinates);
   });
+
   // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on("mouseenter", featureLayer, function () {
+  map.on("mouseenter", featureLayer, () => {
     map.getCanvas().style.cursor = "pointer";
   });
   // Change it back to a pointer when it leaves.
-  map.on("mouseleave", featureLayer, function () {
+  map.on("mouseleave", featureLayer, () => {
     map.getCanvas().style.cursor = "";
   });
 
@@ -111,7 +124,14 @@ const initMap = () => {
   // Reload cards on map movement
   map.on("moveend", () => {
     toggleCardVisibility();
+
+    // When a marker is selected, it is centered in the map,
+    // which raises the `moveend` event and we want to scroll
+    // to the card...
     renderCardsFromMap();
+    // But subsequent map movements (other than marker selection)
+    // shouldn't scroll anything.
+    scrollToCard = false;
   });
 };
 
@@ -153,6 +173,127 @@ const renderCardsFromMap = () => {
   features.slice(0, 50).forEach((feature) => {
     cards.appendChild(siteCard(feature.properties));
   });
+
+  if (selectedSiteId) {
+    selectSite(selectedSiteId);
+  }
+
+  document.querySelectorAll(".site-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      toggleSelect(card);
+      if (isSelected(card)) {
+        if (selectedSiteId && selectedSiteId !== card.id) {
+          deselect(document.getElementById(selectedSiteId));
+        }
+        selectedSiteId = card.id;
+        handleSiteCardSelected(card.id);
+      } else {
+        selectedSiteId = null;
+        handleSiteCardDeselected();
+      }
+    });
+  });
+};
+
+const handleSiteCardSelected = (siteId) => {
+  const features = getUniqueFeatures(
+    map.queryRenderedFeatures({ layers: [featureLayer] })
+  );
+  const matches = features.filter(
+    (x) => x.properties && x.properties.id === siteId
+  );
+  const feature = matches && matches.length > 0 && matches[0];
+
+  if (!feature) {
+    return;
+  }
+
+  const coordinates = feature.geometry.coordinates.slice();
+  const props = feature.properties;
+
+  displayPopup(props, coordinates);
+};
+
+const handleSiteCardDeselected = () => {
+  selectedMarkerPopup && selectedMarkerPopup.remove();
+  selectedMarkerPopup = null;
+};
+
+const handleMarkerSelected = (siteId, coordinates) => {
+  selectedSiteId = siteId;
+  selectSite(selectedSiteId);
+  scrollToCard = !isSmallScreen();
+  map.flyTo({
+    center: coordinates,
+  });
+};
+
+const handleMarkerDeselected = (siteId) => {
+  // Ignore when user clicks on the same opened marker
+  if (selectedMarkerPopup) {
+    return;
+  }
+
+  deselect(document.getElementById(siteId));
+  // This event is fired when the mapbox popup is closed
+  // which is when either (1) user closes the popup, or
+  // (2) user selects a different card. We only want to
+  // deselect the card if it's senario (1).
+  if (selectedSiteId === siteId) {
+    deselect(document.getElementById(selectedSiteId));
+    selectedSiteId = null;
+  }
+
+  selectedMarkerPopup = null;
+};
+
+const selectSite = (siteId) => {
+  const site = document.getElementById(siteId);
+  select(site);
+
+  // Scroll the site into viewport
+  if (site && scrollToCard) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  if (selectedSiteId && selectedSiteId !== siteId) {
+    deselect(document.getElementById(selectedSiteId));
+  }
+  selectedSiteId = siteId;
+};
+
+const displayPopup = (props, coordinates) => {
+  if (selectedMarkerPopup) {
+    selectedMarkerPopup.remove();
+  }
+
+  const addressLink = props.address
+    ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+      props.address
+    )}`
+    : null;
+
+  const marker = mapMarker({
+    name: props.name,
+    address: props.address,
+    website: props.website,
+    addressLink,
+  });
+  const popup = new mapboxgl.Popup({
+    maxWidth: "50%",
+    focusAfterOpen: false,
+  })
+    .setLngLat(coordinates)
+    .setHTML(marker)
+    .addTo(map);
+
+  popup.on("close", () => handleMarkerDeselected(props.id));
+
+  if (selectedMarkerPopup !== popup) {
+    selectedMarkerPopup = popup;
+  } else {
+    selectedMarkerPopup = null;
+  }
 };
 
 const getUniqueFeatures = (array) => {
