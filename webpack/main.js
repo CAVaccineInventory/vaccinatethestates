@@ -18,9 +18,13 @@ const initMobileMenu = () => {
     ".js-mobile-menu-deactivator"
   );
   const mobileMenu = document.querySelector(".js-mobile-menu");
-  document
-    .querySelector(".js-mobile-menu-button")
-    .addEventListener("click", (e) => {
+  const mobileMenuButton = document.querySelector(".js-mobile-menu-button");
+
+  if (!mobileMenuButton) {
+    return;
+  }
+
+  mobileMenuButton.addEventListener("click", (e) => {
       mobileMenuActivator.classList.toggle("hidden");
       mobileMenuActivator.classList.toggle("block");
 
