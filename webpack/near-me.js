@@ -166,7 +166,7 @@ const renderCardsFromMap = () => {
     cards.appendChild(siteCard(feature.properties));
   });
 
-  if (selectedSiteId && !isSmallScreen()) {
+  if (selectedSiteId) {
     selectSite(selectedSiteId);
   }
 
@@ -216,12 +216,9 @@ const handleSiteCardDeselected = (siteId) => {
 };
 
 const handleMarkerSelected = (siteId) => {
-  if (isSmallScreen()) {
-    return;
-  }
   selectedSiteId = siteId;
-  scrollToCard = true;
   selectSite(selectedSiteId);
+  scrollToCard = !isSmallScreen();
 };
 
 const handleMarkerDeselected = (siteId) => {
