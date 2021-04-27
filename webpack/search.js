@@ -33,7 +33,7 @@ export const initSearch = (cb, options) => {
   if (options.type === "standalone") {
     initStandaloneGeocoder(geocoder);
   } else if (options.type === "map") {
-    window.map.addControl(geocoder);
+    window.map.addControl(geocoder, "top-left");
   }
 
   if (options.parseQueryParams) {
