@@ -109,12 +109,11 @@ const initMap = () => {
     });
   });
 
-  // We want to make sure the vial data is fully loaded before we try to render
-  // cards and resolve the map initialization
+  // We want to make sure the vial data is fully loaded before we try to
+  // resolve the map initialization
   map.on("sourcedata", () => {
     if (map.getSource(sourceId) && map.isSourceLoaded(sourceId)) {
       mapInitializedResolver();
-      renderCardsFromMap();
 
       // We only need this on the initial load, so now we're done!
       map.off("sourcedata");
