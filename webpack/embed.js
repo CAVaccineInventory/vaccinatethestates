@@ -6,7 +6,10 @@ window.addEventListener("load", () => load());
 
 const load = () => {
   // if url params present, hide zoomed out view to avoid flash
-  toggleVisibility(document.querySelector("#zoomed_out_view"), !window.location.search);
+  toggleVisibility(
+    document.querySelector("#zoomed_out_view"),
+    !window.location.search
+  );
 
   initMap();
   initSearch(
