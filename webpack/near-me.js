@@ -37,6 +37,15 @@ const initMap = () => {
     zoom: 3, // starting zoom
   });
 
+  // Generic map click event
+  map.on("click", (e) => {
+    // If user clicks on any point of the map, we reset
+    // the states so that card selection logic runs correctly.
+    // This is overridden by `featureLayer` click event after
+    selectedSiteId = null;
+    selectedMarkerPopup = null;
+  });
+  // Feature-layer specific click event
   map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;
