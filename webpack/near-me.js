@@ -18,11 +18,10 @@ window.addEventListener("load", () => load());
 let zipErrorElem;
 const featureLayer = "vial";
 
-// State tracking for selected site card
+// State tracking for map & list user interactions
 let selectedSiteId = false;
-
-// State tracking for selected marker popup
 let selectedMarkerPopup = false;
+let scrollToCard = false;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -42,6 +41,10 @@ const initMap = () => {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;
 
+    // Set states before zooming so that when zooming
+    // finishes, handler will reads the correct states
+    // (select the correct card, scroll vs no scroll, etc.)
+    handleMarkerSelected(props.id);
     map.flyTo({
       center: coordinates,
     });
@@ -54,7 +57,6 @@ const initMap = () => {
     }
 
     displayPopup(props, coordinates);
-    handleMarkerSelected(props.id);
   });
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.on("mouseenter", featureLayer, function () {
@@ -114,7 +116,14 @@ const initMap = () => {
   // Reload cards on map movement
   map.on("moveend", () => {
     toggleCardVisibility();
+
+    // When a marker is selected, it is centered in the map,
+    // which raises the `moveend` event and we want to scroll
+    // to the card...
     renderCardsFromMap();
+    // But subsequent map movements (other than marker selection)
+    // shouldn't scroll anything.
+    scrollToCard = false;
   });
 };
 
@@ -210,7 +219,8 @@ const handleMarkerSelected = (siteId) => {
   if (isSmallScreen()) {
     return;
   }
-  selectSite(siteId);
+  selectedSiteId = siteId;
+  scrollToCard = true;
 };
 
 const handleMarkerDeselected = (siteId) => {
@@ -230,7 +240,7 @@ const selectSite = (siteId) => {
   select(site);
 
   // Scroll the site into viewport
-  if (site) {
+  if (site && scrollToCard) {
     const mapTop = remToPixels(6); // aligns card with map
     const offsetY = site.offsetTop - mapTop;
     window.scrollTo({ left: 0, top: offsetY, behavior: "smooth" });
