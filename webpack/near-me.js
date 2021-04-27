@@ -42,7 +42,7 @@ const initMap = () => {
     const props = e.features[0].properties;
 
     // Set states before zooming so that when zooming
-    // finishes, handler will reads the correct states
+    // finishes, handler will read the correct states
     // (select the correct card, scroll vs no scroll, etc.)
     handleMarkerSelected(props.id);
     map.flyTo({
