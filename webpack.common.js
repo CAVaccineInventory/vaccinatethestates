@@ -11,8 +11,9 @@ if (process.env.NETLIFY) {
 module.exports = {
   "entry": {
     "main": "./webpack/main.js",
-    "near-me": "./webpack/near-me.js",
+    "index": "./webpack/index.js",
     "about-us": "./webpack/about-us.js",
+    "embed": "./webpack/embed.js",
   },
   "output": {
     "path": path.resolve(__dirname, "assets/js"),

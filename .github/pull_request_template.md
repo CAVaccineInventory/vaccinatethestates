@@ -26,5 +26,10 @@ _(Note: Use your best judgement for time management. If this PR is a minor conte
   - [ ] Cards can be expanded
 - [ ] Zooming out gets us back to blank slate text
 
+#### Embed
+- [ ] Query parameters for zip `?zip={zipcode}&zoom={zoom}`
+- [ ] Query parameters for lat and lng works `?lat={lat}&lng={lng}&zoom={zoom}`
+- [ ] Searching with search box in map works
+
 #### About Us
 - [ ] Organizers show up and randomize on page load

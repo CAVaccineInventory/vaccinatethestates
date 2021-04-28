@@ -1,7 +1,6 @@
 import mapboxgl from "mapbox-gl";
 
 import mapMarker from "./templates/mapMarker.handlebars";
-import { initSearch } from "./search.js";
 import {
   toggleVisibility,
   isSelected,
@@ -13,9 +12,6 @@ import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { siteCard } from "./site.js";
 
-window.addEventListener("load", () => load());
-
-let zipErrorElem;
 const featureLayer = "vial";
 
 // State tracking for map & list user interactions
@@ -28,7 +24,7 @@ const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
 );
 
-const initMap = () => {
+export const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -313,24 +309,11 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-async function moveMap(lat, lng, zoom) {
+export async function moveMap(lat, lng, zoom, animate) {
   await mapInitialized;
-  map.flyTo({ center: [lng, lat], zoom: zoom });
+  if (animate) {
+    map.flyTo({ center: [lng, lat], zoom: zoom });
+  } else {
+    map.jumpTo({ center: [lng, lat], zoom: zoom });
+  }
 }
-
-const load = () => {
-  zipErrorElem = document.getElementById("js-unknown-zip-code-alert");
-  initMap();
-  initSearch(
-    {
-      locCallback: (lat, lng, zoom, source) => {
-        if (source === "search") {
-          history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`);
-        }
-        toggleVisibility(zipErrorElem, false);
-        moveMap(lat, lng, zoom);
-      },
-    },
-    true
-  );
-};

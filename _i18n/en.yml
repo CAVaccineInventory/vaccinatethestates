@@ -74,8 +74,9 @@ faq_accurate_answer: |
     Hospital. All rights reserved.</p>
 faq_worked_on_this: Some of us who worked on this project on Day 1
 maps_sponsored_by: Maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
-zip_error: Failed to locate your zip code, please try again
+embed_footer: Powered by <a target="_blank" href="https://www.vaccinatethestates.com">VaccinateTheStates</a>, maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
 english: English
 spanish: Spanish
 no_sites: Sorry, we couldn't find any vaccination sites in the selected area. Please try zooming out or moving the map to see more vaccination sites.
 search_hint: Search for vaccine locations
+embed_zoomed_out: Search for a city, zip code, or address to see vaccination sites.

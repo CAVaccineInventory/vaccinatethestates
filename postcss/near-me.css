@@ -1,7 +1,7 @@
 @import "mapbox-gl/dist/mapbox-gl.css";
 
 @media (min-width: 1024px) {
-  #map {
+  #map.home-map {
     @apply sticky top-24 left-0;
     height: calc(100vh - 8rem);
   }
