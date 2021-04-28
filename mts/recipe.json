@@ -44,7 +44,11 @@
             "hours",
             "vaccinefinder_location_id",
             "vaccinespotter_location_id",
-            "google_place_id"
+            "google_place_id",
+            "vaccines_offered",
+            "availability_tags",
+            "latest_contact",
+            "restriction_notes"
           ]
         }
       },
@@ -53,7 +57,7 @@
           [
             "lowest_where",
             true,
-            2128,
+            1800,
             "id"
           ]
         ]
