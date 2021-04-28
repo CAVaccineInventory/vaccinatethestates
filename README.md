@@ -6,7 +6,7 @@
 
 1. Install [Homebrew](https://brew.sh/) if you don't already have it
 2. `brew install ruby-install chruby`
-3. Source the `chruby.sh` and `auto.sh` scripts from chruby in `~/.zshrc` or `~/.bashrc`. If chruby was installed user locally, that would like this:
+3. Source the `chruby.sh` and `auto.sh` scripts from chruby in `~/.zshrc` or `~/.bashrc`. `brew info chruby` for details. If chruby was installed user locally, that would like this:
 ```
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
@@ -16,7 +16,8 @@ source /usr/local/share/chruby/auto.sh
 ### Set up Node 15.8.0
 
 1. Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) if you don't already have it
-2. `nvm use 15.8.0`
+2. `nvm install 15.8.0`
+3. `nvm use 15.8.0`
 
 ### Start local development server
 ```
