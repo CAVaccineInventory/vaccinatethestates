@@ -26,13 +26,19 @@
     content="{{ site.url }}{% if site.lang != 'en' %}/{{ site.lang }}{% endif %}{{ page.url }}"
   />
   <meta property="og:site_name" content="{{ site.title }}" />
-  <meta property="og:image" content="{{ site.url }}/assets/img/link_card_image.png" />
+  <meta
+    property="og:image"
+    content="{{ site.url }}/assets/img/link_card_image.png"
+  />
 
   {%if site.twitter != nil %}
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="twitter:title" content="{% t page.title %}" />
   <meta name="twitter:site" content="@{{site.twitter}}" />
-  <meta property="twitter:image" content="{{ site.url }}/assets/img/link_card_image.png" />
+  <meta
+    property="twitter:image"
+    content="{{ site.url }}/assets/img/link_card_image.png"
+  />
   {%endif%}
 
   <script type="application/ld+json">
