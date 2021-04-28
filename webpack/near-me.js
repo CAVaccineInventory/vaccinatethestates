@@ -112,7 +112,7 @@ const initMap = () => {
 
   map.on("sourcedata", onSourceData);
 
-  map.on("move", () => mapIsMoving = true);
+  map.on("move", () => (mapIsMoving = true));
 
   // Reload cards on map movement
   map.on("moveend", () => {
