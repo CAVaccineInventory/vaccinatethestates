@@ -1,14 +1,27 @@
 # Vaccinate The States 🇺🇸
 
-## How to begin local development
+## How to begin local development on a Mac
 
-### Setup with Ruby 2.7
-#### Mac
-1. Install Homebrew if you don't have it already (https://brew.sh/)
+### Set up Ruby 2.7
+
+1. Install [Homebrew](https://brew.sh/) if you don't already have it
 2. `brew install ruby-install chruby`
-3. Add `source /opt/homebrew/opt/chruby/share/chruby/chruby.sh` and `source /opt/homebrew/opt/chruby/share/chruby/auto.sh` to `~/.zshrc` or `~/.bashrc`
+3. Add the following to `~/.zshrc` or `~/.bashrc`:
+```
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+```
 4. `ruby-install ruby 2.7.2`
-5. Start local development server with `script/server`
+
+### Set up Node 15.8.0
+
+1. Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) if you don't already have it
+2. `nvm install 15.8.0`
+
+### Start local development server
+```
+script/server
+```
 
 ### First time with Jekyll?
 
@@ -18,4 +31,4 @@
     - You will need to restart the Jekyll process when the config file changes; that is the only time you need to restart it _most_ of the time. (Other occasions include adding collections, etc, which you'll be doing extremely infrequently.)
 
 ### Running the linter
-The linter - [Prettier](https://prettier.io/) - runs on every PR automatically. If you'd like to run it locally, run `npm install` once to set up npm and then `npm run lint:fix` to run the linter. 
+The linter - [Prettier](https://prettier.io/) - runs on every PR automatically. If you'd like to run it locally, run `npm install` once to set up npm and then `npm run lint:fix` to run the linter.
