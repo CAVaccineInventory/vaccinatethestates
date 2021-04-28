@@ -18,20 +18,24 @@ const initMobileMenu = () => {
     ".js-mobile-menu-deactivator"
   );
   const mobileMenu = document.querySelector(".js-mobile-menu");
-  document
-    .querySelector(".js-mobile-menu-button")
-    .addEventListener("click", (e) => {
-      mobileMenuActivator.classList.toggle("hidden");
-      mobileMenuActivator.classList.toggle("block");
+  const mobileMenuButton = document.querySelector(".js-mobile-menu-button");
 
-      mobileMenuDeactivator.classList.toggle("hidden");
-      mobileMenuDeactivator.classList.toggle("block");
+  if (!mobileMenuButton) {
+    return;
+  }
 
-      mobileMenu.classList.toggle("hidden");
-      mobileMenu.classList.toggle("block");
+  mobileMenuButton.addEventListener("click", (e) => {
+    mobileMenuActivator.classList.toggle("hidden");
+    mobileMenuActivator.classList.toggle("block");
 
-      e.preventDefault();
-    });
+    mobileMenuDeactivator.classList.toggle("hidden");
+    mobileMenuDeactivator.classList.toggle("block");
+
+    mobileMenu.classList.toggle("hidden");
+    mobileMenu.classList.toggle("block");
+
+    e.preventDefault();
+  });
 };
 
 const initSentry = () => {

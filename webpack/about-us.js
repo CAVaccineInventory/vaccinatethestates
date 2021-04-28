@@ -11,7 +11,7 @@ window.addEventListener("load", () => {
             : `/${lang}?lat=${lat}&lng=${lng}&zoom=${zoom}`;
       },
     },
-    false
+    { type: "standalone", parseQueryParams: true }
   );
 
   const peopleElements = [...document.querySelectorAll("#js-people-list a")];
