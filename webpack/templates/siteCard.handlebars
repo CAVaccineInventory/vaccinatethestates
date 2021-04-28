@@ -8,8 +8,8 @@
             <a class="text-sm" href="{{addressLink}}" target="_blank">{{address}}</a>
         </div>
         {{#if action}}
-            <a class="rounded-full bg-green-600 self-start px-4 py-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex" 
-                    href="{{action.href}}" 
+            <a class="rounded-full bg-green-600 self-start px-4 py-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex"
+                    href="{{action.href}}"
                     {{#if action.isSite}}target="_blank"{{/if}}>
                 <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
                 <span>{{t action.label}}</span>
@@ -23,7 +23,7 @@
         {{#if appointmentDetails}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold mb-1">{{t "appointment_details"}}</h5>
-                <div class="text-sm break-all">
+                <div class="text-sm">
                     {{{appointmentDetails}}}
                 </div>
             </div>
