@@ -17,6 +17,8 @@ window.addEventListener("load", () => load());
 
 let zipErrorElem;
 const featureLayer = "vial";
+const vialSourceId = "vialSource";
+let mapIsMoving = false;
 
 // State tracking for map & list user interactions
 let selectedSiteId = null;
@@ -75,9 +77,8 @@ const initMap = () => {
     map.getCanvas().style.cursor = "";
   });
 
-  const sourceId = "vialSource";
   map.on("load", () => {
-    map.addSource(sourceId, {
+    map.addSource(vialSourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",
     });
@@ -85,7 +86,7 @@ const initMap = () => {
     map.addLayer({
       "id": featureLayer,
       "type": "circle",
-      "source": sourceId,
+      "source": vialSourceId,
       "source-layer": "vialHigh",
       "paint": {
         "circle-radius": 4,
@@ -98,7 +99,7 @@ const initMap = () => {
     map.addLayer({
       "id": "vialLow",
       "type": "circle",
-      "source": sourceId,
+      "source": vialSourceId,
       "source-layer": "vialLow",
       "paint": {
         "circle-radius": 4,
@@ -109,19 +110,13 @@ const initMap = () => {
     });
   });
 
-  // We want to make sure the vial data is fully loaded before we try to
-  // resolve the map initialization
-  map.on("sourcedata", () => {
-    if (map.getSource(sourceId) && map.isSourceLoaded(sourceId)) {
-      mapInitializedResolver();
+  map.on("sourcedata", onSourceData);
 
-      // We only need this on the initial load, so now we're done!
-      map.off("sourcedata");
-    }
-  });
+  map.on("move", () => mapIsMoving = true);
 
   // Reload cards on map movement
   map.on("moveend", () => {
+    mapIsMoving = false;
     toggleCardVisibility();
 
     // When a marker is selected, it is centered in the map,
@@ -132,6 +127,18 @@ const initMap = () => {
     // shouldn't scroll anything.
     scrollToCard = false;
   });
+};
+
+const onSourceData = (e) => {
+  if (!mapIsMoving && e.sourceId === vialSourceId && e.isSourceLoaded) {
+    // We want to make sure the vial data is fully loaded before we try to
+    // render the cards and resolve the map initialization
+    mapInitializedResolver();
+    renderCardsFromMap();
+
+    // We only need this on the initial load, so now we're done!
+    map.off("sourcedata", onSourceData);
+  }
 };
 
 const toggleCardVisibility = () => {
