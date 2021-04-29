@@ -80,3 +80,4 @@ spanish: Spanish
 no_sites: Sorry, we couldn't find any vaccination sites in the selected area. Please try zooming out or moving the map to see more vaccination sites.
 search_hint: Search for vaccine locations
 embed_zoomed_out: Search for a city, zip code, or address to see vaccination sites.
+updated_at: Updated {{time_ago}}
