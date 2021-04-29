@@ -3,21 +3,35 @@
     <div class="order-1 mb-4 text-center md:text-left">
       <a href="https://airtable.com/shrFkXDQmJ9GVh1dN">{% t home_feedback %}</a>
     </div>
-    <div class="order-2 md:order-3 text-center md:text-left mb-2">{% tf footer_about_us.html %}</div>
+    <div class="order-2 md:order-3 text-center md:text-left mb-2">
+      {% tf footer_about_us.html %}
+    </div>
     <div class="order-4 md:order-2 mb-1 text-center md:text-right">
       <span class="me-2">{% t maps_sponsored_by %}</span>
       <img class="inline h-6" src="/assets/img/mapbox-logo-black.png" />
     </div>
-    <div class="order-5 md:order-4 mb-4 text-center md:text-right items-center mt-2">
+    <div
+      class="order-5 md:order-4 mb-4 text-center md:text-right items-center mt-2"
+    >
       <span class="me-2">Some data provided by</span>
       <a href="https://vaccinefinder.org" target="_blank">
-        <img class="inline object-contain mb-1" width="135" src="/assets/img/vaccinefinder_logo.png"/>
+        <img
+          class="inline object-contain mb-1"
+          width="135"
+          src="/assets/img/vaccinefinder_logo.png"
+        />
       </a>
     </div>
     <div class="order-3 md:order-5 md:mb-4">
-      <p class="mt-1 text-center md:text-left">{%if site.twitter != nil %}
-        <a href="https://twitter.com/{{ site.twitter }}" target="_blank" rel="noreferrer"
-          class="inline-block"><img class="h-8 w-8 mr-1" src="/assets/img/twitter.svg" /></a>
+      <p class="mt-1 text-center md:text-left">
+        {%if site.twitter != nil %}
+        <a
+          href="https://twitter.com/{{ site.twitter }}"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-block"
+          ><img class="h-8 w-8 mr-1" src="/assets/img/twitter.svg"
+        /></a>
         {%endif%}
       </p>
     </div>
