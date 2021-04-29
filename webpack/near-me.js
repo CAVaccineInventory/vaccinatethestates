@@ -76,7 +76,7 @@ export const initMap = () => {
   map.on("load", () => {
     map.addSource(vialSourceId, {
       type: "vector",
-      url: "mapbox://calltheshots.vaccinatethestates",
+      url: "mapbox://calltheshots.vtstest",
     });
 
     map.addLayer({

@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
 import siteCardTemplate from "./templates/siteCard.handlebars";
 import { markdownify } from "./utils/markdown.js";
-import { t } from './i18n.js';
 
 
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
@@ -92,6 +91,23 @@ class Site {
       ? markdownify(this.properties["public_notes"])
       : null;
   }
+  availability() {
+    return {
+      appointments: !!this.properties["available_appointments"],
+      walkins: !!this.properties["available_walkins"]
+    }
+  }
+  offeredVaccines() {
+    const offersModerna =  !!this.properties["vaccine_moderna"];
+    const offersPfizer = !!this.properties["vaccine_pfizer"];
+    const offersJJ = !!this.properties["vaccine_jj"];
+    return {
+      vaccinesKnown: offersModerna || offersPfizer || offersJJ,
+      offersModerna,
+      offersPfizer,
+      offersJJ,
+    }
+  }
   context() {
     return {
       id: this.properties["id"],
@@ -112,15 +128,17 @@ class Site {
         "vaccinespotter_location_id"
       ),
       google: this.properties.hasOwnProperty("google_place_id"),
-      lastUpdated: getLastUpdated(this.properties["latest_contact"])
+      lastVerified: getLastVerified(this.properties["latest_contact"]),
+      ...this.availability(),
+      ...this.offeredVaccines()
     };
   }
 }
 
-function getLastUpdated(timestamp) {
+function getLastVerified(timestamp) {
   if (!timestamp) {
     return null;
   }
   const locale = document.documentElement.getAttribute("lang");
-  return t("updated_at", {time_ago: DateTime.fromISO(timestamp, { locale }).toRelative()});
+  return DateTime.fromISO(timestamp, { locale }).toRelative();
 }
