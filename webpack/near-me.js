@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
 
+import { debounce } from './utils/misc.js'
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -14,7 +15,6 @@ import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
 const vialSourceId = "vialSource";
-let mapIsMoving = false;
 
 // State tracking for map & list user interactions
 let selectedSiteId = null;
@@ -108,25 +108,24 @@ export const initMap = () => {
 
   map.on("sourcedata", onSourceData);
 
-  map.on("move", () => (mapIsMoving = true));
-
   // Reload cards on map movement
   map.on("moveend", () => {
-    mapIsMoving = false;
-    toggleCardVisibility();
+    debounce(() => {
+      toggleCardVisibility();
 
-    // When a marker is selected, it is centered in the map,
-    // which raises the `moveend` event and we want to scroll
-    // to the card...
-    renderCardsFromMap();
-    // But subsequent map movements (other than marker selection)
-    // shouldn't scroll anything.
-    scrollToCard = false;
+      // When a marker is selected, it is centered in the map,
+      // which raises the `moveend` event and we want to scroll
+      // to the card...
+      renderCardsFromMap();
+      // But subsequent map movements (other than marker selection)
+      // shouldn't scroll anything.
+      scrollToCard = false;
+    }, 100)();
   });
 };
 
 const onSourceData = (e) => {
-  if (!mapIsMoving && e.sourceId === vialSourceId && e.isSourceLoaded) {
+  if (e.sourceId === vialSourceId && e.isSourceLoaded) {
     // We want to make sure the vial data is fully loaded before we try to
     // render the cards and resolve the map initialization
     mapInitializedResolver();
