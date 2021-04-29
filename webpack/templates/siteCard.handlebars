@@ -6,6 +6,11 @@
                 {{name}}
             </h4>
             <a class="text-sm" href="{{addressLink}}" target="_blank">{{address}}</a>
+
+            <div class="flex flex-row mt-2">
+                <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap text-xs flex me-2">{{t "walkin" }}</span>
+                <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap text-xs flex">{{t "appointments_available" }}</span>
+            </div>
         </div>
         <div class="flex flex-col">
         {{#if action}}
