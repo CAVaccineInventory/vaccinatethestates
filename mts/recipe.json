@@ -46,7 +46,11 @@
             "vaccinespotter_location_id",
             "google_place_id",
             "latest_contact",
-            "restriction_notes"
+            "vaccine_jj",
+            "vaccine_pfizer",
+            "vaccine_moderna",
+            "available_appointments",
+            "available_walkins"
           ]
         }
       },
