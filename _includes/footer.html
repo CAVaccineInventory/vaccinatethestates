@@ -1,39 +1,44 @@
-<div class="pt-3 mt-3 text-gray-400 bg-white border-t-2 border-gray-200">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-    <div class="order-1 mb-4 text-center md:text-left">
-      <a href="https://airtable.com/shrFkXDQmJ9GVh1dN">{% t home_feedback %}</a>
+<div class="pt-3 mt-3 mb-3 text-gray-400 bg-white border-t-2 border-gray-200">
+  <div class="flex flex-col lg:gap-x-4 lg:flex-row lg:justify-between">
+    <div class="flex flex-col">
+      <div class="flex">
+        <p>
+          {%if site.twitter != nil %}
+          <a
+            href="https://twitter.com/{{ site.twitter }}"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-block"
+          >
+            <img class="h-8 w-12 md:w-8 mr-1" src="/assets/img/twitter.svg" />
+          </a>
+          {%endif%}
+        </p>
+        <div class="ml-3 mb-3">
+          {% tf footer_about_us.html %}
+        </div>
+      </div>
+      <div class="mb-3 md:mb-2 text-center md:text-left">
+        <a href="https://airtable.com/shrFkXDQmJ9GVh1dN">{% t home_feedback %}</a>
+      </div>
     </div>
-    <div class="order-2 md:order-3 text-center md:text-left mb-2">
-      {% tf footer_about_us.html %}
-    </div>
-    <div class="order-4 md:order-2 mb-1 text-center md:text-right">
-      <span class="me-2">{% t maps_sponsored_by %}</span>
-      <img class="inline h-6" src="/assets/img/mapbox-logo-black.png" />
-    </div>
-    <div
-      class="order-5 md:order-4 mb-4 text-center md:text-right items-center mt-2"
-    >
-      <span class="me-2">Some data provided by</span>
-      <a href="https://vaccinefinder.org" target="_blank">
-        <img
-          class="inline object-contain mb-1"
-          width="135"
-          src="/assets/img/vaccinefinder_logo.png"
-        />
-      </a>
-    </div>
-    <div class="order-3 md:order-5 md:mb-4">
-      <p class="mt-1 text-center md:text-left">
-        {%if site.twitter != nil %}
-        <a
-          href="https://twitter.com/{{ site.twitter }}"
-          target="_blank"
-          rel="noreferrer"
-          class="inline-block"
-          ><img class="h-8 w-8 mr-1" src="/assets/img/twitter.svg"
-        /></a>
-        {%endif%}
-      </p>
+    <div class="flex flex-col">
+      <div class="mb-3 md:mb-2 text-center md:text-left lg:flex items-center lg:justify-end">
+        <span class="lg:text-right me-2">{% t maps_sponsored_by %}</span>
+        <img class="inline h-6" src="/assets/img/mapbox-logo-black.png" />
+      </div>
+      <div
+        class="text-center md:text-left lg:flex justify-start items-center lg:justify-end mt-2"
+      >
+        <span class="me-2">Some data provided by</span>
+        <a href="https://vaccinefinder.org" target="_blank">
+          <img
+            class="inline object-contain mb-1"
+            width="135"
+            src="/assets/img/vaccinefinder_logo.png"
+          />
+        </a>
+      </div>
     </div>
   </div>
 </div>
