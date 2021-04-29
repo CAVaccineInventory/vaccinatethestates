@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
 
+import { debounce } from "./utils/misc.js";
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -13,6 +14,7 @@ import { isSmallScreen } from "./utils/misc.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
+const vialSourceId = "vialSource";
 
 // State tracking for map & list user interactions
 let selectedSiteId = null;
@@ -71,9 +73,8 @@ export const initMap = () => {
     map.getCanvas().style.cursor = "";
   });
 
-  const sourceId = "vialSource";
   map.on("load", () => {
-    map.addSource(sourceId, {
+    map.addSource(vialSourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",
     });
@@ -81,7 +82,7 @@ export const initMap = () => {
     map.addLayer({
       "id": featureLayer,
       "type": "circle",
-      "source": sourceId,
+      "source": vialSourceId,
       "source-layer": "vialHigh",
       "paint": {
         "circle-radius": 4,
@@ -94,7 +95,7 @@ export const initMap = () => {
     map.addLayer({
       "id": "vialLow",
       "type": "circle",
-      "source": sourceId,
+      "source": vialSourceId,
       "source-layer": "vialLow",
       "paint": {
         "circle-radius": 4,
@@ -105,30 +106,34 @@ export const initMap = () => {
     });
   });
 
-  // We want to make sure the vial data is fully loaded before we try to render
-  // cards and resolve the map initialization
-  map.on("sourcedata", () => {
-    if (map.getSource(sourceId) && map.isSourceLoaded(sourceId)) {
-      mapInitializedResolver();
-      renderCardsFromMap();
-
-      // We only need this on the initial load, so now we're done!
-      map.off("sourcedata");
-    }
-  });
+  map.on("sourcedata", onSourceData);
 
   // Reload cards on map movement
-  map.on("moveend", () => {
-    toggleCardVisibility();
+  map.on("moveend", debouncedMoveEnd);
+};
 
-    // When a marker is selected, it is centered in the map,
-    // which raises the `moveend` event and we want to scroll
-    // to the card...
+const debouncedMoveEnd = debounce(() => {
+  toggleCardVisibility();
+
+  // When a marker is selected, it is centered in the map,
+  // which raises the `moveend` event and we want to scroll
+  // to the card...
+  renderCardsFromMap();
+  // But subsequent map movements (other than marker selection)
+  // shouldn't scroll anything.
+  scrollToCard = false;
+}, 100);
+
+const onSourceData = (e) => {
+  if (e.sourceId === vialSourceId && e.isSourceLoaded) {
+    // We want to make sure the vial data is fully loaded before we try to
+    // render the cards and resolve the map initialization
+    mapInitializedResolver();
     renderCardsFromMap();
-    // But subsequent map movements (other than marker selection)
-    // shouldn't scroll anything.
-    scrollToCard = false;
-  });
+
+    // We only need this on the initial load, so now we're done!
+    map.off("sourcedata", onSourceData);
+  }
 };
 
 const toggleCardVisibility = () => {
