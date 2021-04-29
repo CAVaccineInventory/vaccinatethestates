@@ -2,7 +2,6 @@ import { DateTime } from "luxon";
 import siteCardTemplate from "./templates/siteCard.handlebars";
 import { markdownify } from "./utils/markdown.js";
 
-
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
 
 export const siteCard = (props) => {
@@ -91,14 +90,25 @@ class Site {
       ? markdownify(this.properties["public_notes"])
       : null;
   }
-  availability() {
-    return {
-      appointments: !!this.properties["available_appointments"],
-      walkins: !!this.properties["available_walkins"]
+  lastVerified() {
+    const timestamp = this.properties["latest_contact"];
+    if (!timestamp) {
+      return null;
     }
+    const locale = document.documentElement.getAttribute("lang");
+    return DateTime.fromISO(timestamp, { locale }).toRelative();
+  }
+  availability() {
+    const appointments = !!this.properties["available_appointments"];
+    const walkins = !!this.properties["available_walkins"];
+    return {
+      availabilityKnown: appointments || walkins,
+      appointments,
+      walkins,
+    };
   }
   offeredVaccines() {
-    const offersModerna =  !!this.properties["vaccine_moderna"];
+    const offersModerna = !!this.properties["vaccine_moderna"];
     const offersPfizer = !!this.properties["vaccine_pfizer"];
     const offersJJ = !!this.properties["vaccine_jj"];
     return {
@@ -106,7 +116,7 @@ class Site {
       offersModerna,
       offersPfizer,
       offersJJ,
-    }
+    };
   }
   context() {
     return {
@@ -128,17 +138,9 @@ class Site {
         "vaccinespotter_location_id"
       ),
       google: this.properties.hasOwnProperty("google_place_id"),
-      lastVerified: getLastVerified(this.properties["latest_contact"]),
+      lastVerified: this.lastVerified(),
       ...this.availability(),
-      ...this.offeredVaccines()
+      ...this.offeredVaccines(),
     };
   }
-}
-
-function getLastVerified(timestamp) {
-  if (!timestamp) {
-    return null;
-  }
-  const locale = document.documentElement.getAttribute("lang");
-  return DateTime.fromISO(timestamp, { locale }).toRelative();
 }
