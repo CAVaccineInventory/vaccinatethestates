@@ -1,6 +1,6 @@
 import mapboxgl from "mapbox-gl";
 
-import { debounce } from './utils/misc.js'
+import { debounce } from "./utils/misc.js";
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -109,20 +109,20 @@ export const initMap = () => {
   map.on("sourcedata", onSourceData);
 
   // Reload cards on map movement
-  map.on("moveend", () => {
-    debounce(() => {
-      toggleCardVisibility();
-
-      // When a marker is selected, it is centered in the map,
-      // which raises the `moveend` event and we want to scroll
-      // to the card...
-      renderCardsFromMap();
-      // But subsequent map movements (other than marker selection)
-      // shouldn't scroll anything.
-      scrollToCard = false;
-    }, 100)();
-  });
+  map.on("moveend", debouncedMoveEnd);
 };
+
+const debouncedMoveEnd = debounce(() => {
+  toggleCardVisibility();
+
+  // When a marker is selected, it is centered in the map,
+  // which raises the `moveend` event and we want to scroll
+  // to the card...
+  renderCardsFromMap();
+  // But subsequent map movements (other than marker selection)
+  // shouldn't scroll anything.
+  scrollToCard = false;
+}, 100);
 
 const onSourceData = (e) => {
   if (e.sourceId === vialSourceId && e.isSourceLoaded) {
