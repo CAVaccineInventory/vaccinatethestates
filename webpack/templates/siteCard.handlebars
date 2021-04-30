@@ -21,7 +21,7 @@
             {{/if}}
 
             {{#if vaccinesKnown}}
-                <div class="flex flex-row text-sm">
+                <div class="flex flex-row flex-wrap text-sm">
                     <div class="flex flex-row items-center me-4 {{#if offersModerna}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersModerna}}
                             <img class="h-5" src="/assets/img/checkmark-outline.svg" />
@@ -59,7 +59,7 @@
                 </a>
             {{/if}}
             {{#if lastVerified}}
-                <span class="text-xs me-1">{{t "verified_at" lastVerified=lastVerified}}</span>
+                <span class="text-xs me-1 text-end">{{t "verified_at" lastVerified=lastVerified}}</span>
             {{/if}}
         </div>
     </div>
