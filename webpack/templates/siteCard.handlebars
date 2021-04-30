@@ -55,7 +55,13 @@
                         href="{{action.href}}"
                         {{#if action.isSite}}target="_blank"{{/if}}>
                     <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
-                    <span>{{t action.label}}</span>
+                    {{#if action.isCall}}
+                        <span class="inline lg:hidden">{{t action.label}}</span>
+                        <span class="hidden lg:inline">{{phoneNumber}}</span>
+                    {{else}}
+                        <span>{{t action.label}}</span>
+                    {{/if}}
+
                 </a>
             {{/if}}
             {{#if lastVerified}}
