@@ -22,7 +22,7 @@
 
             {{#if vaccinesKnown}}
                 <div class="flex flex-row text-sm">
-                    <div class="flex flex-row items-center me-4">
+                    <div class="flex flex-row items-center me-4 {{#if offersModerna}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersModerna}}
                             <img class="h-5" src="/assets/img/checkmark-outline.svg" />
                         {{else}}
@@ -30,7 +30,7 @@
                         {{/if}}
                         <span>{{t "moderna" }}</span>
                     </div>
-                    <div class="flex flex-row items-center me-4">
+                    <div class="flex flex-row items-center me-4 {{#if offersPfizer}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersPfizer}}
                             <img class="h-5" src="/assets/img/checkmark-outline.svg" />
                         {{else}}
@@ -38,7 +38,7 @@
                         {{/if}}
                         <span>{{t "pfizer" }}</span>
                     </div>
-                    <div class="flex flex-row items-center">
+                    <div class="flex flex-row items-center {{#if offersJJ}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersJJ}}
                             <img class="h-5" src="/assets/img/checkmark-outline.svg" />
                         {{else}}
