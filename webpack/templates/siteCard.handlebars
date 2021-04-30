@@ -1,23 +1,70 @@
 <li id="{{id}}" class="site-card rounded-lg relative grid grid-cols-1
      shadow border bg-white">
-    <div class="flex flex-row justify-between p-4">
+    <div class="flex flex-row justify-between px-4 pt-4 pb-2">
         <div class="me-2 flex-1">
             <h4 class="font-bold text-lg">
                 {{name}}
             </h4>
-            <a class="text-sm" href="{{addressLink}}" target="_blank">{{address}}</a>
+            <div class="mb-2 text-sm">
+                <a href="{{addressLink}}" target="_blank">{{address}}</a>
+            </div>
+
+            {{#if availabilityKnown}}
+                <div class="flex flex-row text-xs {{#if vaccinesKnown}}mb-2{{/if}}">
+                    {{#if walkins}}
+                    <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex me-2">{{t "walkin" }}</span>
+                    {{/if}}
+                    {{#if appointments}}
+                        <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex">{{t "appointments_available" }}</span>
+                    {{/if}}
+                </div>
+            {{/if}}
+
+            {{#if vaccinesKnown}}
+                <div class="flex flex-row text-sm">
+                    <div class="flex flex-row items-center me-4 {{#if offersModerna}}opacity-100{{else}}opacity-50{{/if}}">
+                        {{#if offersModerna}}
+                            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
+                        {{else}}
+                            <img class="h-5" src="/assets/img/close-outline.svg" />
+                        {{/if}}
+                        <span>{{t "moderna" }}</span>
+                    </div>
+                    <div class="flex flex-row items-center me-4 {{#if offersPfizer}}opacity-100{{else}}opacity-50{{/if}}">
+                        {{#if offersPfizer}}
+                            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
+                        {{else}}
+                            <img class="h-5" src="/assets/img/close-outline.svg" />
+                        {{/if}}
+                        <span>{{t "pfizer" }}</span>
+                    </div>
+                    <div class="flex flex-row items-center {{#if offersJJ}}opacity-100{{else}}opacity-50{{/if}}">
+                        {{#if offersJJ}}
+                            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
+                        {{else}}
+                            <img class="h-5" src="/assets/img/close-outline.svg" />
+                        {{/if}}
+                        <span>{{t "jj" }}</span>
+                    </div>
+                </div>
+            {{/if}}
         </div>
-        {{#if action}}
-            <a class="rounded-full bg-green-600 self-start px-4 py-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex"
-                    href="{{action.href}}"
-                    {{#if action.isSite}}target="_blank"{{/if}}>
-                <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
-                <span>{{t action.label}}</span>
-            </a>
-        {{/if}}
+        <div class="flex flex-col">
+            {{#if action}}
+                <a class="self-end rounded-full bg-green-600 px-4 py-2 mb-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex"
+                        href="{{action.href}}"
+                        {{#if action.isSite}}target="_blank"{{/if}}>
+                    <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
+                    <span>{{t action.label}}</span>
+                </a>
+            {{/if}}
+            {{#if lastVerified}}
+                <span class="text-xs me-1">{{t "verified_at" lastVerified=lastVerified}}</span>
+            {{/if}}
+        </div>
     </div>
     <details>
-        <summary class="px-4 py-2 outline-none cursor-pointer">
+        <summary class="px-4 pb-2 outline-none cursor-pointer">
             {{t "more_details"}}
         </summary>
         {{#if appointmentDetails}}
