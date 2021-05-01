@@ -1,31 +1,35 @@
-<div class="pt-3 mt-3 text-gray-400 bg-white border-t-2 border-gray-200">
-  <div class="flex flex-col lg:flex-row lg:justify-between">
-    <div class="text-center md:text-left mb-2">
-      {% tf footer_about_us.html %}
-      <p class="mt-1">
-        {%if site.twitter != nil %}
-        <a
-          href="https://twitter.com/{{ site.twitter }}"
-          target="_blank"
-          rel="noreferrer"
-          class="inline-block"
+<div
+  class="pt-3 mt-4 lg:mt-8 mb-3 text-gray-400 bg-white border-t-2 border-gray-200"
+>
+  <div class="flex flex-col lg:gap-x-4 lg:flex-row lg:justify-between">
+    <div class="flex flex-col">
+      <div
+        class="flex flex-col items-center text-center md:flex-row md:text-left"
+      >
+        <p>
+          {%if site.twitter != nil %}
+          <a
+            href="https://twitter.com/{{ site.twitter }}"
+            target="_blank"
+            rel="noreferrer"
+            class="inline-block"
+          >
+            <img class="h-6" src="/assets/img/twitter.svg" />
+          </a>
+          {%endif%}
+        </p>
+        <div class="ml-1 mb-2">{% tf footer_about_us.html %}</div>
+      </div>
+      <div class="mb-3 md:mb-2 text-center md:text-left">
+        <a href="https://airtable.com/shrFkXDQmJ9GVh1dN"
+          >{% t home_feedback %}</a
         >
-          <img class="h-8 w-8 mr-1" src="/assets/img/twitter.svg" />
-        </a>
-        {%endif%} {%if site.instagram != nil %}
-        <a
-          href="https://www.instagram.com/{{ site.instagram }}"
-          target="_blank"
-          rel="noreferrer"
-          class="inline-block"
-        >
-          <img class="h-8 w-8 mx-1" src="/assets/img/instagram_gradient.png" />
-        </a>
-        {%endif%}
-      </p>
+      </div>
     </div>
     <div class="flex flex-col">
-      <div class="text-center md:text-left lg:flex items-center lg:justify-end">
+      <div
+        class="mb-3 md:mb-2 text-center md:text-left lg:flex items-center lg:justify-end"
+      >
         <span class="lg:text-right me-2">{% t maps_sponsored_by %}</span>
         <img class="inline h-6" src="/assets/img/mapbox-logo-black.png" />
       </div>
