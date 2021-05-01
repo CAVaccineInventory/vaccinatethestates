@@ -139,7 +139,7 @@ const onSourceData = (e) => {
 const toggleCardVisibility = () => {
   const cardsContainer = document.getElementById("cards_container");
   const zoomedOutContainer = document.getElementById("zoomed_out_view");
-  if (map.getZoom() < 6) {
+  if (map.getZoom() <= 6) {
     toggleVisibility(cardsContainer, false);
     toggleVisibility(zoomedOutContainer, true);
     return;
