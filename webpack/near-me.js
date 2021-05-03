@@ -112,7 +112,6 @@ export const initMap = () => {
   // Reload cards on map movement
   map.on("moveend", async () => {
     await mapInitialized;
-    toggleCardVisibility();
 
     // When a marker is selected, it is centered in the map,
     // which raises the `moveend` event and we want to scroll
@@ -152,6 +151,7 @@ const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
   }
+  const noSites = document.getElementById("js-no-sites-alert");
 
   if (!map.loaded()) {
     // For reasons unknown, we will hit this function when the map is not loaded, even though we await the source data loading
@@ -161,11 +161,11 @@ const renderCardsFromMap = () => {
     if (renderCardsTimeoutId) {
       clearTimeout(renderCardsTimeoutId);
     }
-    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 100);
+    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 50);
     return;
   }
 
-  const noSites = document.getElementById("js-no-sites-alert");
+  toggleCardVisibility();
 
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
