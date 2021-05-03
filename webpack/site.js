@@ -4,7 +4,7 @@ import { markdownify } from "./utils/markdown.js";
 
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
 
-export const siteCard = (props) => {
+export const siteCard = (props, coordinates) => {
   const site = new Site(props);
   const range = document
     .createRange()
@@ -14,6 +14,13 @@ export const siteCard = (props) => {
     e.stopPropagation();
     details.blur();
   });
+
+  const copyButton = range.querySelector('.js-copy-button');
+  copyButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    console.log(`?lng=${coordinates[0]}&lat=${coordinates[1]}&id=${props.id}`);
+  });
+
   return range;
 };
 

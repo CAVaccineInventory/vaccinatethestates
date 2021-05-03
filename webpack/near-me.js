@@ -121,6 +121,11 @@ export const initMap = () => {
     // shouldn't scroll anything.
     scrollToCard = false;
   });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("id")) {
+    selectedSiteId = urlParams.get("id");
+  }
 };
 
 const onSourceData = (e) => {
@@ -182,7 +187,7 @@ const renderCardsFromMap = () => {
   cards.innerHTML = "";
 
   features.slice(0, 50).forEach((feature) => {
-    cards.appendChild(siteCard(feature.properties));
+    cards.appendChild(siteCard(feature.properties, feature.geometry.coordinates));
   });
 
   if (selectedSiteId) {
@@ -197,7 +202,7 @@ const renderCardsFromMap = () => {
           deselect(document.getElementById(selectedSiteId));
         }
         selectedSiteId = card.id;
-        handleSiteCardSelected(card.id);
+        handleSiteCardSelected(card.id, features);
       } else {
         selectedSiteId = null;
         handleSiteCardDeselected();
@@ -206,10 +211,7 @@ const renderCardsFromMap = () => {
   });
 };
 
-const handleSiteCardSelected = (siteId) => {
-  const features = getUniqueFeatures(
-    map.queryRenderedFeatures({ layers: [featureLayer] })
-  );
+const handleSiteCardSelected = (siteId, features) => {
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
   );
