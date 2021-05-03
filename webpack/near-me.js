@@ -1,6 +1,5 @@
 import mapboxgl from "mapbox-gl";
 
-import { debounce } from "./utils/misc.js";
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -20,6 +19,8 @@ const vialSourceId = "vialSource";
 let selectedSiteId = null;
 let selectedMarkerPopup = null;
 let scrollToCard = false;
+
+let renderCardsTimeoutId = null;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -74,6 +75,7 @@ export const initMap = () => {
   });
 
   map.on("load", () => {
+    console.log("LOAD CALLBACK");
     map.addSource(vialSourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",
@@ -109,20 +111,19 @@ export const initMap = () => {
   map.on("sourcedata", onSourceData);
 
   // Reload cards on map movement
-  map.on("moveend", debouncedMoveEnd);
+  map.on("moveend", async () => {
+    await mapInitialized;
+    toggleCardVisibility();
+
+    // When a marker is selected, it is centered in the map,
+    // which raises the `moveend` event and we want to scroll
+    // to the card...
+    renderCardsFromMap();
+    // But subsequent map movements (other than marker selection)
+    // shouldn't scroll anything.
+    scrollToCard = false;
+  });
 };
-
-const debouncedMoveEnd = debounce(() => {
-  toggleCardVisibility();
-
-  // When a marker is selected, it is centered in the map,
-  // which raises the `moveend` event and we want to scroll
-  // to the card...
-  renderCardsFromMap();
-  // But subsequent map movements (other than marker selection)
-  // shouldn't scroll anything.
-  scrollToCard = false;
-}, 100);
 
 const onSourceData = (e) => {
   if (e.sourceId === vialSourceId && e.isSourceLoaded) {
@@ -142,7 +143,6 @@ const toggleCardVisibility = () => {
   if (map.getZoom() <= 6) {
     toggleVisibility(cardsContainer, false);
     toggleVisibility(zoomedOutContainer, true);
-    return;
   } else {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOutContainer, false);
@@ -152,6 +152,19 @@ const toggleCardVisibility = () => {
 const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
+  }
+
+  if (!map.loaded()) {
+    console.log("map not loaded, trying again");
+    // For reasons unknown, we will hit this function when the map is not loaded, even though we await the source data loading
+    // prior to calling it. Manual testing tells us that the loaded flag gets toggled to false sometimes on zoom,
+    // and unfortunately there is no known callback to hook into to safely get this. To workaround this problem,
+    // we simply try again, and again, if the map is not loaded.
+    if (renderCardsTimeoutId) {
+      clearTimeout(renderCardsTimeoutId);
+    }
+    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 100);
+    return;
   }
 
   const noSites = document.getElementById("js-no-sites-alert");
