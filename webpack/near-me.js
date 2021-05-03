@@ -153,15 +153,14 @@ const renderCardsFromMap = () => {
   const noSites = document.getElementById("js-no-sites-alert");
 
   if (!map.isSourceLoaded(vialSourceId)) {
-    console.log("not loaded");
-    // For reasons unknown, we will hit this function when the map is not loaded, even though we await the source data loading
-    // prior to calling it. Manual testing tells us that the loaded flag gets toggled to false sometimes on zoom,
+    // For reasons unknown, we will hit this function when the source is not loaded, even though we await the source data loading
+    // prior to calling it. Manual testing tells us that the loaded flag gets toggled to false on movement,
     // and unfortunately there is no known callback to hook into to safely get this. To workaround this problem,
     // we simply try again, and again, if the map is not loaded.
     if (renderCardsTimeoutId) {
       clearTimeout(renderCardsTimeoutId);
     }
-    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 50);
+    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 100);
     return;
   }
 
