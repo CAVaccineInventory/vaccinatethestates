@@ -1,6 +1,5 @@
 import mapboxgl from "mapbox-gl";
 
-import { debounce } from "./utils/misc.js";
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -20,6 +19,8 @@ const vialSourceId = "vialSource";
 let selectedSiteId = null;
 let selectedMarkerPopup = null;
 let scrollToCard = false;
+
+let renderCardsTimeoutId = null;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -109,27 +110,24 @@ export const initMap = () => {
   map.on("sourcedata", onSourceData);
 
   // Reload cards on map movement
-  map.on("moveend", debouncedMoveEnd);
+  map.on("moveend", async () => {
+    await mapInitialized;
+
+    // When a marker is selected, it is centered in the map,
+    // which raises the `moveend` event and we want to scroll
+    // to the card...
+    renderCardsFromMap();
+    // But subsequent map movements (other than marker selection)
+    // shouldn't scroll anything.
+    scrollToCard = false;
+  });
 };
-
-const debouncedMoveEnd = debounce(() => {
-  toggleCardVisibility();
-
-  // When a marker is selected, it is centered in the map,
-  // which raises the `moveend` event and we want to scroll
-  // to the card...
-  renderCardsFromMap();
-  // But subsequent map movements (other than marker selection)
-  // shouldn't scroll anything.
-  scrollToCard = false;
-}, 100);
 
 const onSourceData = (e) => {
   if (e.sourceId === vialSourceId && e.isSourceLoaded) {
     // We want to make sure the vial data is fully loaded before we try to
     // render the cards and resolve the map initialization
     mapInitializedResolver();
-    renderCardsFromMap();
 
     // We only need this on the initial load, so now we're done!
     map.off("sourcedata", onSourceData);
@@ -142,7 +140,6 @@ const toggleCardVisibility = () => {
   if (map.getZoom() <= 6) {
     toggleVisibility(cardsContainer, false);
     toggleVisibility(zoomedOutContainer, true);
-    return;
   } else {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOutContainer, false);
@@ -153,8 +150,21 @@ const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
   }
-
   const noSites = document.getElementById("js-no-sites-alert");
+
+  if (!map.isSourceLoaded(vialSourceId)) {
+    // For reasons unknown, we will hit this function when the source is not loaded, even though we await the source data loading
+    // prior to calling it. Manual testing tells us that the loaded flag gets toggled to false on movement,
+    // and unfortunately there is no known callback to hook into to safely get this. To workaround this problem,
+    // we simply try again, and again, if the map is not loaded.
+    if (renderCardsTimeoutId) {
+      clearTimeout(renderCardsTimeoutId);
+    }
+    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 100);
+    return;
+  }
+
+  toggleCardVisibility();
 
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
