@@ -75,7 +75,6 @@ export const initMap = () => {
   });
 
   map.on("load", () => {
-    console.log("LOAD CALLBACK");
     map.addSource(vialSourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",
@@ -155,7 +154,6 @@ const renderCardsFromMap = () => {
   }
 
   if (!map.loaded()) {
-    console.log("map not loaded, trying again");
     // For reasons unknown, we will hit this function when the map is not loaded, even though we await the source data loading
     // prior to calling it. Manual testing tells us that the loaded flag gets toggled to false sometimes on zoom,
     // and unfortunately there is no known callback to hook into to safely get this. To workaround this problem,
