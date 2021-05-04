@@ -3,7 +3,10 @@
     <div class="flex flex-row justify-between px-4 pt-4 pb-2">
         <div class="me-2 flex-1">
             <div class="flex flex-row items-center">
-                <img class="h-5 me-1" src="/assets/img/copy_white.svg" />
+                <button class="copy-button js-copy-button me-1" data-clipboard-text={{shareUrl}}>
+                    <img class="copy-button__img h-5" src="/assets/img/copy_outline.svg" />
+                    <img class="copy-button__img-hover h-5" src="/assets/img/copy.svg" />
+                </button>
                 <h4 class="font-bold text-lg">
                     {{name}}
                 </h4>
@@ -135,15 +138,9 @@
                     <p>{{t "data_from"}} Google</p>
                 {{/if}}
             </div>
-            <div class="flex flex-col text-right items-end">
-                <a class="flex flex-row mb-1">
-                    <img class="h-5 me-1" src="/assets/img/copy_white.svg" />
-                    <span class="js-copy-text">{{t "share_link"}}</span>
-                </a>
-                <div class="text-sm">
-                    {{t "correction" }}
-                    <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}" target="_blank">{{t "correction_link"}}</a>
-                </div>
+            <div class="text-right text-sm">
+                {{t "correction" }}
+                <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}" target="_blank">{{t "correction_link"}}</a>
             </div>
         </div>
     </details>

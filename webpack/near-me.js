@@ -198,7 +198,6 @@ const renderCardsFromMap = () => {
     displayPopupForSite(selectedSiteId, features);
   }
 
-  let previousCopiedText = null;
   document.querySelectorAll(".site-card").forEach((card) => {
     card.addEventListener("click", () => {
       toggleSelect(card);
@@ -215,18 +214,8 @@ const renderCardsFromMap = () => {
     });
 
     const copyButton = card.querySelector('.js-copy-button');
-    const copyText = copyButton.querySelector('.js-copy-text');
-    const clipboard = new ClipboardJS(copyButton);
-    clipboard.on('success', () => {
-      console.log('clipboard success');
-      if (previousCopiedText) {
-        previousCopiedText.innerHTML =  t("share_link");
-      }
-      copyText.innerHTML = t("copied");
-      previousCopiedText = copyText;
-    })
+    new ClipboardJS(copyButton);
     copyButton.addEventListener("click", (e) => {
-      console.log(card.id);
       e.stopPropagation();
     })
   });
