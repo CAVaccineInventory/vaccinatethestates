@@ -1,7 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import ClipboardJS from 'clipboard';
 
-import { t } from './i18n.js';
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -14,6 +13,8 @@ import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
 import { siteCard } from "./site.js";
+import { showToast } from "./toasts.js";
+import { t } from "./i18n";
 
 const featureLayer = "vial";
 const vialSourceId = "vialSource";
@@ -214,7 +215,10 @@ const renderCardsFromMap = () => {
     });
 
     const copyButton = card.querySelector('.js-copy-button');
-    new ClipboardJS(copyButton);
+    const clipboard = new ClipboardJS(copyButton);
+    clipboard.on("success", () => {
+      showToast(t("copied_to_clipboard"))
+    })
     copyButton.addEventListener("click", (e) => {
       e.stopPropagation();
     })
