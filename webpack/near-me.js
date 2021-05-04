@@ -1,6 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import ClipboardJS from 'clipboard';
 
+import { t } from './i18n.js';
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -197,8 +198,7 @@ const renderCardsFromMap = () => {
     displayPopupForSite(selectedSiteId, features);
   }
 
-
-  let previousCopied = null;
+  let previousCopiedText = null;
   document.querySelectorAll(".site-card").forEach((card) => {
     card.addEventListener("click", () => {
       toggleSelect(card);
@@ -215,15 +215,18 @@ const renderCardsFromMap = () => {
     });
 
     const copyButton = card.querySelector('.js-copy-button');
+    const copyText = copyButton.querySelector('.js-copy-text');
     const clipboard = new ClipboardJS(copyButton);
     clipboard.on('success', () => {
-      copyButton.textContent = "Copied";
-      if (previousCopied) {
-        previousCopied.textContent = "Copy Link";
+      console.log('clipboard success');
+      if (previousCopiedText) {
+        previousCopiedText.innerHTML =  t("share_link");
       }
-      previousCopied = copyButton;
+      copyText.innerHTML = t("copied");
+      previousCopiedText = copyText;
     })
     copyButton.addEventListener("click", (e) => {
+      console.log(card.id);
       e.stopPropagation();
     })
   });
