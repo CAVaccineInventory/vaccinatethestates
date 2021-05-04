@@ -1,11 +1,12 @@
 import { DateTime } from "luxon";
 import siteCardTemplate from "./templates/siteCard.handlebars";
 import { markdownify } from "./utils/markdown.js";
+import ClipboardJS from 'clipboard';
 
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
 
 export const siteCard = (props, coordinates) => {
-  const site = new Site(props);
+  const site = new Site(props, coordinates);
   const range = document
     .createRange()
     .createContextualFragment(siteCardTemplate(site.context()));
@@ -15,18 +16,14 @@ export const siteCard = (props, coordinates) => {
     details.blur();
   });
 
-  const copyButton = range.querySelector(".js-copy-button");
-  copyButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-    console.log(`?lng=${coordinates[0]}&lat=${coordinates[1]}&id=${props.id}`);
-  });
-
+  new ClipboardJS('.js-copy-button');
   return range;
 };
 
 class Site {
-  constructor(properties) {
+  constructor(properties, coordinates) {
     this.properties = properties;
+    this.coordinates = coordinates;
   }
 
   action() {
@@ -125,6 +122,13 @@ class Site {
       offersJJ,
     };
   }
+  shareUrl() {
+    const url = new URL(window.location.origin);
+    url.searchParams.set("lng", this.coordinates[0]);
+    url.searchParams.set("lat", this.coordinates[1]);
+    url.searchParams.set("id", this.properties["id"]);
+    return url.toString();
+  }
   context() {
     return {
       id: this.properties["id"],
@@ -146,6 +150,7 @@ class Site {
       ),
       google: this.properties.hasOwnProperty("google_place_id"),
       lastVerified: this.lastVerified(),
+      shareUrl: this.shareUrl(),
       ...this.availability(),
       ...this.offeredVaccines(),
     };
