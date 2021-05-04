@@ -5,6 +5,8 @@ import { t } from "./i18n.js";
 import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 
+import mapGeolocatorTemplate from "./templates/mapGeolocator.handlebars";
+
 const SEARCH_ZOOM_LEVEL = 12;
 let usingLocation = false;
 let callbacks = null;
@@ -34,6 +36,7 @@ export const initSearch = (cb, options) => {
     initStandaloneGeocoder(geocoder);
   } else if (options.type === "map") {
     window.map.addControl(geocoder, "top-left");
+    window.map.addControl(new MapGeolocator(), "top-right");
   }
 
   if (options.parseQueryParams) {
@@ -43,6 +46,27 @@ export const initSearch = (cb, options) => {
     });
   }
 };
+
+class MapGeolocator {
+  constructor() {
+    this.container = null;
+  }
+  onAdd(map) {
+    const range = document.createRange().createContextualFragment(mapGeolocatorTemplate());
+    const button = range.querySelector('.js-geolocator');
+    button.addEventListener('click',(e) => {
+      e.preventDefault;
+      console.log("click");
+      button.blur();
+    })
+    this.container = range;
+    return this.container;;
+  }
+
+  onRemove() {
+    this.container.parentNode.removeChild(this.container);
+  }
+}
 
 const initMapboxGeocoder = () => {
   // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
