@@ -2,10 +2,10 @@ import * as Sentry from "@sentry/browser";
 import mapboxgl from "mapbox-gl";
 
 import { t } from "./i18n.js";
+import { EmbedGeolocator } from "./embed-geolocator.js";
 import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
-
-import mapGeolocatorTemplate from "./templates/mapGeolocator.handlebars";
+import { getCurrentPosition } from "./utils/geolocation.js";
 
 const SEARCH_ZOOM_LEVEL = 12;
 let usingLocation = false;
@@ -36,7 +36,12 @@ export const initSearch = (cb, options) => {
     initStandaloneGeocoder(geocoder);
   } else if (options.type === "map") {
     window.map.addControl(geocoder, "top-left");
-    window.map.addControl(new MapGeolocator(), "top-right");
+    window.map.addControl(
+      new EmbedGeolocator((lat, lng) => {
+        submitLocation(lat, lng, SEARCH_ZOOM_LEVEL, "locate");
+      }),
+      "top-right"
+    );
   }
 
   if (options.parseQueryParams) {
@@ -46,27 +51,6 @@ export const initSearch = (cb, options) => {
     });
   }
 };
-
-class MapGeolocator {
-  constructor() {
-    this.container = null;
-  }
-  onAdd(map) {
-    const range = document.createRange().createContextualFragment(mapGeolocatorTemplate());
-    const button = range.querySelector('.js-geolocator');
-    button.addEventListener('click',(e) => {
-      e.preventDefault;
-      console.log("click");
-      button.blur();
-    })
-    this.container = range;
-    return this.container;;
-  }
-
-  onRemove() {
-    this.container.parentNode.removeChild(this.container);
-  }
-}
 
 const initMapboxGeocoder = () => {
   // TODO: import MapboxGeocoder via npm module instead of adding it as a script tag in head
@@ -132,16 +116,11 @@ const initStandaloneGeocoder = (geocoder) => {
 
 const handleGeoSearch = () => {
   const geolocationSubmit = document.getElementById("js-submit-geolocation");
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
+  getCurrentPosition(
+    (lat, lng) => {
       usingLocation = false;
       toggleVisibility(geolocationSubmit, false);
-      submitLocation(
-        position.coords.latitude,
-        position.coords.longitude,
-        SEARCH_ZOOM_LEVEL,
-        "locate"
-      );
+      submitLocation(lat, lng, SEARCH_ZOOM_LEVEL, "locate");
     },
     (err) => {
       usingLocation = false;
@@ -151,10 +130,6 @@ const handleGeoSearch = () => {
         Sentry.captureException(new Error("Could not geolocate user"));
         alert(t("alert_detect"));
       }
-    },
-    {
-      maximumAge: 1000 * 60 * 5, // 5 minutes
-      timeout: 1000 * 15, // 15 seconds
     }
   );
 };
