@@ -2,9 +2,12 @@
      shadow border bg-white">
     <div class="flex flex-row justify-between px-4 pt-4 pb-2">
         <div class="me-2 flex-1">
-            <h4 class="font-bold text-lg">
-                {{name}}
-            </h4>
+            <div class="flex flex-row items-center">
+                <img class="h-5 me-1" src="/assets/img/copy_white.svg" />
+                <h4 class="font-bold text-lg">
+                    {{name}}
+                </h4>
+            </div>
             <div class="mb-2 text-sm">
                 <a href="{{addressLink}}" target="_blank">{{address}}</a>
             </div>
@@ -132,14 +135,12 @@
                     <p>{{t "data_from"}} Google</p>
                 {{/if}}
             </div>
-            <div class="flex flex-col">
-                <button
-                    data-clipboard-text="{{shareUrl}}"
-                    class="js-copy-button self-end rounded-full bg-gray-200 px-3 py-1 mb-1 hover:bg-gray-300 whitespace-nowrap text-sm flex">
+            <div class="flex flex-col text-right items-end">
+                <a class="flex flex-row mb-1">
                     <img class="h-5 me-1" src="/assets/img/copy_white.svg" />
                     <span class="js-copy-text">{{t "share_link"}}</span>
-                </button>
-                <div class="text-right text-sm">
+                </a>
+                <div class="text-sm">
                     {{t "correction" }}
                     <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}" target="_blank">{{t "correction_link"}}</a>
                 </div>
