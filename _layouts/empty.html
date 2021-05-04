@@ -1,5 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: 'en' }}" dir="ltr">
   {% include head.html %} {{ content }}
-  <div id="toast-container" class="fixed bottom-5 left-5"></div>
+  {% include toast_container.html %}
 </html>
