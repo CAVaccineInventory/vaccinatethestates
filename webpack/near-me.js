@@ -1,4 +1,5 @@
 import mapboxgl from "mapbox-gl";
+import ClipboardJS from 'clipboard';
 
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
@@ -196,6 +197,8 @@ const renderCardsFromMap = () => {
     displayPopupForSite(selectedSiteId, features);
   }
 
+
+  let previousCopied = null;
   document.querySelectorAll(".site-card").forEach((card) => {
     card.addEventListener("click", () => {
       toggleSelect(card);
@@ -210,6 +213,19 @@ const renderCardsFromMap = () => {
         handleSiteCardDeselected();
       }
     });
+
+    const copyButton = card.querySelector('.js-copy-button');
+    const clipboard = new ClipboardJS(copyButton);
+    clipboard.on('success', () => {
+      copyButton.textContent = "Copied";
+      if (previousCopied) {
+        previousCopied.textContent = "Copy Link";
+      }
+      previousCopied = copyButton;
+    })
+    copyButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+    })
   });
 };
 

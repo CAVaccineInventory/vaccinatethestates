@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
 import siteCardTemplate from "./templates/siteCard.handlebars";
 import { markdownify } from "./utils/markdown.js";
-import ClipboardJS from 'clipboard';
 
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
 
@@ -15,12 +14,6 @@ export const siteCard = (props, coordinates) => {
     e.stopPropagation();
     details.blur();
   });
-
-  const copyButton = range.querySelector('.js-copy-button');
-  copyButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-  })
-  new ClipboardJS(copyButton);
   return range;
 };
 
