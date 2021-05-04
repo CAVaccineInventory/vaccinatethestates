@@ -177,7 +177,7 @@ const handleUrlParamsOnLoad = () => {
   const lat = urlParams.get("lat");
   const lng = urlParams.get("lng");
   const zoom = urlParams.get("zoom");
-  const siteId = window.location.hash;
+  const siteId = window.location.hash ? window.location.hash.substr(1) : null;
 
   if (zip) {
     geocodeZip(zip, zoom);
