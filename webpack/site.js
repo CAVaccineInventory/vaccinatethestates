@@ -1,3 +1,6 @@
+import ClipboardJS from "clipboard";
+import { showToast } from "./toasts.js";
+import { t } from "./i18n";
 import { DateTime } from "luxon";
 import siteCardTemplate from "./templates/siteCard.handlebars";
 import { markdownify } from "./utils/markdown.js";
@@ -14,6 +17,16 @@ export const siteCard = (props, coordinates) => {
     e.stopPropagation();
     details.blur();
   });
+
+  const copyButton = range.querySelector(".js-copy-button");
+  const clipboard = new ClipboardJS(copyButton);
+  clipboard.on("success", () => {
+    showToast(t("copied_to_clipboard"));
+  });
+  copyButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
   return range;
 };
 
