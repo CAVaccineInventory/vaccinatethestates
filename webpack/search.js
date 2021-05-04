@@ -16,7 +16,7 @@ let callbacks = null;
  * in pseudo typescript:
  *
  * interface Callbacks {
- *   locCallback: (lat: number, lng: number, zoom: number, source: Source) => void
+ *   locCallback: (lat: number, lng: number, zoom: number, source: Source, siteId: string) => void
  *   geoErrorCallback: (error) => void
  * }
  *
@@ -66,7 +66,7 @@ const initStandaloneGeocoder = (geocoder) => {
     if (result && result.center) {
       // TODO: different zooms based on type of place
       const [lng, lat] = result.center;
-      submitLocation(lat, lng, SEARCH_ZOOM_LEVEL, "search");
+      submitLocation(lat, lng, SEARCH_ZOOM_LEVEL, "search", null);
     }
   });
 
@@ -156,12 +156,18 @@ async function geocodeZip(zip, zoom) {
   }
 
   const center = json["features"][0]["center"];
-  submitLocation(center[1], center[0], zoom || SEARCH_ZOOM_LEVEL, "params");
+  submitLocation(
+    center[1],
+    center[0],
+    zoom || SEARCH_ZOOM_LEVEL,
+    "params",
+    null
+  );
 }
 
-const submitLocation = (lat, lng, zoom, source) => {
+const submitLocation = (lat, lng, zoom, source, siteId) => {
   if (callbacks) {
-    callbacks.locCallback(lat, lng, zoom, source);
+    callbacks.locCallback(lat, lng, zoom, source, siteId);
   }
 };
 
@@ -171,11 +177,12 @@ const handleUrlParamsOnLoad = () => {
   const lat = urlParams.get("lat");
   const lng = urlParams.get("lng");
   const zoom = urlParams.get("zoom");
+  const siteId = urlParams.get("id");
 
   if (zip) {
     geocodeZip(zip, zoom);
   } else if (lat && lng) {
-    submitLocation(lat, lng, zoom || SEARCH_ZOOM_LEVEL, "params");
+    submitLocation(lat, lng, zoom || SEARCH_ZOOM_LEVEL, "params", siteId);
   } else if (urlParams.get("locate")) {
     handleGeoSearch();
   }

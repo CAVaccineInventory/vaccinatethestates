@@ -54,15 +54,6 @@ export const initMap = () => {
     // finishes, handler will read the correct states
     // (select the correct card, scroll vs no scroll, etc.)
     handleMarkerSelected(props.id, coordinates);
-
-    // Ensure that if the map is zoomed out such that multiple
-    // copies of the feature are visible, the popup appears
-    // over the copy being pointed to.
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
-
-    displayPopup(props, coordinates);
   });
 
   // Change the cursor to a pointer when the mouse is over the places layer.
@@ -121,11 +112,6 @@ export const initMap = () => {
     // shouldn't scroll anything.
     scrollToCard = false;
   });
-
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get("id")) {
-    selectedSiteId = urlParams.get("id");
-  }
 };
 
 const onSourceData = (e) => {
@@ -187,11 +173,14 @@ const renderCardsFromMap = () => {
   cards.innerHTML = "";
 
   features.slice(0, 50).forEach((feature) => {
-    cards.appendChild(siteCard(feature.properties, feature.geometry.coordinates));
+    cards.appendChild(
+      siteCard(feature.properties, feature.geometry.coordinates)
+    );
   });
 
   if (selectedSiteId) {
     selectSite(selectedSiteId);
+    displayPopupForSite(selectedSiteId, features);
   }
 
   document.querySelectorAll(".site-card").forEach((card) => {
@@ -202,7 +191,7 @@ const renderCardsFromMap = () => {
           deselect(document.getElementById(selectedSiteId));
         }
         selectedSiteId = card.id;
-        handleSiteCardSelected(card.id, features);
+        displayPopupForSite(card.id, features);
       } else {
         selectedSiteId = null;
         handleSiteCardDeselected();
@@ -211,7 +200,7 @@ const renderCardsFromMap = () => {
   });
 };
 
-const handleSiteCardSelected = (siteId, features) => {
+const displayPopupForSite = (siteId, features) => {
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
   );
@@ -326,8 +315,11 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-export async function moveMap(lat, lng, zoom, animate) {
+export async function moveMap(lat, lng, zoom, animate, siteId) {
   await mapInitialized;
+  if (siteId) {
+    selectedSiteId = siteId;
+  }
   if (animate) {
     map.flyTo({ center: [lng, lat], zoom: zoom });
   } else {

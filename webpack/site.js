@@ -15,8 +15,8 @@ export const siteCard = (props, coordinates) => {
     details.blur();
   });
 
-  const copyButton = range.querySelector('.js-copy-button');
-  copyButton.addEventListener('click', (e) => {
+  const copyButton = range.querySelector(".js-copy-button");
+  copyButton.addEventListener("click", (e) => {
     e.stopPropagation();
     console.log(`?lng=${coordinates[0]}&lat=${coordinates[1]}&id=${props.id}`);
   });

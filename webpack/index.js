@@ -7,11 +7,11 @@ const load = () => {
   initMap();
   initSearch(
     {
-      locCallback: (lat, lng, zoom, source) => {
+      locCallback: (lat, lng, zoom, source, siteId) => {
         if (source === "search") {
           history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`);
         }
-        moveMap(lat, lng, zoom, true);
+        moveMap(lat, lng, zoom, !siteId, siteId);
       },
     },
     {
