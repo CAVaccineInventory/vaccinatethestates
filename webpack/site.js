@@ -16,7 +16,11 @@ export const siteCard = (props, coordinates) => {
     details.blur();
   });
 
-  new ClipboardJS('.js-copy-button');
+  const copyButton = range.querySelector('.js-copy-button');
+  copyButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+  })
+  new ClipboardJS(copyButton);
   return range;
 };
 
@@ -126,7 +130,7 @@ class Site {
     const url = new URL(window.location.origin);
     url.searchParams.set("lng", this.coordinates[0]);
     url.searchParams.set("lat", this.coordinates[1]);
-    url.searchParams.set("id", this.properties["id"]);
+    url.hash = this.properties["id"];
     return url.toString();
   }
   context() {

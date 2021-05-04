@@ -22,6 +22,7 @@ let selectedMarkerPopup = null;
 let scrollToCard = false;
 
 let renderCardsTimeoutId = null;
+let preventNextHistoryChange = false;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -113,12 +114,15 @@ export const initMap = () => {
     // shouldn't scroll anything.
     scrollToCard = false;
 
-    const { lat, lng } = map.getCenter();
-    replaceState({
-      lat,
-      lng,
-      zoom: map.getZoom(),
-    });
+    if (!preventNextHistoryChange) {
+      const { lat, lng } = map.getCenter();
+      replaceState({
+        lat,
+        lng,
+        zoom: map.getZoom(),
+      });
+    }
+    preventNextHistoryChange = false;
   });
 };
 
@@ -327,6 +331,7 @@ const getUniqueFeatures = (array) => {
 export async function moveMap(lat, lng, zoom, animate, siteId) {
   await mapInitialized;
   if (siteId) {
+    preventNextHistoryChange = true;
     selectedSiteId = siteId;
   }
   if (animate) {
