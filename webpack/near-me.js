@@ -10,6 +10,7 @@ import {
 } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
+import { replaceState } from "./utils/history.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
@@ -120,6 +121,13 @@ export const initMap = () => {
     // But subsequent map movements (other than marker selection)
     // shouldn't scroll anything.
     scrollToCard = false;
+
+    const { lat, lng } = map.getCenter();
+    replaceState({
+      lat,
+      lng,
+      zoom: map.getZoom(),
+    });
   });
 };
 
@@ -150,6 +158,7 @@ const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
   }
+
   const noSites = document.getElementById("js-no-sites-alert");
 
   if (!map.isSourceLoaded(vialSourceId)) {

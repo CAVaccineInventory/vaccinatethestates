@@ -14,13 +14,8 @@ const load = () => {
   initMap();
   initSearch(
     {
-      locCallback: (lat, lng, zoom, source) => {
-        if (source === "mapbox-control") {
-          // mapbox control already moves for us, just update history
-          history.pushState({}, "", `?lat=${lat}&lng=${lng}&zoom=${zoom}`);
-        } else {
-          moveMap(lat, lng, zoom, false);
-        }
+      locCallback: (lat, lng, zoom, _) => {
+        moveMap(lat, lng, zoom, false);
       },
     },
     {

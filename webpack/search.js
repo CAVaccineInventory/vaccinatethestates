@@ -20,7 +20,7 @@ let callbacks = null;
  *   geoErrorCallback: (error) => void
  * }
  *
- * type Source = "params" | "search" | "locate" | "mapbox-control"
+ * type Source = "params" | "search" | "locate"
  *
  * interface Options {
  *   type: "standalone" | "map",
@@ -34,13 +34,6 @@ export const initSearch = (cb, options) => {
     initStandaloneGeocoder(geocoder);
   } else if (options.type === "map") {
     window.map.addControl(geocoder, "top-left");
-    geocoder.on("result", ({ result }) => {
-      if (result && result.center) {
-        // TODO: different zooms based on type of place
-        const [lng, lat] = result.center;
-        submitLocation(lat, lng, SEARCH_ZOOM_LEVEL, "mapbox-control");
-      }
-    });
   }
 
   if (options.parseQueryParams) {
