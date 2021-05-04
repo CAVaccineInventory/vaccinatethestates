@@ -10,6 +10,7 @@ import {
 } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
+import { replaceState } from "./utils/history.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
@@ -31,7 +32,7 @@ export const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/mapbox/streets-v11",
+    style: "mapbox://styles/calltheshots/cko9bo2ex5x6x17unjidv9a7j",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
   });
@@ -90,7 +91,7 @@ export const initMap = () => {
       "source": vialSourceId,
       "source-layer": "vialLow",
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": 3,
         "circle-color": "#059669",
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
@@ -111,6 +112,13 @@ export const initMap = () => {
     // But subsequent map movements (other than marker selection)
     // shouldn't scroll anything.
     scrollToCard = false;
+
+    const { lat, lng } = map.getCenter();
+    replaceState({
+      lat,
+      lng,
+      zoom: map.getZoom(),
+    });
   });
 };
 
@@ -141,6 +149,7 @@ const renderCardsFromMap = () => {
   if (!window.map) {
     initMap();
   }
+
   const noSites = document.getElementById("js-no-sites-alert");
 
   if (!map.isSourceLoaded(vialSourceId)) {
