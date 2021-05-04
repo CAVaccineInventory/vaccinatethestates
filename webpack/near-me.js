@@ -31,7 +31,7 @@ export const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/mapbox/streets-v11",
+    style: "mapbox://styles/calltheshots/cko9bo2ex5x6x17unjidv9a7j",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
   });
@@ -99,7 +99,7 @@ export const initMap = () => {
       "source": vialSourceId,
       "source-layer": "vialLow",
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": 3,
         "circle-color": "#059669",
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
