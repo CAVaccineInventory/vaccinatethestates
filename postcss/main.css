@@ -39,7 +39,8 @@ a.no-underline {
 }
 
 /* search. Overrule predefined search stylings when appropriate TODO: fully write our own css without importing theirs */
-#search-container, .mapboxgl-ctrl-top-left .mapboxgl-ctrl-geocoder {
+#search-container,
+.mapboxgl-ctrl-top-left .mapboxgl-ctrl-geocoder {
   transform: scale(
     0.7
   ); /* unfortunate hacks to undo their mediaquery styling */
@@ -50,7 +51,8 @@ a.no-underline {
 }
 
 @media (min-width: 640px) {
-  #search-container, .mapboxgl-ctrl-top-left .mapboxgl-ctrl-geocoder {
+  #search-container,
+  .mapboxgl-ctrl-top-left .mapboxgl-ctrl-geocoder {
     transform: scale(1);
   }
 }
