@@ -221,7 +221,6 @@ const triggerSelectSite = (siteId, features) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-
   map.setFeatureState(
     { source: vialSourceId, sourceLayer: "vialHigh", id: feature.id },
     { active: true }
