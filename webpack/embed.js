@@ -14,8 +14,8 @@ const load = () => {
   initMap();
   initSearch(
     {
-      locCallback: (lat, lng, zoom, _) => {
-        moveMap(lat, lng, zoom, false);
+      locCallback: (lat, lng, zoom, source) => {
+        moveMap(lat, lng, zoom, source === "locate");
       },
     },
     {

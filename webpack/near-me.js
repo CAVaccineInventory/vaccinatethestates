@@ -1,6 +1,5 @@
 import mapboxgl from "mapbox-gl";
 
-import { debounce } from "./utils/misc.js";
 import mapMarker from "./templates/mapMarker.handlebars";
 import {
   toggleVisibility,
@@ -11,6 +10,7 @@ import {
 } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
+import { replaceState } from "./utils/history.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
@@ -21,6 +21,8 @@ let selectedSiteId = null;
 let selectedMarkerPopup = null;
 let scrollToCard = false;
 
+let renderCardsTimeoutId = null;
+
 let mapInitializedResolver;
 const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
@@ -30,7 +32,7 @@ export const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/mapbox/streets-v11",
+    style: "mapbox://styles/calltheshots/cko9bo2ex5x6x17unjidv9a7j",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
   });
@@ -98,7 +100,7 @@ export const initMap = () => {
       "source": vialSourceId,
       "source-layer": "vialLow",
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": 3,
         "circle-color": "#059669",
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
@@ -109,27 +111,31 @@ export const initMap = () => {
   map.on("sourcedata", onSourceData);
 
   // Reload cards on map movement
-  map.on("moveend", debouncedMoveEnd);
+  map.on("moveend", async () => {
+    await mapInitialized;
+
+    // When a marker is selected, it is centered in the map,
+    // which raises the `moveend` event and we want to scroll
+    // to the card...
+    renderCardsFromMap();
+    // But subsequent map movements (other than marker selection)
+    // shouldn't scroll anything.
+    scrollToCard = false;
+
+    const { lat, lng } = map.getCenter();
+    replaceState({
+      lat,
+      lng,
+      zoom: map.getZoom(),
+    });
+  });
 };
-
-const debouncedMoveEnd = debounce(() => {
-  toggleCardVisibility();
-
-  // When a marker is selected, it is centered in the map,
-  // which raises the `moveend` event and we want to scroll
-  // to the card...
-  renderCardsFromMap();
-  // But subsequent map movements (other than marker selection)
-  // shouldn't scroll anything.
-  scrollToCard = false;
-}, 100);
 
 const onSourceData = (e) => {
   if (e.sourceId === vialSourceId && e.isSourceLoaded) {
     // We want to make sure the vial data is fully loaded before we try to
     // render the cards and resolve the map initialization
     mapInitializedResolver();
-    renderCardsFromMap();
 
     // We only need this on the initial load, so now we're done!
     map.off("sourcedata", onSourceData);
@@ -139,10 +145,9 @@ const onSourceData = (e) => {
 const toggleCardVisibility = () => {
   const cardsContainer = document.getElementById("cards_container");
   const zoomedOutContainer = document.getElementById("zoomed_out_view");
-  if (map.getZoom() < 6) {
+  if (map.getZoom() <= 6) {
     toggleVisibility(cardsContainer, false);
     toggleVisibility(zoomedOutContainer, true);
-    return;
   } else {
     toggleVisibility(cardsContainer, true);
     toggleVisibility(zoomedOutContainer, false);
@@ -155,6 +160,20 @@ const renderCardsFromMap = () => {
   }
 
   const noSites = document.getElementById("js-no-sites-alert");
+
+  if (!map.isSourceLoaded(vialSourceId)) {
+    // For reasons unknown, we will hit this function when the source is not loaded, even though we await the source data loading
+    // prior to calling it. Manual testing tells us that the loaded flag gets toggled to false on movement,
+    // and unfortunately there is no known callback to hook into to safely get this. To workaround this problem,
+    // we simply try again, and again, if the map is not loaded.
+    if (renderCardsTimeoutId) {
+      clearTimeout(renderCardsTimeoutId);
+    }
+    renderCardsTimeoutId = setTimeout(renderCardsFromMap, 100);
+    return;
+  }
+
+  toggleCardVisibility();
 
   const features = getUniqueFeatures(
     map.queryRenderedFeatures({ layers: [featureLayer] })
