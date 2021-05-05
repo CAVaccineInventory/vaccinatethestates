@@ -1,13 +1,7 @@
 import mapboxgl from "mapbox-gl";
 
 import mapMarker from "./templates/mapMarker.handlebars";
-import {
-  toggleVisibility,
-  isSelected,
-  select,
-  deselect,
-  toggleSelect,
-} from "./utils/dom.js";
+import { toggleVisibility, isSelected, select, deselect } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
@@ -18,6 +12,7 @@ const vialSourceId = "vialSource";
 
 // State tracking for map & list user interactions
 let selectedSiteId = null;
+let selectedFeatureId = null;
 let selectedMarkerPopup = null;
 let scrollToCard = false;
 
@@ -36,15 +31,6 @@ export const initMap = () => {
     style: "mapbox://styles/calltheshots/cko9bo2ex5x6x17unjidv9a7j",
     center: [-98, 40], // starting position [lng, lat]
     zoom: 3, // starting zoom
-  });
-
-  // Generic map click event
-  map.on("click", () => {
-    // If user clicks on any point of the map, we reset
-    // the states so that card selection logic runs correctly.
-    // This is overridden by `featureLayer` click event after
-    selectedSiteId = null;
-    selectedMarkerPopup = null;
   });
 
   // Feature-layer specific click event
@@ -79,9 +65,19 @@ export const initMap = () => {
       "source": vialSourceId,
       "source-layer": "vialHigh",
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": [
+          "case",
+          ["boolean", ["feature-state", "active"], false],
+          6,
+          4,
+        ],
         "circle-color": "#059669",
-        "circle-stroke-width": 1,
+        "circle-stroke-width": [
+          "case",
+          ["boolean", ["feature-state", "active"], false],
+          2,
+          1,
+        ],
         "circle-stroke-color": "#fff",
       },
     });
@@ -192,28 +188,22 @@ const renderCardsFromMap = () => {
   });
 
   if (selectedSiteId) {
-    selectSite(selectedSiteId);
-    displayPopupForSite(selectedSiteId, features);
+    triggerSelectSite(selectedSiteId, features);
   }
 
   document.querySelectorAll(".site-card").forEach((card) => {
     card.addEventListener("click", () => {
-      toggleSelect(card);
       if (isSelected(card)) {
-        if (selectedSiteId && selectedSiteId !== card.id) {
-          deselect(document.getElementById(selectedSiteId));
-        }
-        selectedSiteId = card.id;
-        displayPopupForSite(card.id, features);
+        triggerUnselectSite();
       } else {
-        selectedSiteId = null;
-        handleSiteCardDeselected();
+        triggerUnselectSite();
+        triggerSelectSite(card.id, features);
       }
     });
   });
 };
 
-const displayPopupForSite = (siteId, features) => {
+const triggerSelectSite = (siteId, features) => {
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
   );
@@ -223,46 +213,6 @@ const displayPopupForSite = (siteId, features) => {
     return;
   }
 
-  const coordinates = feature.geometry.coordinates.slice();
-  const props = feature.properties;
-
-  displayPopup(props, coordinates);
-};
-
-const handleSiteCardDeselected = () => {
-  selectedMarkerPopup && selectedMarkerPopup.remove();
-  selectedMarkerPopup = null;
-};
-
-const handleMarkerSelected = (siteId, coordinates) => {
-  selectedSiteId = siteId;
-  selectSite(selectedSiteId);
-  scrollToCard = !isSmallScreen();
-  map.flyTo({
-    center: coordinates,
-  });
-};
-
-const handleMarkerDeselected = (siteId) => {
-  // Ignore when user clicks on the same opened marker
-  if (selectedMarkerPopup) {
-    return;
-  }
-
-  deselect(document.getElementById(siteId));
-  // This event is fired when the mapbox popup is closed
-  // which is when either (1) user closes the popup, or
-  // (2) user selects a different card. We only want to
-  // deselect the card if it's senario (1).
-  if (selectedSiteId === siteId) {
-    deselect(document.getElementById(selectedSiteId));
-    selectedSiteId = null;
-  }
-
-  selectedMarkerPopup = null;
-};
-
-const selectSite = (siteId) => {
   const site = document.getElementById(siteId);
   select(site);
 
@@ -271,13 +221,57 @@ const selectSite = (siteId) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  if (selectedSiteId && selectedSiteId !== siteId) {
-    deselect(document.getElementById(selectedSiteId));
-  }
+  map.setFeatureState(
+    { source: vialSourceId, sourceLayer: "vialHigh", id: feature.id },
+    { active: true }
+  );
+
+  const coordinates = feature.geometry.coordinates.slice();
+  const props = feature.properties;
+  displayPopup(props, coordinates);
+
+  selectedFeatureId = feature.id;
   selectedSiteId = siteId;
 };
 
+const triggerUnselectSite = () => {
+  if (selectedSiteId) {
+    deselect(document.getElementById(selectedSiteId));
+  }
+  if (selectedFeatureId) {
+    map.setFeatureState(
+      { source: vialSourceId, sourceLayer: "vialHigh", id: selectedFeatureId },
+      { active: false }
+    );
+  }
+
+  selectedFeatureId = null;
+  selectedMarkerPopup && selectedMarkerPopup.remove();
+  selectedMarkerPopup = null;
+  selectedSiteId = null;
+};
+
+const handleMarkerSelected = (siteId, coordinates) => {
+  triggerUnselectSite(siteId);
+  selectedSiteId = siteId;
+  scrollToCard = !isSmallScreen();
+  map.flyTo({
+    center: coordinates,
+  });
+};
+
+const handlePopupClosed = (id) => {
+  if (id === selectedSiteId) {
+    selectedMarkerPopup = null;
+    triggerUnselectSite();
+  } // else, popup was closed because another marker was clicked, which handles unselecting / reselecting
+};
+
 const displayPopup = (props, coordinates) => {
+  if (selectedMarkerPopup && selectedSiteId === props.id) {
+    return; // already showing
+  }
+
   if (selectedMarkerPopup) {
     selectedMarkerPopup.remove();
   }
@@ -297,18 +291,15 @@ const displayPopup = (props, coordinates) => {
   const popup = new mapboxgl.Popup({
     maxWidth: "50%",
     focusAfterOpen: false,
+    offset: 4,
   })
     .setLngLat(coordinates)
     .setHTML(marker)
     .addTo(map);
 
-  popup.on("close", () => handleMarkerDeselected(props.id));
+  popup.on("close", () => handlePopupClosed(props.id));
 
-  if (selectedMarkerPopup !== popup) {
-    selectedMarkerPopup = popup;
-  } else {
-    selectedMarkerPopup = null;
-  }
+  selectedMarkerPopup = popup;
 };
 
 const getUniqueFeatures = (array) => {
