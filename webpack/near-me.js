@@ -43,14 +43,14 @@ export const initMap = () => {
     // If user clicks on any point of the map, we reset
     // the states so that card selection logic runs correctly.
     // This is overridden by `featureLayer` click event after
+    if (selectedSiteId) {
+      map.setFeatureState(
+        { source: vialSourceId, sourceLayer: "vialHigh", id: selectedSiteId },
+        { active: false}
+      );
+    }
     selectedSiteId = null;
     selectedMarkerPopup = null;
-  if (TEST_ACTIVE_ID) {
-    map.setFeatureState(
-      { source: vialSourceId, sourceLayer: "vialHigh", id: TEST_ACTIVE_ID },
-      { active: false}
-    );
-  }
   });
 
   // Feature-layer specific click event
@@ -91,13 +91,13 @@ export const initMap = () => {
           6,
           4,
         ],
-        "circle-color": [
+        "circle-color": "#059669",
+        "circle-stroke-width": [
           'case',
           ['boolean', ['feature-state', 'active'], false],
-          "#34D399",
-          "#059669",
+          2,
+          1,
         ],
-        "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
     });
@@ -229,8 +229,6 @@ const renderCardsFromMap = () => {
   });
 };
 
-let TEST_ACTIVE_ID;
-
 const displayPopupForSite = (siteId, features) => {
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
@@ -241,17 +239,10 @@ const displayPopupForSite = (siteId, features) => {
     return;
   }
 
-  if (TEST_ACTIVE_ID) {
-  map.setFeatureState(
-    { source: vialSourceId, sourceLayer: "vialHigh", id: TEST_ACTIVE_ID },
-    { active: false}
-  );
-  }
   map.setFeatureState(
     { source: vialSourceId, sourceLayer: "vialHigh", id: feature.id },
     { active: true}
   );
-  TEST_ACTIVE_ID = feature.id;
 
   const coordinates = feature.geometry.coordinates.slice();
   const props = feature.properties;
