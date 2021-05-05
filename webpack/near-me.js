@@ -1,12 +1,7 @@
 import mapboxgl from "mapbox-gl";
 
 import mapMarker from "./templates/mapMarker.handlebars";
-import {
-  toggleVisibility,
-  isSelected,
-  select,
-  deselect,
-} from "./utils/dom.js";
+import { toggleVisibility, isSelected, select, deselect } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
@@ -72,15 +67,15 @@ export const initMap = () => {
       "source-layer": "vialHigh",
       "paint": {
         "circle-radius": [
-          'case',
-          ['boolean', ['feature-state', 'active'], false],
+          "case",
+          ["boolean", ["feature-state", "active"], false],
           6,
           4,
         ],
         "circle-color": "#059669",
         "circle-stroke-width": [
-          'case',
-          ['boolean', ['feature-state', 'active'], false],
+          "case",
+          ["boolean", ["feature-state", "active"], false],
           2,
           1,
         ],
@@ -237,7 +232,7 @@ const triggerSelectSite = (siteId, features) => {
   const coordinates = feature.geometry.coordinates.slice();
   const props = feature.properties;
   displayPopup(props, coordinates);
-}
+};
 
 const triggerUnselectSite = () => {
   if (selectedSiteId) {
@@ -246,7 +241,7 @@ const triggerUnselectSite = () => {
   if (selectedFeatureId) {
     map.setFeatureState(
       { source: vialSourceId, sourceLayer: "vialHigh", id: selectedFeatureId },
-      { active: false}
+      { active: false }
     );
   }
 
@@ -255,7 +250,7 @@ const triggerUnselectSite = () => {
   selectedMarkerPopup = null;
   selectedMarkerPopupId = null;
   selectedSiteId = null;
-}
+};
 
 const handleMarkerSelected = (siteId, coordinates) => {
   triggerUnselectSite(siteId);
@@ -268,7 +263,7 @@ const handleMarkerSelected = (siteId, coordinates) => {
 
 const handlePopupClosed = () => {
   if (selectedMarkerPopupId !== selectedSiteId) {
-    // Occurs when one popup is open, but another marker selected. Don't want to clear anything because 
+    // Occurs when one popup is open, but another marker selected. Don't want to clear anything because
     // proper data is set after map has repositioned, and clearing out now makes that impossible.
     return;
   }
@@ -301,7 +296,7 @@ const displayPopup = (props, coordinates) => {
   const popup = new mapboxgl.Popup({
     maxWidth: "50%",
     focusAfterOpen: false,
-    offset: 4
+    offset: 4,
   })
     .setLngLat(coordinates)
     .setHTML(marker)
