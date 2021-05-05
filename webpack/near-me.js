@@ -39,12 +39,6 @@ export const initMap = () => {
     zoom: 3, // starting zoom
   });
 
-  // Generic map click event
-  map.on("click", () => {
-    // unselect on generic map click, overriden by feature layer click later
-    triggerUnselectSite();
-  });
-
   // Feature-layer specific click event
   map.on("click", featureLayer, function (e) {
     const coordinates = e.features[0].geometry.coordinates.slice();
@@ -208,6 +202,7 @@ const renderCardsFromMap = () => {
       if (isSelected(card)) {
         triggerUnselectSite();
       } else {
+        triggerUnselectSite();
         triggerSelectSite(card.id, features);
       }
     });
@@ -215,10 +210,6 @@ const renderCardsFromMap = () => {
 };
 
 const triggerSelectSite = (siteId, features) => {
-  if (selectedSiteId !== siteId) {
-    triggerUnselectSite();
-  }
-
   selectedSiteId = siteId;
   const site = document.getElementById(siteId);
   select(site);
@@ -267,6 +258,7 @@ const triggerUnselectSite = () => {
 }
 
 const handleMarkerSelected = (siteId, coordinates) => {
+  triggerUnselectSite(siteId);
   selectedSiteId = siteId;
   scrollToCard = !isSmallScreen();
   map.flyTo({
@@ -275,6 +267,11 @@ const handleMarkerSelected = (siteId, coordinates) => {
 };
 
 const handlePopupClosed = () => {
+  if (selectedMarkerPopupId !== selectedSiteId) {
+    // Occurs when one popup is open, but another marker selected. Don't want to clear anything because 
+    // proper data is set after map has repositioned, and clearing out now makes that impossible.
+    return;
+  }
   selectedMarkerPopup = null;
   selectedMarkerPopupId = null;
   triggerUnselectSite();
@@ -282,8 +279,7 @@ const handlePopupClosed = () => {
 
 const displayPopup = (props, coordinates) => {
   if (selectedMarkerPopup && selectedMarkerPopupId === props.id) {
-    // already showing
-    return;
+    return; // already showing
   }
 
   if (selectedMarkerPopup) {
