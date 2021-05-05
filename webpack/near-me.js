@@ -45,6 +45,12 @@ export const initMap = () => {
     // This is overridden by `featureLayer` click event after
     selectedSiteId = null;
     selectedMarkerPopup = null;
+  if (TEST_ACTIVE_ID) {
+    map.setFeatureState(
+      { source: vialSourceId, sourceLayer: "vialHigh", id: TEST_ACTIVE_ID },
+      { active: false}
+    );
+  }
   });
 
   // Feature-layer specific click event
@@ -79,8 +85,18 @@ export const initMap = () => {
       "source": vialSourceId,
       "source-layer": "vialHigh",
       "paint": {
-        "circle-radius": 4,
-        "circle-color": "#059669",
+        "circle-radius": [
+          'case',
+          ['boolean', ['feature-state', 'active'], false],
+          6,
+          4,
+        ],
+        "circle-color": [
+          'case',
+          ['boolean', ['feature-state', 'active'], false],
+          "#34D399",
+          "#059669",
+        ],
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
@@ -213,6 +229,8 @@ const renderCardsFromMap = () => {
   });
 };
 
+let TEST_ACTIVE_ID;
+
 const displayPopupForSite = (siteId, features) => {
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
@@ -222,6 +240,18 @@ const displayPopupForSite = (siteId, features) => {
   if (!feature) {
     return;
   }
+
+  if (TEST_ACTIVE_ID) {
+  map.setFeatureState(
+    { source: vialSourceId, sourceLayer: "vialHigh", id: TEST_ACTIVE_ID },
+    { active: false}
+  );
+  }
+  map.setFeatureState(
+    { source: vialSourceId, sourceLayer: "vialHigh", id: feature.id },
+    { active: true}
+  );
+  TEST_ACTIVE_ID = feature.id;
 
   const coordinates = feature.geometry.coordinates.slice();
   const props = feature.properties;
@@ -297,6 +327,7 @@ const displayPopup = (props, coordinates) => {
   const popup = new mapboxgl.Popup({
     maxWidth: "50%",
     focusAfterOpen: false,
+    offset: 4
   })
     .setLngLat(coordinates)
     .setHTML(marker)
