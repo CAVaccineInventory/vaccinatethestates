@@ -14,7 +14,6 @@ const vialSourceId = "vialSource";
 let selectedSiteId = null;
 let selectedFeatureId = null;
 let selectedMarkerPopup = null;
-let selectedMarkerPopupId = null;
 let scrollToCard = false;
 
 let renderCardsTimeoutId = null;
@@ -205,15 +204,6 @@ const renderCardsFromMap = () => {
 };
 
 const triggerSelectSite = (siteId, features) => {
-  selectedSiteId = siteId;
-  const site = document.getElementById(siteId);
-  select(site);
-
-  // Scroll the site into viewport
-  if (site && scrollToCard) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
   );
@@ -223,15 +213,26 @@ const triggerSelectSite = (siteId, features) => {
     return;
   }
 
-  selectedFeatureId = feature.id;
+  const site = document.getElementById(siteId);
+  select(site);
+
+  // Scroll the site into viewport
+  if (site && scrollToCard) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+
   map.setFeatureState(
-    { source: vialSourceId, sourceLayer: "vialHigh", id: selectedFeatureId },
+    { source: vialSourceId, sourceLayer: "vialHigh", id: feature.id },
     { active: true }
   );
 
   const coordinates = feature.geometry.coordinates.slice();
   const props = feature.properties;
   displayPopup(props, coordinates);
+
+  selectedFeatureId = feature.id;
+  selectedSiteId = siteId;
 };
 
 const triggerUnselectSite = () => {
@@ -248,7 +249,6 @@ const triggerUnselectSite = () => {
   selectedFeatureId = null;
   selectedMarkerPopup && selectedMarkerPopup.remove();
   selectedMarkerPopup = null;
-  selectedMarkerPopupId = null;
   selectedSiteId = null;
 };
 
@@ -261,19 +261,15 @@ const handleMarkerSelected = (siteId, coordinates) => {
   });
 };
 
-const handlePopupClosed = () => {
-  if (selectedMarkerPopupId !== selectedSiteId) {
-    // Occurs when one popup is open, but another marker selected. Don't want to clear anything because
-    // proper data is set after map has repositioned, and clearing out now makes that impossible.
-    return;
-  }
-  selectedMarkerPopup = null;
-  selectedMarkerPopupId = null;
-  triggerUnselectSite();
+const handlePopupClosed = (id) => {
+  if (id === selectedSiteId) {
+    selectedMarkerPopup = null;
+    triggerUnselectSite();
+  } // else, popup was closed because another marker was clicked, which handles unselecting / reselecting
 };
 
 const displayPopup = (props, coordinates) => {
-  if (selectedMarkerPopup && selectedMarkerPopupId === props.id) {
+  if (selectedMarkerPopup && selectedSiteId === props.id) {
     return; // already showing
   }
 
@@ -302,10 +298,9 @@ const displayPopup = (props, coordinates) => {
     .setHTML(marker)
     .addTo(map);
 
-  popup.on("close", () => handlePopupClosed());
+  popup.on("close", () => handlePopupClosed(props.id));
 
   selectedMarkerPopup = popup;
-  selectedMarkerPopupId = props.id;
 };
 
 const getUniqueFeatures = (array) => {
