@@ -6,7 +6,6 @@ import {
   isSelected,
   select,
   deselect,
-  toggleSelect,
 } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
@@ -18,7 +17,9 @@ const vialSourceId = "vialSource";
 
 // State tracking for map & list user interactions
 let selectedSiteId = null;
+let selectedFeatureId = null;
 let selectedMarkerPopup = null;
+let selectedMarkerPopupId = null;
 let scrollToCard = false;
 
 let renderCardsTimeoutId = null;
@@ -40,17 +41,8 @@ export const initMap = () => {
 
   // Generic map click event
   map.on("click", () => {
-    // If user clicks on any point of the map, we reset
-    // the states so that card selection logic runs correctly.
-    // This is overridden by `featureLayer` click event after
-    if (selectedSiteId) {
-      map.setFeatureState(
-        { source: vialSourceId, sourceLayer: "vialHigh", id: selectedSiteId },
-        { active: false}
-      );
-    }
-    selectedSiteId = null;
-    selectedMarkerPopup = null;
+    // unselect on generic map click, overriden by feature layer click later
+    triggerUnselectSite();
   });
 
   // Feature-layer specific click event
@@ -208,28 +200,34 @@ const renderCardsFromMap = () => {
   });
 
   if (selectedSiteId) {
-    selectSite(selectedSiteId);
-    displayPopupForSite(selectedSiteId, features);
+    triggerSelectSite(selectedSiteId, features);
   }
 
   document.querySelectorAll(".site-card").forEach((card) => {
     card.addEventListener("click", () => {
-      toggleSelect(card);
       if (isSelected(card)) {
-        if (selectedSiteId && selectedSiteId !== card.id) {
-          deselect(document.getElementById(selectedSiteId));
-        }
-        selectedSiteId = card.id;
-        displayPopupForSite(card.id, features);
+        triggerUnselectSite();
       } else {
-        selectedSiteId = null;
-        handleSiteCardDeselected();
+        triggerSelectSite(card.id, features);
       }
     });
   });
 };
 
-const displayPopupForSite = (siteId, features) => {
+const triggerSelectSite = (siteId, features) => {
+  if (selectedSiteId !== siteId) {
+    triggerUnselectSite();
+  }
+
+  selectedSiteId = siteId;
+  const site = document.getElementById(siteId);
+  select(site);
+
+  // Scroll the site into viewport
+  if (site && scrollToCard) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   const matches = features.filter(
     (x) => x.properties && x.properties.id === siteId
   );
@@ -239,66 +237,55 @@ const displayPopupForSite = (siteId, features) => {
     return;
   }
 
+  selectedFeatureId = feature.id;
   map.setFeatureState(
-    { source: vialSourceId, sourceLayer: "vialHigh", id: feature.id },
-    { active: true}
+    { source: vialSourceId, sourceLayer: "vialHigh", id: selectedFeatureId },
+    { active: true }
   );
 
   const coordinates = feature.geometry.coordinates.slice();
   const props = feature.properties;
-
   displayPopup(props, coordinates);
-};
+}
 
-const handleSiteCardDeselected = () => {
+const triggerUnselectSite = () => {
+  if (selectedSiteId) {
+    deselect(document.getElementById(selectedSiteId));
+  }
+  if (selectedFeatureId) {
+    map.setFeatureState(
+      { source: vialSourceId, sourceLayer: "vialHigh", id: selectedFeatureId },
+      { active: false}
+    );
+  }
+
+  selectedFeatureId = null;
   selectedMarkerPopup && selectedMarkerPopup.remove();
   selectedMarkerPopup = null;
-};
+  selectedMarkerPopupId = null;
+  selectedSiteId = null;
+}
 
 const handleMarkerSelected = (siteId, coordinates) => {
   selectedSiteId = siteId;
-  selectSite(selectedSiteId);
   scrollToCard = !isSmallScreen();
   map.flyTo({
     center: coordinates,
   });
 };
 
-const handleMarkerDeselected = (siteId) => {
-  // Ignore when user clicks on the same opened marker
-  if (selectedMarkerPopup) {
-    return;
-  }
-
-  deselect(document.getElementById(siteId));
-  // This event is fired when the mapbox popup is closed
-  // which is when either (1) user closes the popup, or
-  // (2) user selects a different card. We only want to
-  // deselect the card if it's senario (1).
-  if (selectedSiteId === siteId) {
-    deselect(document.getElementById(selectedSiteId));
-    selectedSiteId = null;
-  }
-
+const handlePopupClosed = () => {
   selectedMarkerPopup = null;
-};
-
-const selectSite = (siteId) => {
-  const site = document.getElementById(siteId);
-  select(site);
-
-  // Scroll the site into viewport
-  if (site && scrollToCard) {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  if (selectedSiteId && selectedSiteId !== siteId) {
-    deselect(document.getElementById(selectedSiteId));
-  }
-  selectedSiteId = siteId;
+  selectedMarkerPopupId = null;
+  triggerUnselectSite();
 };
 
 const displayPopup = (props, coordinates) => {
+  if (selectedMarkerPopup && selectedMarkerPopupId === props.id) {
+    // already showing
+    return;
+  }
+
   if (selectedMarkerPopup) {
     selectedMarkerPopup.remove();
   }
@@ -324,13 +311,10 @@ const displayPopup = (props, coordinates) => {
     .setHTML(marker)
     .addTo(map);
 
-  popup.on("close", () => handleMarkerDeselected(props.id));
+  popup.on("close", () => handlePopupClosed());
 
-  if (selectedMarkerPopup !== popup) {
-    selectedMarkerPopup = popup;
-  } else {
-    selectedMarkerPopup = null;
-  }
+  selectedMarkerPopup = popup;
+  selectedMarkerPopupId = props.id;
 };
 
 const getUniqueFeatures = (array) => {

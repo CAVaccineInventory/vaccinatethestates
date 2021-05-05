@@ -16,10 +16,3 @@ export const select = (element) =>
 
 export const deselect = (element) =>
   element && element.classList.remove("is-selected");
-
-export const toggleSelect = (element) => {
-  if (!element) {
-    return;
-  }
-  isSelected(element) ? deselect(element) : select(element);
-};
