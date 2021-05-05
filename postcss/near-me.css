@@ -14,3 +14,19 @@
 .site-card.is-selected {
   @apply border-green-600;
 }
+
+.copy-button .copy-button__img {
+  display: block;
+}
+
+.copy-button:hover .copy-button__img {
+  display: none;
+}
+
+.copy-button .copy-button__img-hover {
+  display: none;
+}
+
+.copy-button:hover .copy-button__img-hover {
+  display: block;
+}

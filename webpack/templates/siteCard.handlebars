@@ -2,9 +2,15 @@
      shadow border bg-white">
     <div class="flex flex-row justify-between px-4 pt-4 pb-2">
         <div class="me-2 flex-1">
-            <h4 class="font-bold text-lg">
-                {{name}}
-            </h4>
+            <div class="inline">
+                <button class="copy-button js-copy-button relative top-1" data-clipboard-text={{shareUrl}}>
+                    <img class="copy-button__img h-5" src="/assets/img/link.svg" />
+                    <img class="copy-button__img-hover h-5 hidden" src="/assets/img/link_green.svg" />
+                </button>
+                <h4 class="font-bold text-lg inline">
+                    {{name}}
+                </h4>
+            </div>
             <div class="mb-2 text-sm">
                 <a href="{{addressLink}}" target="_blank">{{address}}</a>
             </div>

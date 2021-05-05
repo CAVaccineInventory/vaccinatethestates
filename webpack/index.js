@@ -7,8 +7,8 @@ const load = () => {
   initMap();
   initSearch(
     {
-      locCallback: (lat, lng, zoom, _) => {
-        moveMap(lat, lng, zoom, true);
+      locCallback: (lat, lng, zoom, _, siteId) => {
+        moveMap(lat, lng, zoom, !siteId, siteId);
       },
     },
     {
