@@ -1,5 +1,15 @@
 # Vaccinate The States 🇺🇸
 
+Vaccinate The States is the web frontend for displaying vaccination sites across the US. It is static pages served with Jekyll
+with vanilla JS on top. It consists of two main pages `index.html` and `embed.html`. Both pages support the following query parameters:
+
+- `zip={code}` zip code to center the map
+- `lat={lat}&lng={lng}` latitude and longitude values to center the map
+- `zoom={level}` zoom level to start the map at
+- `pfizer=1` to display only locations that provide Pfizer
+- `jj=1` to display only locations that provide J&J 
+- `moderna=1` to display only locations that provide Moderna
+
 ## How to begin local development on a Mac
 
 ### Set up Ruby 2.7
