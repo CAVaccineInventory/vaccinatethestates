@@ -131,16 +131,20 @@ export const initMap = () => {
 };
 
 const initFilters = () => {
-  return;
-  document.querySelector(".js-filter-button").addEventListener("click", () => {
-    toggleVisibility(document.querySelector(".js-filter-active"), true);
-    toggleVisibility(document.querySelector(".js-filter-button"), false);
-    toggleVisibility(document.querySelector(".js-closefilter-button"), true);
+  const dropdown = document.querySelector(".js-filter-dropdown");
+
+  window.addEventListener('click', () => {
+    // any outside click closes the dropdown
+    toggleVisibility(dropdown, false);
   })
-  document.querySelector(".js-closefilter-button").addEventListener("click", () => {
-    toggleVisibility(document.querySelector(".js-filter-active"), false);
-    toggleVisibility(document.querySelector(".js-filter-button"), true);
-    toggleVisibility(document.querySelector(".js-closefilter-button"), false);
+
+  dropdown.addEventListener("click", (e) => {
+    e.stopPropagation();
+  })
+
+  document.querySelector(".js-filter-button").addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleVisibility(dropdown, dropdown.classList.contains("hidden"));
   })
 }
 
