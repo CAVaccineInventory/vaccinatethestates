@@ -5,7 +5,7 @@ import { toggleVisibility, isSelected, select, deselect } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
-import { createVaccineFilter } from "./utils/mapbox.js";
+import { createMapboxFilter } from "./filters.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
@@ -60,7 +60,7 @@ export const initMap = () => {
       url: "mapbox://calltheshots.vaccinatethestates",
     });
 
-    const filter = createVaccineFilter();
+    const filter = createMapboxFilter();
     const highLayer = {
       "id": featureLayer,
       "type": "circle",
@@ -126,27 +126,7 @@ export const initMap = () => {
     }
     preventNextHistoryChange = false;
   });
-
-  initFilters();
 };
-
-const initFilters = () => {
-  const dropdown = document.querySelector(".js-filter-dropdown");
-
-  window.addEventListener('click', () => {
-    // any outside click closes the dropdown
-    toggleVisibility(dropdown, false);
-  })
-
-  dropdown.addEventListener("click", (e) => {
-    e.stopPropagation();
-  })
-
-  document.querySelector(".js-filter-button").addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleVisibility(dropdown, dropdown.classList.contains("hidden"));
-  })
-}
 
 const onSourceData = (e) => {
   if (e.sourceId === vialSourceId && e.isSourceLoaded) {
