@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-between px-4 pt-4 pb-2">
         <div class="me-2 flex-1">
             <div class="inline">
-                <button title="{{t "copy_link" }}"" alt="{{t "copy_link" }}" class="copy-button js-copy-button relative top-1" data-clipboard-text={{shareUrl}}>
+                <button title="{{t "copy_link_alt" }}"" alt="{{t "copy_link_alt" }}" class="copy-button js-copy-button relative top-1" data-clipboard-text={{shareUrl}}>
                     <img class="copy-button__img h-5" src="/assets/img/link.svg" />
                     <img class="copy-button__img-hover h-5 hidden" src="/assets/img/link_green.svg" />
                 </button>
@@ -28,27 +28,36 @@
 
             {{#if vaccinesKnown}}
                 <div class="flex flex-row flex-wrap text-sm">
-                    <div class="flex flex-row items-center me-4 {{#if offersModerna}}opacity-100{{else}}opacity-50{{/if}}">
+                    <div 
+                        role="img" 
+                        aria-label="{{#if offersModerna}}{{t "moderna_available"}}{{else}}{{t "moderna_unavailable"}}{{/if}}" 
+                        class="flex flex-row items-center me-4 {{#if offersModerna}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersModerna}}
-                            <img alt="{{t "moderna_available"}}" class="h-5" src="/assets/img/checkmark-outline.svg" />
+                            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
                         {{else}}
-                            <img alt="{{t "moderna_unavailable"}}" class="h-5" src="/assets/img/close-outline.svg" />
+                            <img class="h-5" src="/assets/img/close-outline.svg" />
                         {{/if}}
                         <span>{{t "moderna" }}</span>
                     </div>
-                    <div class="flex flex-row items-center me-4 {{#if offersPfizer}}opacity-100{{else}}opacity-50{{/if}}">
+                    <div 
+                        role="img"
+                        aria-label="{{#if offersPfizer}}{{t "pfizer_available"}}{{else}}{{t "pfizer_unavailable"}}{{/if}}" 
+                        class="flex flex-row items-center me-4 {{#if offersPfizer}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersPfizer}}
-                            <img alt="{{t "pfizer_available"}}" class="h-5" src="/assets/img/checkmark-outline.svg" />
+                            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
                         {{else}}
-                            <img alt="{{t "pfizer_unavailable"}}" class="h-5" src="/assets/img/close-outline.svg" />
+                            <img class="h-5" src="/assets/img/close-outline.svg" />
                         {{/if}}
                         <span>{{t "pfizer" }}</span>
                     </div>
-                    <div class="flex flex-row items-center {{#if offersJJ}}opacity-100{{else}}opacity-50{{/if}}">
+                    <div 
+                        role="img"
+                        aria-label="{{#if offersJJ}}{{t "jj_available"}}{{else}}{{t "jj_unavailable"}}{{/if}}" 
+                        class="flex flex-row items-center {{#if offersJJ}}opacity-100{{else}}opacity-50{{/if}}">
                         {{#if offersJJ}}
-                            <img alt="{{t "jj_available"}}" class="h-5" src="/assets/img/checkmark-outline.svg" />
+                            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
                         {{else}}
-                            <img alt="{{t "jj_unavailable"}}" class="h-5" src="/assets/img/close-outline.svg" />
+                            <img class="h-5" src="/assets/img/close-outline.svg" />
                         {{/if}}
                         <span>{{t "jj" }}</span>
                     </div>
@@ -60,7 +69,7 @@
                 <a class="self-end rounded-full bg-green-600 px-4 py-2 mb-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex"
                         href="{{action.href}}"
                         {{#if action.isSite}}target="_blank"{{/if}}>
-                    <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
+                    <img aria-hidden="true" class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
                     <span>{{t action.label}}</span>
                 </a>
             {{/if}}
@@ -101,13 +110,13 @@
                 <div class="flex flex-row flex-wrap justify-between text-sm">
                     {{#if website}}
                         <div class="flex flex-row">
-                            <img alt="{{t "website"}}" class="h-5 mb-1 me-2" src="/assets/img/link.svg" />
+                            <img aria-hidden="true" class="h-5 mb-1 me-2" src="/assets/img/link.svg" />
                             <a href="{{website}}" class="break-all" target="_blank">{{website}}</a>
                         </div>
                     {{/if}}
                     {{#if phoneNumber}}
                         <div class="flex flex-row">
-                        <img alt="{{t "phone_number"}}" class="h-5 me-2" src="/assets/img/phone.svg" />
+                        <img aria-hidden="true" class="h-5 me-2" src="/assets/img/phone.svg" />
                             <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
                         </div>
                     {{/if}}
