@@ -1,11 +1,13 @@
 import { initSearch } from "./search.js";
-import { initMap, moveMap } from "./near-me.js";
+import { initMap, moveMap, setMapFilter } from "./near-me.js";
 import { initFilters } from "./filters.js";
 
 window.addEventListener("load", () => load());
 
 const load = () => {
-  initFilters();
+  initFilters((filter) => {
+    setMapFilter(filter);
+  });
   initMap();
   initSearch(
     {

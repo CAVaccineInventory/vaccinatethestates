@@ -25,7 +25,7 @@ const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
 );
 
-export const initMap = () => {
+const initMap = () => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -325,7 +325,7 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-export async function moveMap(lat, lng, zoom, animate, siteId) {
+async function moveMap(lat, lng, zoom, animate, siteId) {
   await mapInitialized;
   if (siteId) {
     preventNextHistoryChange = true;
@@ -337,3 +337,14 @@ export async function moveMap(lat, lng, zoom, animate, siteId) {
     map.jumpTo({ center: [lng, lat], zoom: zoom });
   }
 }
+
+const setMapFilter = async (filter) => {
+  await mapInitialized;
+
+  console.log(filter);
+  map.setFilter(featureLayer, filter);
+  // TODO: figure out the proper way to avoid this race
+  setTimeout(renderCardsFromMap, 300);
+}
+
+export {initMap, moveMap, setMapFilter};

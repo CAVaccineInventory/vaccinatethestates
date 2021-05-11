@@ -3,7 +3,7 @@ let filterPfizer;
 let filterJJ;
 let filterModerna;
 
-const initFilters = () => {
+const initFilters = (callback) => {
   const urlParams = new URLSearchParams(window.location.search);
   filterPfizer = !!urlParams.get("pfizer");
   filterJJ = !!urlParams.get("jj");
@@ -35,12 +35,15 @@ const initFilters = () => {
 
   modernaInput.addEventListener("change", () => {
     filterModerna = !!modernaInput.checked;
+    callback(createMapboxFilter());
   })
   pfizerInput.addEventListener("change", () => {
     filterPfizer = !!pfizerInput.checked;
+    callback(createMapboxFilter());
   })
   jjInput.addEventListener("change", () => {
     filterJJ = !!jjInput.checked;
+    callback(createMapboxFilter());
   })
 }
 
