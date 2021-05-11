@@ -29,9 +29,9 @@ home_body: |
     <p class="text-sm">We're building the most comprehensive map of vaccination sites in America. Want to help? <a href="https://blog.vaccinateca.com/help-vaccinate-the-states/">Learn more &rarr;</a></p>
 home_feedback: 'Provide site feedback'
 about_intro: |
-    Vaccinate The States is a non-profit, non-partisan, community-driven effort that helps Americans
-    learn accurate, up-to-date information about how to get the coronavirus vaccine. We are building
-    the most comprehensive list of vaccination sites in the United States.
+    Vaccinate The States is a non-profit, non-partisan, community-driven effort that helps people 
+    in the United States learn accurate, up-to-date information about how to get the coronavirus 
+    vaccine. We are building the most comprehensive list of vaccination sites in the United States.
 about_how_we_work_title: How We Work
 about_how_we_work: |
     Our team calls medical professionals at hundreds of potential vaccination sites
