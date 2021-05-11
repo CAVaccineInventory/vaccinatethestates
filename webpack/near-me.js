@@ -126,7 +126,23 @@ export const initMap = () => {
     }
     preventNextHistoryChange = false;
   });
+
+  initFilters();
 };
+
+const initFilters = () => {
+  return;
+  document.querySelector(".js-filter-button").addEventListener("click", () => {
+    toggleVisibility(document.querySelector(".js-filter-active"), true);
+    toggleVisibility(document.querySelector(".js-filter-button"), false);
+    toggleVisibility(document.querySelector(".js-closefilter-button"), true);
+  })
+  document.querySelector(".js-closefilter-button").addEventListener("click", () => {
+    toggleVisibility(document.querySelector(".js-filter-active"), false);
+    toggleVisibility(document.querySelector(".js-filter-button"), true);
+    toggleVisibility(document.querySelector(".js-closefilter-button"), false);
+  })
+}
 
 const onSourceData = (e) => {
   if (e.sourceId === vialSourceId && e.isSourceLoaded) {

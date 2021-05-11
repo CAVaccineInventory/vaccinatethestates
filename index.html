@@ -16,7 +16,24 @@ order: 1
         </div>
 
         <div id="cards_container" class="hidden animate-fade-in-down">
-          <div class="text-2xl font-semibold mb-4 mt-4 lg:mt-0">{% t home_title %}</div>
+          <div class="flex justify-between items-center">
+            <div class="text-2xl font-semibold mb-4 mt-4 lg:mt-0">{% t home_title %}</div>
+            {% include filters.html %}
+          <!--
+            <button class="js-filter-button flex flex-row mb-2"> <img width="20" src="assets/img/funnel-outline.svg"/> Filters </button>
+            <button class="js-closefilter-button flex flex-row mb-2 hidden"> <img width="20" src="assets/img/funnel.svg"/> Filters </button>
+          -->
+          </div>
+          <!--
+          <div class="js-filter-active hidden">
+            <div class="flex mb-2">
+                <div class="mx-2"><input type="checkbox" id="modernaFilter"><span> {% t moderna %}</span></div>
+                <div class="mx-2"><input type="checkbox" id="pfizerFilter"><span> {% t pfizer %} </span></div>
+                <div class="mx-2"><input type="checkbox" id="jjFilter"><span> {% t jj %}</span></div>
+            </div>
+          -->
+        </div>
+
           <div id="js-no-sites-alert" class="hidden bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">{% t no_sites %}</div>
           <ol id="cards" class="space-y-4"></ol>
           <div class="my-4 flex flex-col items-center text-center">
