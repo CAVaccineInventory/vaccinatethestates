@@ -5,6 +5,7 @@ import { toggleVisibility, isSelected, select, deselect } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
+import { createVaccineFilter } from "./utils/mapbox.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
@@ -59,7 +60,8 @@ export const initMap = () => {
       url: "mapbox://calltheshots.vaccinatethestates",
     });
 
-    map.addLayer({
+    const filter = createVaccineFilter();
+    const highLayer = {
       "id": featureLayer,
       "type": "circle",
       "source": vialSourceId,
@@ -80,7 +82,11 @@ export const initMap = () => {
         ],
         "circle-stroke-color": "#fff",
       },
-    });
+    };
+    if (filter) {
+      highLayer.filter = filter;
+    }
+    map.addLayer(highLayer);
 
     map.addLayer({
       "id": "vialLow",
