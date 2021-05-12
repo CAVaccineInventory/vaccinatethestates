@@ -51,10 +51,10 @@
         </div>
         <div class="flex flex-col">
             {{#if action}}
-                <a class="self-end rounded-full bg-green-600 px-4 py-2 mb-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex"
+                <a class="self-end rounded-full bg-green-600 px-2 py-1 mb-2 text-white hover:bg-green-700 whitespace-nowrap text-xs flex"
                         href="{{action.href}}"
                         {{#if action.isSite}}target="_blank"{{/if}}>
-                    <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
+                    <img class="h-4 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
                     {{#if action.isCall}}
                         <span class="inline lg:hidden">{{t action.label}}</span>
                         <span class="hidden lg:inline">{{phoneNumber}}</span>
