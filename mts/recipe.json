@@ -10,17 +10,21 @@
         "attributes": {
           "allowed_output": [
             "id",
-            "name"
+            "name",
+            "vaccine_jj",
+            "vaccine_pfizer",
+            "vaccine_moderna",
+            "fidelity"
           ]
         }
       },
       "tiles": {
         "limit": [
           [
-            "lowest_where_in_distance",
+            "highest_where_in_distance",
             true,
             16384,
-            "id"
+            "fidelity"
           ]
         ]
       }
