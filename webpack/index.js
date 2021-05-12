@@ -7,7 +7,9 @@ window.addEventListener("load", () => load());
 const load = () => {
   // TODO: remove once we add client side filters
   const urlParams = new URLSearchParams(window.location.search);
-  const pfizerTemplate = pfizerLinkTemplate({pfizerFiltered: !!urlParams.get("pfizer")});
+  const pfizerTemplate = pfizerLinkTemplate({
+    pfizerFiltered: !!urlParams.get("pfizer"),
+  });
   document.querySelector(".js-pfizer").innerHTML = pfizerTemplate;
 
   initMap();

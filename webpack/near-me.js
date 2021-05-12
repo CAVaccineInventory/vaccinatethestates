@@ -99,7 +99,7 @@ export const initMap = () => {
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
-    }
+    };
     if (filter) {
       lowLayer.filter = filter;
     }
