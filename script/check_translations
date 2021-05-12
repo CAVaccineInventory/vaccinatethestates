@@ -2,7 +2,7 @@
 require 'yaml'
 
 translation_keys = YAML.load_file('_i18n/en.yml').keys
-files = Dir.glob("**/*.{html,handlebars,js}").reject { |f| f =~ /_i18n|node_modules|_site|assets/ }
+files = Dir.glob("**/*.{html,handlebars,js,md}").reject { |f| f =~ /_i18n|node_modules|_site|assets|README.md/ }
 detected_keys = []
 
 translation_keys.each do |key|
