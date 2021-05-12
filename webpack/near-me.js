@@ -88,7 +88,7 @@ export const initMap = () => {
     }
     map.addLayer(highLayer);
 
-    map.addLayer({
+    const lowLayer = {
       "id": "vialLow",
       "type": "circle",
       "source": vialSourceId,
@@ -99,7 +99,11 @@ export const initMap = () => {
         "circle-stroke-width": 1,
         "circle-stroke-color": "#fff",
       },
-    });
+    };
+    if (filter) {
+      lowLayer.filter = filter;
+    }
+    map.addLayer(lowLayer);
   });
 
   map.on("sourcedata", onSourceData);
