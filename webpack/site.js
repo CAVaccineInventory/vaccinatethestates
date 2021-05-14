@@ -1,11 +1,14 @@
+import ClipboardJS from "clipboard";
+import { showToast } from "./toasts.js";
+import { t } from "./i18n";
 import { DateTime } from "luxon";
 import siteCardTemplate from "./templates/siteCard.handlebars";
 import { markdownify } from "./utils/markdown.js";
 
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
 
-export const siteCard = (props) => {
-  const site = new Site(props);
+export const siteCard = (props, coordinates) => {
+  const site = new Site(props, coordinates);
   const range = document
     .createRange()
     .createContextualFragment(siteCardTemplate(site.context()));
@@ -14,12 +17,23 @@ export const siteCard = (props) => {
     e.stopPropagation();
     details.blur();
   });
+
+  const copyButton = range.querySelector(".js-copy-button");
+  const clipboard = new ClipboardJS(copyButton);
+  clipboard.on("success", () => {
+    showToast(t("copied_to_clipboard"));
+  });
+  copyButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
   return range;
 };
 
 class Site {
-  constructor(properties) {
+  constructor(properties, coordinates) {
     this.properties = properties;
+    this.coordinates = coordinates;
   }
 
   action() {
@@ -122,6 +136,13 @@ class Site {
       offersJJ,
     };
   }
+  shareUrl() {
+    const url = new URL(window.location.origin);
+    url.searchParams.set("lng", this.coordinates[0]);
+    url.searchParams.set("lat", this.coordinates[1]);
+    url.hash = this.properties["id"];
+    return url.toString();
+  }
   context() {
     return {
       id: this.properties["id"],
@@ -143,6 +164,7 @@ class Site {
       ),
       google: this.properties.hasOwnProperty("google_place_id"),
       lastVerified: this.lastVerified(),
+      shareUrl: this.shareUrl(),
       ...this.availability(),
       ...this.offeredVaccines(),
     };
