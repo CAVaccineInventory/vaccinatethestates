@@ -1,6 +1,6 @@
 <li id="{{id}}" class="site-card rounded-lg relative grid grid-cols-1
      shadow border bg-white">
-    <div class="flex flex-row justify-between px-4 pt-4 pb-2">
+    <div class="flex flex-row justify-between px-4 pt-4">
         <div class="me-2 flex-1">
             <h4 class="font-bold text-lg">
                 {{name}}
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col justify-between px-4 pt-4 pb-2">
+    <div class="flex flex-col justify-between px-4 pb-2">
         {{#if availabilityKnown}}
             <div class="flex flex-row text-xs {{#if vaccinesKnown}}mb-2{{/if}}">
                 {{#if walkins}}
