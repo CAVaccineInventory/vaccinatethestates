@@ -1,6 +1,6 @@
-import { initSearch } from "./search.js";
-import { initMap, moveMap } from "./near-me.js";
-import { toggleVisibility } from "./utils/dom.js";
+import { initSearch } from "../search.js";
+import { initMap, moveMap } from "../near-me.js";
+import { toggleVisibility } from "../utils/dom.js";
 
 window.addEventListener("load", () => load());
 
