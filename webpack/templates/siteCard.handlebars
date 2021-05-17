@@ -1,3 +1,14 @@
+{{#*inline "offersVaccine"}}
+    <div class="flex flex-row items-center {{#unless last}}me-4{{/unless}} {{#if offersVaccine}}opacity-100{{else}}opacity-50{{/if}}">
+        {{#if offersVaccine}}
+            <img class="h-5" src="/assets/img/checkmark-outline.svg" />
+        {{else}}
+            <img class="h-5" src="/assets/img/close-outline.svg" />
+        {{/if}}
+        <span>{{name}}</span>
+    </div>
+{{/inline}}
+
 <li id="{{id}}" class="site-card rounded-lg relative grid grid-cols-1
      shadow border bg-white">
     <div class="flex flex-row justify-between px-4 pt-4">
@@ -40,7 +51,7 @@
         {{#if availabilityKnown}}
             <div class="flex flex-row text-xs {{#if vaccinesKnown}}mb-2{{/if}}">
                 {{#if walkins}}
-                <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex me-2">{{t "walkin" }}</span>
+                    <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex me-2">{{t "walkin" }}</span>
                 {{/if}}
                 {{#if appointments}}
                     <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex">{{t "appointments_available" }}</span>
@@ -50,30 +61,9 @@
 
         {{#if vaccinesKnown}}
             <div class="flex flex-row flex-wrap text-sm">
-                <div class="flex flex-row items-center me-4 {{#if offersModerna}}opacity-100{{else}}opacity-50{{/if}}">
-                    {{#if offersModerna}}
-                        <img class="h-5" src="/assets/img/checkmark-outline.svg" />
-                    {{else}}
-                        <img class="h-5" src="/assets/img/close-outline.svg" />
-                    {{/if}}
-                    <span>{{t "moderna" }}</span>
-                </div>
-                <div class="flex flex-row items-center me-4 {{#if offersPfizer}}opacity-100{{else}}opacity-50{{/if}}">
-                    {{#if offersPfizer}}
-                        <img class="h-5" src="/assets/img/checkmark-outline.svg" />
-                    {{else}}
-                        <img class="h-5" src="/assets/img/close-outline.svg" />
-                    {{/if}}
-                    <span>{{t "pfizer" }}</span>
-                </div>
-                <div class="flex flex-row items-center {{#if offersJJ}}opacity-100{{else}}opacity-50{{/if}}">
-                    {{#if offersJJ}}
-                        <img class="h-5" src="/assets/img/checkmark-outline.svg" />
-                    {{else}}
-                        <img class="h-5" src="/assets/img/close-outline.svg" />
-                    {{/if}}
-                    <span>{{t "jj" }}</span>
-                </div>
+                {{> offersVaccine offersVaccine=offersModerna name=(t "moderna")}}
+                {{> offersVaccine offersVaccine=offersPfizer name=(t "pfizer")}}
+                {{> offersVaccine offersVaccine=offersJJ name=(t "jj") last=true}}
             </div>
         {{/if}}
     </div>
