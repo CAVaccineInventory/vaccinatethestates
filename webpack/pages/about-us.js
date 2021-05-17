@@ -1,4 +1,4 @@
-import { initSearch } from "./search.js";
+import { initSearch } from "../search.js";
 
 window.addEventListener("load", () => {
   initSearch(

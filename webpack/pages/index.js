@@ -1,6 +1,6 @@
-import { initSearch } from "./search.js";
-import { initMap, moveMap } from "./near-me.js";
-import pfizerLinkTemplate from "./templates/pfizerLink.handlebars";
+import { initSearch } from "../search.js";
+import { initMap, moveMap } from "../near-me.js";
+import pfizerLinkTemplate from "../templates/pfizerLink.handlebars";
 
 window.addEventListener("load", () => load());
 
