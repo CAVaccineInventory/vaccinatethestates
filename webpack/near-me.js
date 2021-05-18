@@ -19,6 +19,7 @@ let scrollToCard = false;
 
 let renderCardsTimeoutId = null;
 let preventNextHistoryChange = false;
+let renderNextSourceData = false;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
@@ -55,6 +56,7 @@ const initMap = () => {
   });
 
   map.on("load", () => {
+    console.log("LOADED EVENT");
     map.addSource(vialSourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",
@@ -138,8 +140,10 @@ const onSourceData = (e) => {
     // render the cards and resolve the map initialization
     mapInitializedResolver();
 
-    // We only need this on the initial load, so now we're done!
-    map.off("sourcedata", onSourceData);
+    if (renderNextSourceData) {
+      renderNextSourceData = false;
+      renderCardsFromMap();
+    }
   }
 };
 
@@ -345,10 +349,10 @@ async function moveMap(lat, lng, zoom, animate, siteId) {
 const setMapFilter = async (filter) => {
   await mapInitialized;
 
-  console.log(filter);
+  // setFilter is asynchronously redraws the map, so we can't immediately rerender.
+  // Instead, mark a flag so we can rerender in the source data callback.
+  renderNextSourceData = true;
   map.setFilter(featureLayer, filter);
-  // TODO: figure out the proper way to avoid this race
-  setTimeout(renderCardsFromMap, 300);
 }
 
 export {initMap, moveMap, setMapFilter};

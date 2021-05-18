@@ -1,6 +1,6 @@
 import { initSearch } from "../search.js";
 import { initMap, moveMap, setMapFilter } from "../near-me.js";
-import { initFilters } from "./filters.js";
+import { initFilters } from "../filters.js";
 import pfizerLinkTemplate from "../templates/pfizerLink.handlebars";
 
 window.addEventListener("load", () => load());
