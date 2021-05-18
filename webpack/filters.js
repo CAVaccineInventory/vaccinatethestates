@@ -49,15 +49,17 @@ const initFilters = (callback) => {
   modernaInput.addEventListener("change", () => {
     filterModerna = !!modernaInput.checked;
     cb();
+    setupPfizerLink(cb);
   });
   pfizerInput.addEventListener("change", () => {
     filterPfizer = !!pfizerInput.checked;
     cb();
-    setupPfizerLink(callback);
+    setupPfizerLink(cb);
   });
   jjInput.addEventListener("change", () => {
     filterJJ = !!jjInput.checked;
     cb();
+    setupPfizerLink(cb);
   });
 
   setupPfizerLink(cb);
@@ -80,7 +82,7 @@ const getFilterQueryParams = () => {
 const createMapboxFilter = () => {
   let filter = null;
   if (filterPfizer || filterJJ || filterModerna) {
-    filter = ["all"];
+    filter = ["any"];
     if (filterPfizer) {
       filter.push(["==", ["get", "vaccine_pfizer"], true]);
     }
@@ -99,7 +101,7 @@ const setupPfizerLink = (callback) => {
   if (pfizerNotice) {
     pfizerNotice.innerHTML = "";
     const pfizerTemplate = pfizerLinkTemplate({
-      pfizerFiltered: filterPfizer,
+      pfizerFiltered: filterPfizer && !filterJJ && !filterModerna,
     });
     const range = document
       .createRange()
@@ -108,10 +110,8 @@ const setupPfizerLink = (callback) => {
     range.querySelector("a").addEventListener("click", (e) => {
       e.preventDefault();
 
-      if (filterPfizer) {
+      if (filterPfizer && !filterJJ && !filterModerna) {
         filterPfizer = false;
-        filterJJ = false;
-        filterModerna = false;
       } else {
         filterPfizer = true;
         filterJJ = false;
