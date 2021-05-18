@@ -8,9 +8,11 @@ let modernaInput;
 let pfizerInput;
 let jjInput;
 
-const initFilters = (callback) => {
+const showFilterButton = () => {
   document.querySelector(".js-filter-button").classList.remove("invisible");
+}
 
+const initFilters = (callback) => {
   const cb = () => {
     callback(createMapboxFilter());
   };
@@ -128,4 +130,4 @@ const setupPfizerLink = (callback) => {
   }
 };
 
-export { initFilters, getFilterQueryParams, createMapboxFilter };
+export { showFilterButton, initFilters, getFilterQueryParams, createMapboxFilter };
