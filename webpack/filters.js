@@ -1,10 +1,20 @@
 import { toggleVisibility } from "./utils/dom.js";
+import pfizerLinkTemplate from "./templates/pfizerLink.handlebars";
+
 let filterPfizer;
 let filterJJ;
 let filterModerna;
+let modernaInput;
+let pfizerInput;
+let jjInput;
 
 const initFilters = (callback) => {
+  const cb = () => {
+    callback(createMapboxFilter());
+  };
+
   const urlParams = new URLSearchParams(window.location.search);
+
   filterPfizer = !!urlParams.get("pfizer");
   filterJJ = !!urlParams.get("jj");
   filterModerna = !!urlParams.get("moderna");
@@ -25,25 +35,28 @@ const initFilters = (callback) => {
     toggleVisibility(dropdown, dropdown.classList.contains("hidden"));
   });
 
-  const modernaInput = dropdown.querySelector(".js-moderna-filter");
-  const pfizerInput = dropdown.querySelector(".js-pfizer-filter");
-  const jjInput = dropdown.querySelector(".js-jj-filter");
+  modernaInput = dropdown.querySelector(".js-moderna-filter");
+  pfizerInput = dropdown.querySelector(".js-pfizer-filter");
+  jjInput = dropdown.querySelector(".js-jj-filter");
   modernaInput.checked = filterModerna;
   pfizerInput.checked = filterPfizer;
   jjInput.checked = filterJJ;
 
   modernaInput.addEventListener("change", () => {
     filterModerna = !!modernaInput.checked;
-    callback(createMapboxFilter());
+    cb();
   });
   pfizerInput.addEventListener("change", () => {
     filterPfizer = !!pfizerInput.checked;
-    callback(createMapboxFilter());
+    cb();
+    setupPfizerLink(callback);
   });
   jjInput.addEventListener("change", () => {
     filterJJ = !!jjInput.checked;
-    callback(createMapboxFilter());
+    cb();
   });
+
+  setupPfizerLink(cb);
 };
 
 const getFilterQueryParams = () => {
@@ -76,5 +89,41 @@ const createMapboxFilter = () => {
   }
   return filter;
 };
+
+const setupPfizerLink = (callback) => {
+  let pfizerNotice = document.querySelector(".js-pfizer");
+  if (pfizerNotice) {
+    pfizerNotice.innerHTML = "";
+    const pfizerTemplate = pfizerLinkTemplate({
+      pfizerFiltered: filterPfizer,
+    });
+    const range = document
+      .createRange()
+      .createContextualFragment(pfizerTemplate);
+
+    range.querySelector('a').addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (filterPfizer) {
+        filterPfizer = false;
+        filterJJ = false;
+        filterModerna = false;
+      } else {
+        filterPfizer = true;
+        filterJJ = false;
+        filterModerna = false;
+      }
+
+      modernaInput.checked = filterModerna;
+      pfizerInput.checked = filterPfizer;
+      jjInput.checked = filterJJ;
+
+      callback();
+      setupPfizerLink(callback);
+    });
+
+    pfizerNotice.appendChild(range);
+  }
+}
 
 export { initFilters, getFilterQueryParams, createMapboxFilter };

@@ -121,16 +121,7 @@ const initMap = () => {
     // But subsequent map movements (other than marker selection)
     // shouldn't scroll anything.
     scrollToCard = false;
-
-    if (!preventNextHistoryChange) {
-      const { lat, lng } = map.getCenter();
-      replaceState({
-        lat,
-        lng,
-        zoom: map.getZoom(),
-      });
-    }
-    preventNextHistoryChange = false;
+    updateHistory();
   });
 };
 
@@ -146,6 +137,23 @@ const onSourceData = (e) => {
     }
   }
 };
+
+const updateHistory = ()  => {
+  if (!map) {
+    return;
+  }
+  if (preventNextHistoryChange) {
+    preventNextHistoryChange = false;
+    return;
+  }
+
+  const { lat, lng } = map.getCenter();
+  replaceState({
+    lat,
+    lng,
+    zoom: map.getZoom(),
+  });
+}
 
 const toggleCardVisibility = () => {
   const cardsContainer = document.getElementById("cards_container");
@@ -349,6 +357,7 @@ async function moveMap(lat, lng, zoom, animate, siteId) {
 const setMapFilter = async (filter) => {
   await mapInitialized;
 
+  updateHistory();
   // setFilter is asynchronously redraws the map, so we can't immediately rerender.
   // Instead, mark a flag so we can rerender in the source data callback.
   renderNextSourceData = true;
