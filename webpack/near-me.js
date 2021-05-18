@@ -57,7 +57,6 @@ const initMap = () => {
   });
 
   map.on("load", () => {
-    console.log("LOADED EVENT");
     map.addSource(vialSourceId, {
       type: "vector",
       url: "mapbox://calltheshots.vaccinatethestates",

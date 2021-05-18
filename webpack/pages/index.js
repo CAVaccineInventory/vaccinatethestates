@@ -16,7 +16,6 @@ const load = () => {
   initFilters((filter) => {
     setMapFilter(filter);
   });
-
   initMap();
   initSearch(
     {

@@ -1,7 +1,8 @@
 <div class="relative inline-block">
   <div>
     <button
-      class="js-filter-button inline-flex justify-center w-full rounded-md px-2 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500"
+      title="{% t filters %}"
+      class="js-filter-button inline-flex justify-center w-full rounded-md p-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500"
       aria-haspopup="true"
     >
       <img width="20" src="assets/img/funnel-outline.svg" />
@@ -10,7 +11,7 @@
   </div>
 
   <div
-    class="js-filter-dropdown hidden origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+    class="js-filter-dropdown hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
     role="menu"
     aria-orientation="vertical"
     aria-labelledby="menu-button"
