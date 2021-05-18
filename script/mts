@@ -1,9 +1,0 @@
-#!/bin/bash
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-RECIPE=$DIR/../mts/recipe.json
-TOKEN="sk.eyJ1IjoiY2FsbHRoZXNob3RzIiwiYSI6ImNrbjZtNXQ2bDA0cGwyeXA1Ym1odXU2ZWcifQ.MdNuCLfD1xcN8maynZdTEg"
-
-curl -X PATCH "https://api.mapbox.com/tilesets/v1/calltheshots.vtstest/recipe?access_token=$TOKEN" -d @$RECIPE --header "Content-Type:application/json"
-
-#curl -X POST "https://api.mapbox.com/tilesets/v1/calltheshots.vtstest/publish?access_token=$TOKEN"
