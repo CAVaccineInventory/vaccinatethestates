@@ -140,7 +140,7 @@ const onSourceData = (e) => {
   }
 };
 
-const updateHistory = ()  => {
+const updateHistory = () => {
   if (!map) {
     return;
   }
@@ -155,7 +155,7 @@ const updateHistory = ()  => {
     lng,
     zoom: map.getZoom(),
   });
-}
+};
 
 const toggleCardVisibility = () => {
   const cardsContainer = document.getElementById("cards_container");

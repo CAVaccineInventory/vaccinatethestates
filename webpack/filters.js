@@ -93,7 +93,7 @@ const createMapboxFilter = () => {
 };
 
 const setupPfizerLink = (callback) => {
-  let pfizerNotice = document.querySelector(".js-pfizer");
+  const pfizerNotice = document.querySelector(".js-pfizer");
   if (pfizerNotice) {
     pfizerNotice.innerHTML = "";
     const pfizerTemplate = pfizerLinkTemplate({
@@ -103,7 +103,7 @@ const setupPfizerLink = (callback) => {
       .createRange()
       .createContextualFragment(pfizerTemplate);
 
-    range.querySelector('a').addEventListener("click", (e) => {
+    range.querySelector("a").addEventListener("click", (e) => {
       e.preventDefault();
 
       if (filterPfizer) {
@@ -126,6 +126,6 @@ const setupPfizerLink = (callback) => {
 
     pfizerNotice.appendChild(range);
   }
-}
+};
 
 export { initFilters, getFilterQueryParams, createMapboxFilter };
