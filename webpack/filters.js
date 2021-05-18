@@ -10,7 +10,7 @@ let jjInput;
 
 const showFilterButton = () => {
   document.querySelector(".js-filter-button").classList.remove("invisible");
-}
+};
 
 const initFilters = (callback) => {
   const cb = () => {
@@ -130,4 +130,9 @@ const setupPfizerLink = (callback) => {
   }
 };
 
-export { showFilterButton, initFilters, getFilterQueryParams, createMapboxFilter };
+export {
+  showFilterButton,
+  initFilters,
+  getFilterQueryParams,
+  createMapboxFilter,
+};
