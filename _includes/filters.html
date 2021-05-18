@@ -11,26 +11,27 @@
   </div>
 
   <div
-    class="js-filter-dropdown hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+    class="js-filter-dropdown w-48 hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
     role="menu"
     aria-orientation="vertical"
     tabindex="-1"
   >
     <div class="py-1 text-gray-700 text-sm flex flex-col pe-4">
       <div class="flex items-center px-4 py-2">
-        <input class="js-moderna-filter me-1" type="checkbox" /><span>
-          {% t moderna %}</span
-        >
+        <input id="moderna-filter" class="js-moderna-filter me-1" type="checkbox" /><label for="moderna-filter">
+          {% t moderna %}<label/>
       </div>
       <div class="flex items-center px-4 py-2">
-        <input class="js-pfizer-filter me-1" type="checkbox" /><span>
-          {% t pfizer %}</span
-        >
+        <input id="pfizer-filter" class="js-pfizer-filter me-1" type="checkbox" /><label for="pfizer-filter">
+          {% t pfizer %}</label>
       </div>
       <div class="flex items-center px-4 py-2">
-        <input class="js-jj-filter me-1" type="checkbox" /><span>
-          {% t jj %}</span
-        >
+        <input id="jj-filter" class="js-jj-filter me-1" type="checkbox" /><label for="jj-filter">
+          {% t jj %}</label>
+      </div>
+      <div class="flex items-center px-4 py-2">
+        <input id="unconfirmed-filter" class="js-unconfirmed-filter me-1" type="checkbox" /><label for="unconfirmed-filter">
+          {% t unconfirmed %}</label>
       </div>
     </div>
   </div>

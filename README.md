@@ -6,9 +6,10 @@ with vanilla JS on top. It consists of two main pages `index.html` and `embed.ht
 - `zip={code}` zip code to center the map
 - `lat={lat}&lng={lng}` latitude and longitude values to center the map
 - `zoom={level}` zoom level to start the map at
-- `pfizer=1` to display only locations that provide Pfizer
-- `jj=1` to display only locations that provide J&J 
-- `moderna=1` to display only locations that provide Moderna
+- `pfizer=1` to display locations that provide Pfizer
+- `jj=1` to display locations that provide J&J 
+- `moderna=1` to display locations that provide Moderna
+- `unconfirmed=1` to display locations with unknown vaccine type
 
 ## How to begin local development on a Mac
 
