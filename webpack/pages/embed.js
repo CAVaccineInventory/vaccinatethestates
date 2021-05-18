@@ -1,6 +1,6 @@
-import { initSearch } from "./search.js";
-import { initMap, moveMap } from "./near-me.js";
-import { toggleVisibility } from "./utils/dom.js";
+import { initSearch } from "../search.js";
+import { initMap, moveMap } from "../near-me.js";
+import { toggleVisibility } from "../utils/dom.js";
 
 window.addEventListener("load", () => load());
 
@@ -14,8 +14,8 @@ const load = () => {
   initMap();
   initSearch(
     {
-      locCallback: (lat, lng, zoom, source) => {
-        moveMap(lat, lng, zoom, source === "locate");
+      locCallback: (lat, lng, zoom, source, siteId) => {
+        moveMap(lat, lng, zoom, source === "locate", siteId);
       },
     },
     {

@@ -58,24 +58,28 @@ class Site {
     if (method === "web" && detailsIsUrl) {
       return {
         isSite: true,
+        isCall: false,
         label: "book_appt",
         href: details,
       };
     } else if (method === "phone" && detailsIsPhone) {
       return {
         isSite: false,
+        isCall: true,
         label: "call",
         href: `tel:${details}`,
       };
     } else if (website) {
       return {
         isSite: true,
+        isCall: false,
         label: "visit_site",
         href: website,
       };
     } else if (this.properties["phone_number"]) {
       return {
         isSite: false,
+        isCall: true,
         label: "call",
         href: `tel:${this.properties["phone_number"]}`,
       };

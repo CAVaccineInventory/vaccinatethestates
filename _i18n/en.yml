@@ -1,5 +1,6 @@
 home_title: Vaccination Sites Near Me
 aboutus_title: About Us
+vaccinebot_title: VaccineBot
 volunteer_title: Volunteer
 call: Call
 book_appt: Book
@@ -24,13 +25,13 @@ getting_location: Getting location...
 alert_detect: Failed to detect your location. Please try again or enter your zip code
 skip_to_content: Skip to content
 home_body: |
-    <p class="mb-2">Everyone over 16 in the US is now eligible for a free, safe, and reliable COVID-19 vaccination.</p>
+    <p class="mb-2">Everyone over 12 in the US is now eligible for a free, safe, and reliable COVID-19 vaccination.</p>
     <p class="mb-2">Find vaccination sites near you, and learn how to make an appointment.</p>
     <p class="text-sm">We're building the most comprehensive map of vaccination sites in America. Want to help? <a href="https://blog.vaccinateca.com/help-vaccinate-the-states/">Learn more &rarr;</a></p>
 home_feedback: 'Provide site feedback'
 about_intro: |
-    Vaccinate The States is a non-profit, non-partisan, community-driven effort that helps people 
-    in the United States learn accurate, up-to-date information about how to get the coronavirus 
+    Vaccinate The States is a non-profit, non-partisan, community-driven effort that helps people
+    in the United States learn accurate, up-to-date information about how to get the coronavirus
     vaccine. We are building the most comprehensive list of vaccination sites in the United States.
 about_how_we_work_title: How We Work
 about_how_we_work: |
