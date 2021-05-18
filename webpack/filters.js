@@ -9,6 +9,8 @@ let pfizerInput;
 let jjInput;
 
 const initFilters = (callback) => {
+  document.querySelector(".js-filter-button").classList.remove("invisible");
+
   const cb = () => {
     callback(createMapboxFilter());
   };

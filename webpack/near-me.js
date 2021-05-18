@@ -27,7 +27,7 @@ const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
 );
 
-const initMap = () => {
+const initMap = (onLoaded) => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -106,6 +106,8 @@ const initMap = () => {
       lowLayer.filter = filter;
     }
     map.addLayer(lowLayer);
+
+    onLoaded();
   });
 
   map.on("sourcedata", onSourceData);

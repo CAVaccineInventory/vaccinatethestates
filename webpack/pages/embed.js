@@ -12,10 +12,11 @@ const load = () => {
     !window.location.search
   );
 
-  initFilters((filter) => {
-    setMapFilter(filter);
+  initMap(() => {
+    initFilters((filter) => {
+      setMapFilter(filter);
+    });
   });
-  initMap();
   initSearch(
     {
       locCallback: (lat, lng, zoom, source, siteId) => {

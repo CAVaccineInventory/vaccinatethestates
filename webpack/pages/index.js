@@ -5,11 +5,11 @@ import { initFilters } from "../filters.js";
 window.addEventListener("load", () => load());
 
 const load = () => {
-  initFilters((filter) => {
-    setMapFilter(filter);
+  initMap(() => {
+    initFilters((filter) => {
+      setMapFilter(filter);
+    });
   });
-
-  initMap();
   initSearch(
     {
       locCallback: (lat, lng, zoom, _, siteId) => {
