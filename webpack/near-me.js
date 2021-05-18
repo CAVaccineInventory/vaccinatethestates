@@ -353,6 +353,6 @@ const setMapFilter = async (filter) => {
   // Instead, mark a flag so we can rerender in the source data callback.
   renderNextSourceData = true;
   map.setFilter(featureLayer, filter);
-}
+};
 
-export {initMap, moveMap, setMapFilter};
+export { initMap, moveMap, setMapFilter };

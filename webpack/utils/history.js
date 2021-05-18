@@ -2,7 +2,7 @@ import { getFilterQueryParams } from "../filters.js";
 
 export const replaceState = (opts) => {
   const newParams = new URLSearchParams();
-  const filterParams =  getFilterQueryParams();
+  const filterParams = getFilterQueryParams();
   for (const [key, value] of Object.entries(filterParams)) {
     newParams.set(key, value);
   }

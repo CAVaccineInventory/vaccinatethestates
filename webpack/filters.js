@@ -11,20 +11,19 @@ const initFilters = (callback) => {
 
   const dropdown = document.querySelector(".js-filter-dropdown");
 
-  window.addEventListener('click', () => {
+  window.addEventListener("click", () => {
     // any outside click closes the dropdown
     toggleVisibility(dropdown, false);
-  })
+  });
 
   dropdown.addEventListener("click", (e) => {
     e.stopPropagation();
-  })
+  });
 
   document.querySelector(".js-filter-button").addEventListener("click", (e) => {
     e.stopPropagation();
     toggleVisibility(dropdown, dropdown.classList.contains("hidden"));
-  })
-
+  });
 
   const modernaInput = dropdown.querySelector(".js-moderna-filter");
   const pfizerInput = dropdown.querySelector(".js-pfizer-filter");
@@ -36,16 +35,16 @@ const initFilters = (callback) => {
   modernaInput.addEventListener("change", () => {
     filterModerna = !!modernaInput.checked;
     callback(createMapboxFilter());
-  })
+  });
   pfizerInput.addEventListener("change", () => {
     filterPfizer = !!pfizerInput.checked;
     callback(createMapboxFilter());
-  })
+  });
   jjInput.addEventListener("change", () => {
     filterJJ = !!jjInput.checked;
     callback(createMapboxFilter());
-  })
-}
+  });
+};
 
 const getFilterQueryParams = () => {
   const params = {};
@@ -59,7 +58,7 @@ const getFilterQueryParams = () => {
     params.jj = 1;
   }
   return params;
-}
+};
 
 const createMapboxFilter = () => {
   let filter = null;
@@ -77,6 +76,5 @@ const createMapboxFilter = () => {
   }
   return filter;
 };
-
 
 export { initFilters, getFilterQueryParams, createMapboxFilter };
