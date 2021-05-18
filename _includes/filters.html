@@ -1,4 +1,3 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
 <div class="relative inline-block">
   <div>
     <button
@@ -6,20 +5,10 @@
       aria-haspopup="true"
     >
       <img width="20" src="assets/img/funnel-outline.svg" />
-      Filters
+      <span class="hidden md:block">{% t filters %}</span>
     </button>
   </div>
 
-  <!--
-      Dropdown menu, show/hide based on menu state.
-  
-      Entering: "transition ease-out duration-100"
-        From: "transform opacity-0 scale-95"
-        To: "transform opacity-100 scale-100"
-      Leaving: "transition ease-in duration-75"
-        From: "transform opacity-100 scale-100"
-        To: "transform opacity-0 scale-95"
-    -->
   <div
     class="js-filter-dropdown hidden origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
     role="menu"

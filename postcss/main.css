@@ -45,7 +45,6 @@ a.no-underline {
     0.7
   ); /* unfortunate hacks to undo their mediaquery styling */
 }
-
 .mapboxgl-ctrl-top-left .mapboxgl-ctrl-geocoder {
   transform-origin: top left;
 }

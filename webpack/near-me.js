@@ -9,6 +9,7 @@ import { createMapboxFilter } from "./filters.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
+const lowFeatureLayer = "vialLow";
 const vialSourceId = "vialSource";
 
 // State tracking for map & list user interactions
@@ -91,7 +92,7 @@ const initMap = () => {
     map.addLayer(highLayer);
 
     const lowLayer = {
-      "id": "vialLow",
+      "id": lowFeatureLayer,
       "type": "circle",
       "source": vialSourceId,
       "source-layer": "vialLow",
@@ -353,6 +354,7 @@ const setMapFilter = async (filter) => {
   // Instead, mark a flag so we can rerender in the source data callback.
   renderNextSourceData = true;
   map.setFilter(featureLayer, filter);
+  map.setFilter(lowFeatureLayer, filter);
 };
 
 export { initMap, moveMap, setMapFilter };
