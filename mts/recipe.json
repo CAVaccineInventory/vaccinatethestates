@@ -53,8 +53,6 @@
             "vaccine_jj",
             "vaccine_pfizer",
             "vaccine_moderna",
-            "available_appointments",
-            "available_walkins",
             "accepts_appointments",
             "accepts_walkins"
           ]
