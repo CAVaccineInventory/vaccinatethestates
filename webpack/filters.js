@@ -16,7 +16,9 @@ const showFilterButton = () => {
 
 const initFilters = (callback) => {
   const cb = () => {
+    toggleActiveIcon();
     callback(createMapboxFilter());
+    setupPfizerLink(cb);
   };
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -54,24 +56,21 @@ const initFilters = (callback) => {
   modernaInput.addEventListener("change", () => {
     filterModerna = !!modernaInput.checked;
     cb();
-    setupPfizerLink(cb);
   });
   pfizerInput.addEventListener("change", () => {
     filterPfizer = !!pfizerInput.checked;
     cb();
-    setupPfizerLink(cb);
   });
   jjInput.addEventListener("change", () => {
     filterJJ = !!jjInput.checked;
     cb();
-    setupPfizerLink(cb);
   });
   unconfirmedInput.addEventListener("change", () => {
     filterUnconfirmed = !!unconfirmedInput.checked;
     cb();
-    setupPfizerLink(cb);
   });
 
+  toggleActiveIcon();
   setupPfizerLink(cb);
 };
 
@@ -141,12 +140,24 @@ const setupPfizerLink = (callback) => {
       unconfirmedInput.checked = filterUnconfirmed;
 
       callback();
-      setupPfizerLink(callback);
     });
 
     pfizerNotice.appendChild(range);
   }
 };
+
+const toggleActiveIcon = () => {
+  const inactiveIcon = document.querySelector(".js-filter-inactive");
+  const activeIcon = document.querySelector(".js-filter-active");
+
+  if (filterPfizer || filterJJ || filterModerna || filterUnconfirmed) {
+    toggleVisibility(inactiveIcon, false);
+    toggleVisibility(activeIcon, true);
+  } else {
+    toggleVisibility(inactiveIcon, true);
+    toggleVisibility(activeIcon, false);
+  }
+}
 
 export {
   showFilterButton,
