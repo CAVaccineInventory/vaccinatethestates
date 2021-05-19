@@ -5,10 +5,11 @@ import { toggleVisibility, isSelected, select, deselect } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
-import { createVaccineFilter } from "./utils/mapbox.js";
+import { createMapboxFilter } from "./filters.js";
 import { siteCard } from "./site.js";
 
 const featureLayer = "vial";
+const lowFeatureLayer = "vialLow";
 const vialSourceId = "vialSource";
 
 // State tracking for map & list user interactions
@@ -19,13 +20,14 @@ let scrollToCard = false;
 
 let renderCardsTimeoutId = null;
 let preventNextHistoryChange = false;
+let renderNextSourceData = false;
 
 let mapInitializedResolver;
 const mapInitialized = new Promise(
   (resolve) => (mapInitializedResolver = resolve)
 );
 
-export const initMap = () => {
+const initMap = (onLoaded) => {
   mapboxgl.accessToken = mapboxToken;
   window.map = new mapboxgl.Map({
     container: "map",
@@ -60,7 +62,7 @@ export const initMap = () => {
       url: "mapbox://calltheshots.vaccinatethestates",
     });
 
-    const filter = createVaccineFilter();
+    const filter = createMapboxFilter();
     const highLayer = {
       "id": featureLayer,
       "type": "circle",
@@ -89,7 +91,7 @@ export const initMap = () => {
     map.addLayer(highLayer);
 
     const lowLayer = {
-      "id": "vialLow",
+      "id": lowFeatureLayer,
       "type": "circle",
       "source": vialSourceId,
       "source-layer": "vialLow",
@@ -104,6 +106,8 @@ export const initMap = () => {
       lowLayer.filter = filter;
     }
     map.addLayer(lowLayer);
+
+    onLoaded();
   });
 
   map.on("sourcedata", onSourceData);
@@ -119,16 +123,7 @@ export const initMap = () => {
     // But subsequent map movements (other than marker selection)
     // shouldn't scroll anything.
     scrollToCard = false;
-
-    if (!preventNextHistoryChange) {
-      const { lat, lng } = map.getCenter();
-      replaceState({
-        lat,
-        lng,
-        zoom: map.getZoom(),
-      });
-    }
-    preventNextHistoryChange = false;
+    updateHistory();
   });
 };
 
@@ -138,9 +133,28 @@ const onSourceData = (e) => {
     // render the cards and resolve the map initialization
     mapInitializedResolver();
 
-    // We only need this on the initial load, so now we're done!
-    map.off("sourcedata", onSourceData);
+    if (renderNextSourceData) {
+      renderNextSourceData = false;
+      renderCardsFromMap();
+    }
   }
+};
+
+const updateHistory = () => {
+  if (!map) {
+    return;
+  }
+  if (preventNextHistoryChange) {
+    preventNextHistoryChange = false;
+    return;
+  }
+
+  const { lat, lng } = map.getCenter();
+  replaceState({
+    lat,
+    lng,
+    zoom: map.getZoom(),
+  });
 };
 
 const toggleCardVisibility = () => {
@@ -329,7 +343,7 @@ const getUniqueFeatures = (array) => {
   return uniqueFeatures;
 };
 
-export async function moveMap(lat, lng, zoom, animate, siteId) {
+async function moveMap(lat, lng, zoom, animate, siteId) {
   await mapInitialized;
   if (siteId) {
     preventNextHistoryChange = true;
@@ -341,3 +355,16 @@ export async function moveMap(lat, lng, zoom, animate, siteId) {
     map.jumpTo({ center: [lng, lat], zoom: zoom });
   }
 }
+
+const setMapFilter = async (filter) => {
+  await mapInitialized;
+
+  updateHistory();
+  // setFilter is asynchronously redraws the map, so we can't immediately rerender.
+  // Instead, mark a flag so we can rerender in the source data callback.
+  renderNextSourceData = true;
+  map.setFilter(featureLayer, filter);
+  map.setFilter(lowFeatureLayer, filter);
+};
+
+export { initMap, moveMap, setMapFilter };

@@ -1,18 +1,14 @@
 import { initSearch } from "../search.js";
-import { initMap, moveMap } from "../near-me.js";
-import pfizerLinkTemplate from "../templates/pfizerLink.handlebars";
+import { initMap, moveMap, setMapFilter } from "../near-me.js";
+import { showFilterButton, initFilters } from "../filters.js";
 
 window.addEventListener("load", () => load());
 
 const load = () => {
-  // TODO: remove once we add client side filters
-  const urlParams = new URLSearchParams(window.location.search);
-  const pfizerTemplate = pfizerLinkTemplate({
-    pfizerFiltered: !!urlParams.get("pfizer"),
+  initFilters((filter) => {
+    setMapFilter(filter);
   });
-  document.querySelector(".js-pfizer").innerHTML = pfizerTemplate;
-
-  initMap();
+  initMap(showFilterButton);
   initSearch(
     {
       locCallback: (lat, lng, zoom, _, siteId) => {

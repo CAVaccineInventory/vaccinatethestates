@@ -1,12 +1,12 @@
+import { getFilterQueryParams } from "../filters.js";
+
 export const replaceState = (opts) => {
-  const urlParams = new URLSearchParams(window.location.search);
   const newParams = new URLSearchParams();
-  ["pfizer", "moderna", "jj"].forEach((vaccine) => {
-    const param = urlParams.get(vaccine);
-    if (param) {
-      newParams.set(vaccine, param);
-    }
-  });
+  const filterParams = getFilterQueryParams();
+  for (const [key, value] of Object.entries(filterParams)) {
+    newParams.set(key, value);
+  }
+
   const { lat, lng, zoom } = opts;
   newParams.set("lat", Math.round(lat * 1000) / 1000);
   newParams.set("lng", Math.round(lng * 1000) / 1000);

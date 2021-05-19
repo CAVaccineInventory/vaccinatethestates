@@ -1,0 +1,67 @@
+<div class="relative inline-block">
+  <div class="js-filter-button invisible">
+    <button
+      title="{% t vaccine_type %}"
+      class="js-filter-button inline-flex justify-center w-full rounded-md p-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500"
+      aria-haspopup="true"
+    >
+      <img
+        class="js-filter-inactive"
+        width="20"
+        src="assets/img/funnel-outline.svg"
+      />
+      <img
+        class="js-filter-active hidden"
+        width="20"
+        src="assets/img/funnel.svg"
+      />
+      <span class="ms-1 hidden lg:block">{% t vaccine_type %}</span>
+    </button>
+  </div>
+
+  <div
+    class="js-filter-dropdown w-48 hidden absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+    role="menu"
+    aria-orientation="vertical"
+    tabindex="-1"
+  >
+    <div class="py-1 text-gray-700 text-sm flex flex-col pe-4">
+      <div class="flex items-center ps-4">
+        <input
+          id="moderna-filter"
+          class="js-moderna-filter cursor-pointer me-1"
+          type="checkbox"
+        /><label class="cursor-pointer flex-grow py-2" for="moderna-filter">
+          {% t moderna %}</label
+        >
+      </div>
+      <div class="flex items-center ps-4">
+        <input
+          id="pfizer-filter"
+          class="js-pfizer-filter cursor-pointer me-1"
+          type="checkbox"
+        /><label class="cursor-pointer flex-grow py-2" for="pfizer-filter">
+          {% t pfizer %}</label
+        >
+      </div>
+      <div class="flex items-center ps-4">
+        <input
+          id="jj-filter"
+          class="js-jj-filter cursor-pointer me-1"
+          type="checkbox"
+        /><label class="cursor-pointer flex-grow py-2" for="jj-filter">
+          {% t jj %}</label
+        >
+      </div>
+      <div class="flex items-center ps-4">
+        <input
+          id="unknown-filter"
+          class="js-unknown-filter cursor-pointer me-1"
+          type="checkbox"
+        /><label class="cursor-pointer flex-grow py-2" for="unknown-filter">
+          {% t unknown %}</label
+        >
+      </div>
+    </div>
+  </div>
+</div>
