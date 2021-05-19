@@ -137,7 +137,7 @@ const setupPfizerLink = (callback) => {
         filterPfizer = true;
         filterJJ = false;
         filterModerna = false;
-        filterUnknown= false;
+        filterUnknown = false;
       }
 
       modernaInput.checked = filterModerna;
