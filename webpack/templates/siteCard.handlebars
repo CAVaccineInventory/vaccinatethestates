@@ -50,11 +50,16 @@
     <div class="flex flex-col justify-between px-4 pb-2">
         {{#if availabilityKnown}}
             <div class="flex flex-row text-xs {{#if vaccinesKnown}}mb-2{{/if}}">
-                {{#if walkins}}
-                    <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex me-2">{{t "walkin" }}</span>
-                {{/if}}
-                {{#if appointments}}
-                    <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex">{{t "appointments_available" }}</span>
+                {{#if appointmentsAndWalkins}}
+                    <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex me-2">{{t "walkin_accepted" }}</span>
+                    <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex">{{t "appointments_accepted" }}</span>
+                {{else}}
+                    {{#if walkins}}
+                        <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex me-2">{{t "walkin_only" }}</span>
+                    {{/if}}
+                    {{#if appointments}}
+                        <span class="rounded-full bg-gray-200 px-2 py-1 text-black whitespace-nowrap flex">{{t "appointments_required" }}</span>
+                    {{/if}}
                 {{/if}}
             </div>
         {{/if}}

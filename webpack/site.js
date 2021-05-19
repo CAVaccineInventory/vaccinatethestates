@@ -117,10 +117,11 @@ class Site {
     return DateTime.fromISO(timestamp, { locale }).toRelative();
   }
   availability() {
-    const appointments = !!this.properties["available_appointments"];
-    const walkins = !!this.properties["available_walkins"];
+    const appointments = !!this.properties["accepts_appointments"];
+    const walkins = !!this.properties["accepts_walkins"];
     return {
       availabilityKnown: appointments || walkins,
+      appointmentsAndWalkins: appointments && walkins,
       appointments,
       walkins,
     };

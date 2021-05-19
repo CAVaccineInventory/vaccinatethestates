@@ -82,8 +82,10 @@ no_sites: Sorry, we couldn't find any vaccination sites in the selected area. Pl
 search_hint: Search for vaccine locations
 embed_zoomed_out: Search for a city, zip code, or address to see vaccination sites.
 verified_at: Verified {{lastVerified}}
-appointments_available: Appointments Available
-walkin: Walk-in
+appointments_required: Appointments required
+appointments_accepted: Appointments accepted
+walkin_only: Walk-ins only
+walkin_accepted: Walk-ins accepted
 moderna: Moderna
 pfizer: Pfizer
 jj: J & J
