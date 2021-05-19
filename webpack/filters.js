@@ -105,7 +105,12 @@ const createMapboxFilter = () => {
       filter.push(["==", ["get", "vaccine_moderna"], true]);
     }
     if (filterUnconfirmed) {
-      filter.push(["all", ["!", ["has", "vaccine_pfizer"]],["!", ["has", "vaccine_jj"]], ["!", ["has", "vaccine_moderna"]]]);
+      filter.push([
+        "all",
+        ["!", ["has", "vaccine_pfizer"]],
+        ["!", ["has", "vaccine_jj"]],
+        ["!", ["has", "vaccine_moderna"]],
+      ]);
     }
   }
   return filter;
@@ -116,7 +121,8 @@ const setupPfizerLink = (callback) => {
   if (pfizerNotice) {
     pfizerNotice.innerHTML = "";
     const pfizerTemplate = pfizerLinkTemplate({
-      pfizerFiltered: filterPfizer && !filterJJ && !filterModerna && !filterUnconfirmed,
+      pfizerFiltered:
+        filterPfizer && !filterJJ && !filterModerna && !filterUnconfirmed,
     });
     const range = document
       .createRange()
@@ -157,7 +163,7 @@ const toggleActiveIcon = () => {
     toggleVisibility(inactiveIcon, true);
     toggleVisibility(activeIcon, false);
   }
-}
+};
 
 export {
   showFilterButton,
