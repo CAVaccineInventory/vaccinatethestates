@@ -9,7 +9,7 @@ with vanilla JS on top. It consists of two main pages `index.html` and `embed.ht
 - `pfizer=1` to display locations that provide Pfizer
 - `jj=1` to display locations that provide J&J 
 - `moderna=1` to display locations that provide Moderna
-- `unconfirmed=1` to display locations with unknown vaccine type
+- `unknown=1` to display locations with unknown vaccine type
 
 ## How to begin local development on a Mac
 

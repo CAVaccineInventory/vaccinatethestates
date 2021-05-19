@@ -4,11 +4,11 @@ import pfizerLinkTemplate from "./templates/pfizerLink.handlebars";
 let filterPfizer;
 let filterJJ;
 let filterModerna;
-let filterUnconfirmed;
+let filterUnknown;
 let modernaInput;
 let pfizerInput;
 let jjInput;
-let unconfirmedInput;
+let unknownInput;
 
 const showFilterButton = () => {
   document.querySelector(".js-filter-button").classList.remove("invisible");
@@ -26,7 +26,7 @@ const initFilters = (callback) => {
   filterPfizer = !!urlParams.get("pfizer");
   filterJJ = !!urlParams.get("jj");
   filterModerna = !!urlParams.get("moderna");
-  filterUnconfirmed = !!urlParams.get("unconfirmed");
+  filterUnknown = !!urlParams.get("unknown");
 
   const dropdown = document.querySelector(".js-filter-dropdown");
 
@@ -47,11 +47,11 @@ const initFilters = (callback) => {
   modernaInput = dropdown.querySelector(".js-moderna-filter");
   pfizerInput = dropdown.querySelector(".js-pfizer-filter");
   jjInput = dropdown.querySelector(".js-jj-filter");
-  unconfirmedInput = dropdown.querySelector(".js-unconfirmed-filter");
+  unknownInput = dropdown.querySelector(".js-unknown-filter");
   modernaInput.checked = filterModerna;
   pfizerInput.checked = filterPfizer;
   jjInput.checked = filterJJ;
-  unconfirmedInput.checked = filterUnconfirmed;
+  unknownInput.checked = filterUnknown;
 
   modernaInput.addEventListener("change", () => {
     filterModerna = !!modernaInput.checked;
@@ -65,8 +65,8 @@ const initFilters = (callback) => {
     filterJJ = !!jjInput.checked;
     cb();
   });
-  unconfirmedInput.addEventListener("change", () => {
-    filterUnconfirmed = !!unconfirmedInput.checked;
+  unknownInput.addEventListener("change", () => {
+    filterUnknown = !!unknownInput.checked;
     cb();
   });
 
@@ -85,15 +85,15 @@ const getFilterQueryParams = () => {
   if (filterJJ) {
     params.jj = 1;
   }
-  if (filterUnconfirmed) {
-    params.unconfirmed = 1;
+  if (filterUnknown) {
+    params.unknown = 1;
   }
   return params;
 };
 
 const createMapboxFilter = () => {
   let filter = null;
-  if (filterPfizer || filterJJ || filterModerna || filterUnconfirmed) {
+  if (filterPfizer || filterJJ || filterModerna || filterUnknown) {
     filter = ["any"];
     if (filterPfizer) {
       filter.push(["==", ["get", "vaccine_pfizer"], true]);
@@ -104,7 +104,7 @@ const createMapboxFilter = () => {
     if (filterModerna) {
       filter.push(["==", ["get", "vaccine_moderna"], true]);
     }
-    if (filterUnconfirmed) {
+    if (filterUnknown) {
       filter.push([
         "all",
         ["!", ["has", "vaccine_pfizer"]],
@@ -122,7 +122,7 @@ const setupPfizerLink = (callback) => {
     pfizerNotice.innerHTML = "";
     const pfizerTemplate = pfizerLinkTemplate({
       pfizerFiltered:
-        filterPfizer && !filterJJ && !filterModerna && !filterUnconfirmed,
+        filterPfizer && !filterJJ && !filterModerna && !filterUnknown,
     });
     const range = document
       .createRange()
@@ -131,19 +131,19 @@ const setupPfizerLink = (callback) => {
     range.querySelector("a").addEventListener("click", (e) => {
       e.preventDefault();
 
-      if (filterPfizer && !filterJJ && !filterModerna && !filterUnconfirmed) {
+      if (filterPfizer && !filterJJ && !filterModerna && !filterUnknown) {
         filterPfizer = false;
       } else {
         filterPfizer = true;
         filterJJ = false;
         filterModerna = false;
-        filterUnconfirmed = false;
+        filterUnknown= false;
       }
 
       modernaInput.checked = filterModerna;
       pfizerInput.checked = filterPfizer;
       jjInput.checked = filterJJ;
-      unconfirmedInput.checked = filterUnconfirmed;
+      unknownInput.checked = filterUnknown;
 
       callback();
     });
@@ -156,7 +156,7 @@ const toggleActiveIcon = () => {
   const inactiveIcon = document.querySelector(".js-filter-inactive");
   const activeIcon = document.querySelector(".js-filter-active");
 
-  if (filterPfizer || filterJJ || filterModerna || filterUnconfirmed) {
+  if (filterPfizer || filterJJ || filterModerna || filterUnknown) {
     toggleVisibility(inactiveIcon, false);
     toggleVisibility(activeIcon, true);
   } else {
