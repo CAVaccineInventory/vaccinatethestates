@@ -8,6 +8,13 @@ import { replaceState } from "./utils/history.js";
 import { createMapboxFilter } from "./filters.js";
 import { siteCard } from "./site.js";
 
+/**
+ * near-me.js does a lot of work and is confusing, sorry.
+ * - Renders the main content of the site. Cards on the left hand side and map on the right hand side.
+ * - Coordinates logic between the cards and the map
+ * - Updates the websites query parameters on map move and filter apply.
+ */
+
 const featureLayer = "vial";
 const lowFeatureLayer = "vialLow";
 const vialSourceId = "vialSource";

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ -z "$MAPBOX_TOKEN" ]]; then
+    echo "MAPBOX_TOKEN not set"
+else
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+    RECIPE=$DIR/../mts/recipe.json
+
+    curl -X PATCH "https://api.mapbox.com/tilesets/v1/calltheshots.vaccinatethestates/recipe?access_token=$MAPBOX_TOKEN" -d @$RECIPE --header "Content-Type:application/json"
+fi
+

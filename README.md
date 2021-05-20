@@ -1,7 +1,7 @@
 # Vaccinate The States 🇺🇸
 
 Vaccinate The States is the web frontend for displaying vaccination sites across the US. It is static pages served with Jekyll
-with vanilla JS on top. It consists of two main pages `index.html` and `embed.html`. Both pages support the following query parameters:
+with vanilla JS on top. It consists of three main pages `index.html`, `embed.html`, and `about-us.html`. These pages are powered by their respective js files in `/webpack/pages`. The site supports the following query parameters:
 
 - `zip={code}` zip code to center the map
 - `lat={lat}&lng={lng}` latitude and longitude values to center the map
@@ -61,3 +61,11 @@ script\server.ps1
 
 ## Running the linter
 The linter - [Prettier](https://prettier.io/) - runs on every PR automatically. If you'd like to run it locally, run `npm install` once to set up npm and then `npm run lint:fix` to run the linter.
+
+## Adding new data to the map
+Data gets published to Mapbox via [Vial](https://github.com/CAVaccineInventory/vial/blob/main/docs/api.md#post-apiexportmapbox) 
+on a regular cadence during business hours. We then provide Mapbox a recipe that determines what data gets displayed on the 
+map in `mts/recipe.json`.  If we want to add more data to the map, we have to 1) update the mapbox export in VIAL to 
+provide that data, 2) update the recipe to display that data on `vialLow` (zoomed out) or `vialHigh` (zoomed in), and 3) 
+then publish the recipe via `export MAPBOX_TOKEN="TOKEN_HERE" && script/publish_mts_recipe`. Once the recipe is published, 
+the map will be updated with the new properties on the next regular VIAL mapbox export.

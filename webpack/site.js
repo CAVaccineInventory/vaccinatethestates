@@ -7,6 +7,7 @@ import { markdownify } from "./utils/markdown.js";
 
 const phoneRegex = /^\s*(\+?\d{1,2}(\s|-)*)?(\(\d{3}\)|\d{3})(\s|-)*\d{3}(\s|-)*\d{4}\s*$/;
 
+// Represents and returns the html for a single vaccination site card
 export const siteCard = (props, coordinates) => {
   const site = new Site(props, coordinates);
   const range = document
