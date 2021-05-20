@@ -1,17 +1,14 @@
-<div class="mx-1">
+<div class="mx-2">
   <h1 class="text-lg text-green-600">
     {{name}}
   </h1>
 
-  <div>
+  <div class="flex flex-col text-sm mt-2">
     {{#if address}}
-        <a class="text-sm pt-2" href="{{addressLink}}" target="_blank">{{address}}</a>
-        {{#if website}}
-            &middot;
-        {{/if}}
+        <a class="my-1" href="{{addressLink}}" target="_blank">{{address}}</a>
     {{/if}}
     {{#if website}}
-        <a class="text-sm" href={{website}} target="_blank">{{ t "website" }}</span>
+        <a class="my-1" href={{website}} target="_blank">{{ t "website" }}</span>
     {{/if}}
   </div>
 </div>
