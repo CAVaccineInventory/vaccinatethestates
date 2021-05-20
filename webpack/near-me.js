@@ -61,7 +61,7 @@ const initMap = (onLoaded) => {
   });
 
   // Change the cursor to a pointer when the mouse is over the places layer.
-  [featureLayer, lowFeatureLayer].forEach(layer => {
+  [featureLayer, lowFeatureLayer].forEach((layer) => {
     map.on("mouseenter", layer, () => {
       map.getCanvas().style.cursor = "pointer";
     });
