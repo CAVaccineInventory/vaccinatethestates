@@ -54,13 +54,21 @@ const initMap = (onLoaded) => {
     handleMarkerSelected(props.id, coordinates);
   });
 
-  // Change the cursor to a pointer when the mouse is over the places layer.
-  map.on("mouseenter", featureLayer, () => {
-    map.getCanvas().style.cursor = "pointer";
+  map.on("click", lowFeatureLayer, (e) => {
+    const coordinates = e.features[0].geometry.coordinates.slice();
+    const props = e.features[0].properties;
+    moveMap(coordinates[1], coordinates[0], 12, true, props.id);
   });
-  // Change it back to a pointer when it leaves.
-  map.on("mouseleave", featureLayer, () => {
-    map.getCanvas().style.cursor = "";
+
+  // Change the cursor to a pointer when the mouse is over the places layer.
+  [featureLayer, lowFeatureLayer].forEach(layer => {
+    map.on("mouseenter", layer, () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", layer, () => {
+      map.getCanvas().style.cursor = "";
+    });
   });
 
   map.on("load", () => {
