@@ -1,6 +1,11 @@
 import { toggleVisibility } from "./utils/dom.js";
 import pfizerLinkTemplate from "./templates/pfizerLink.handlebars";
 
+/**
+ * filters.js sets up the filter button at the top of the page and parses 
+ * filter query parameters. It then calls back with the mapbox filter to apply.
+ */
+
 let filterPfizer;
 let filterJJ;
 let filterModerna;

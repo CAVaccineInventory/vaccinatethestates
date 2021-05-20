@@ -7,6 +7,11 @@ import { toggleVisibility } from "./utils/dom.js";
 import { mapboxToken } from "./utils/constants.js";
 import { getCurrentPosition } from "./utils/geolocation.js";
 
+/**
+ * search.js sets up the search bar at the top of the page and parses 
+ * search query parameters. It then calls back with the desired search query.
+ */
+
 const SEARCH_ZOOM_LEVEL = 12;
 let usingLocation = false;
 let callbacks = null;
