@@ -295,8 +295,8 @@ const handleMarkerSelected = (siteId, coordinates, zoom = undefined) => {
   selectedSiteId = siteId;
   scrollToCard = !isSmallScreen();
   const flyTo = {
-    center: coordinates
-  }
+    center: coordinates,
+  };
   if (zoom) {
     flyTo.zoom = zoom;
   }
