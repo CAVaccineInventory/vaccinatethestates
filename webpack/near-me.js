@@ -57,7 +57,9 @@ const initMap = (onLoaded) => {
   map.on("click", lowFeatureLayer, (e) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;
-    moveMap(coordinates[1], coordinates[0], 12, true, props.id);
+    handleMarkerSelected(props.id, coordinates, 12);
+    // selectedSiteId = props.id;
+    // map.flyTo({ center: coordinates, zoom: 12 });
   });
 
   // Change the cursor to a pointer when the mouse is over the places layer.
@@ -290,13 +292,17 @@ const triggerUnselectSite = () => {
   selectedSiteId = null;
 };
 
-const handleMarkerSelected = (siteId, coordinates) => {
+const handleMarkerSelected = (siteId, coordinates, zoom = undefined) => {
   triggerUnselectSite(siteId);
   selectedSiteId = siteId;
   scrollToCard = !isSmallScreen();
-  map.flyTo({
-    center: coordinates,
-  });
+  const flyTo = {
+    center: coordinates
+  }
+  if (zoom) {
+    flyTo.zoom = zoom;
+  }
+  map.flyTo(flyTo);
 };
 
 const handlePopupClosed = (id) => {
