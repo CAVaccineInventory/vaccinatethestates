@@ -8,7 +8,7 @@ import { mapboxToken } from "./utils/constants.js";
 import { getCurrentPosition } from "./utils/geolocation.js";
 
 /**
- * search.js sets up the search bar at the top of the page and parses 
+ * search.js sets up the search bar at the top of the page and parses
  * search query parameters. It then calls back with the desired search query.
  */
 
