@@ -58,8 +58,6 @@ const initMap = (onLoaded) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
     const props = e.features[0].properties;
     handleMarkerSelected(props.id, coordinates, 12);
-    // selectedSiteId = props.id;
-    // map.flyTo({ center: coordinates, zoom: 12 });
   });
 
   // Change the cursor to a pointer when the mouse is over the places layer.
