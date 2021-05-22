@@ -1,17 +1,63 @@
-warning: Menos de "beta". Este mapa incluye información no válida. ¡No lo usa!
-home_title: Disponibilidad de la vacuna contra el COVID-19
-nearme_title: Sitios de vacunación cercanos
+home_title: Sitios de vacunación cercanos
 aboutus_title: Acerca de nosotros
-volunteer_title : Voluntar
-site_card_title: Título de la tarjeta del sitio
-footer_text: "Un esfuerzo de colaboración de Call the Shots, Inc y otras personas interesadas."
-find_vaccine: "Encontrar <span class=\"hidden md:inline\">vacuna</span>"
-enter_zip: Ingrese código ZIP
-headline: Encuentre una vacuna contra el COVID-19 para usted o un querido 
+vaccinebot_title: VaccineBot
+volunteer_title: Voluntar
+call: ""
+book_appt: ""
+visit_site: ""
+hours: "Horas:"
+notes: ""
+more_details: ""
+data_from: ""
+more_information: ""
+appointment_details: "Información sobre citas"
+correction: "¿Algo se ve incorrecto?"
+correction_link: Haznos saber
+report_missing: ""
+headline: Encuentre una vacuna contra el COVID-19 para usted o un querido
+website: ""
 site_description: Publicando la disponibilidad actualizada de la vacuna contra el COVID-19 en hospitales y farmacias de los Estados Unidos.
 404_text:
     "La página que ha solicitado no existe. Si busca ayuda encontrando vacunas, marque <a href=\"/\">aquí</a>."
-enter_valid_zipcode: Por favor ingrese un código ZIP válido
 use_my_location: Usa mi ubicación
 my_location: Mi ubicación
+getting_location: ""
 alert_detect: No se pudo detectar tu ubicación. Vuelve a intentarlo o ingresa tu código ZIP
+skip_to_content: ""
+home_body: |
+home_feedback: ''
+about_intro: |
+about_how_we_work_title: ""
+about_how_we_work: |
+    Nuestros profesionales llaman profesionales médicos en cientos de sitios de vacunación potenciales a diario preguntándoles si tienen la vacuna y cómo obtener una cita. También recopilamos información sobre las sitios de vacunación de fuentes oficiales, incluidas las agencias del gobierno federal, los departamentos de salud del condado, y los proveedores de atención médica. Recopilamos lo que dicen en un mapa completo y lo ponemos a disposición de forma gratuita en este sitio, lo damos a otros editores, y lo damos iniciativas de salud pública.
+about_equity_title: ""
+about_press_title: ""
+faq: Preguntas frecuentes (FAQ)
+faq_how: "¿Cómo puedo ayudar?"
+faq_reporter: "Soy un reportero ¿Puedo ponerme en contacto?"
+faq_provider: ""
+faq_provider_answer: |
+faq_org: "Trabajo en una organización dirigida a la comunidad o para el gobierno. ¿Podremos discutir esto?"
+faq_accurate: "¿Es precisa la información de este sitio web?"
+faq_accurate_answer: |
+faq_worked_on_this: Algunos de los que trabajamos en este proyecto el día 1
+maps_sponsored_by: ""
+embed_footer: ""
+english: Inglés
+spanish: Español
+no_sites: ""
+search_hint: ""
+embed_zoomed_out: ""
+verified_at: ""
+appointments_required: ""
+appointments_accepted: ""
+walkin_only: ""
+walkin_accepted: ""
+moderna: ""
+pfizer: ""
+jj: ""
+copied_to_clipboard: Copiada (puede pegarlo)
+locations_near_me: Sitios de vacunación cercanos
+vaccine_type: ""
+unknown: ""
+copy_link_alt: ""
