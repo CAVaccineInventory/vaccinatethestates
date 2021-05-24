@@ -52,8 +52,11 @@ class Site {
 
     // sometimes our websites are entered without http/https in front which will break link tags
     let website = this.properties["website"];
-    if (website && !website.startsWith("http")) {
-      website = `//${website}`;
+    if (website) {
+      website = website.trim();
+      if (!website.startsWith("http")) {
+        website = `//${website}`;
+      }
     }
 
     if (method === "web" && detailsIsUrl) {
