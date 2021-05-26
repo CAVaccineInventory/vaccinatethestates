@@ -1,0 +1,23 @@
+<li id="site-card-federal-hotline" class="site-card rounded-lg relative grid grid-cols-1
+     shadow border bg-white">
+    <div class="flex flex-row justify-between px-4 pt-4">
+        <div class="me-2 flex-1">
+            <div class="inline">
+                <h4 class="font-bold text-lg inline">
+                    {{t "federal_hotline_name" }}
+                </h4>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <a class="self-end rounded-full bg-green-600 px-4 py-2 mb-2 text-white hover:bg-green-700 whitespace-nowrap text-sm flex"
+                    href="tel:+1-800-232-0233">
+                <img class="h-5 me-1" src="/assets/img/phone_white.svg" />
+                    <span class="inline lg:hidden">{{t "call" }}</span>
+                    <span class="hidden lg:inline">800-232-0233</span>
+            </a>
+        </div>
+    </div>
+    <div class="px-4 pb-2">
+        {{t "federal_hotline_description" }}
+    </div>
+</li>

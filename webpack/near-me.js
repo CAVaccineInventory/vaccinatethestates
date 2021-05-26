@@ -7,6 +7,7 @@ import { isSmallScreen } from "./utils/misc.js";
 import { replaceState } from "./utils/history.js";
 import { createMapboxFilter } from "./filters.js";
 import { siteCard } from "./site.js";
+import { siteCardFederalHotline } from "./site-federal-hotline.js";
 
 /**
  * near-me.js does a lot of work and is confusing, sorry.
@@ -219,6 +220,7 @@ const renderCardsFromMap = () => {
 
   const cards = document.getElementById("cards");
   cards.innerHTML = "";
+  cards.appendChild(siteCardFederalHotline());
 
   features.slice(0, 50).forEach((feature) => {
     cards.appendChild(

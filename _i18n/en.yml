@@ -26,7 +26,7 @@ alert_detect: Failed to detect your location. Please try again or enter your zip
 skip_to_content: Skip to content
 home_body: |
     <p class="mb-2">Everyone over 12 in the US is now eligible for a free, safe, and reliable COVID-19 vaccination.</p>
-    <p class="mb-2">Find vaccination sites near you, and learn how to make an appointment.</p>
+    <p class="mb-2">Find vaccination sites near you, and learn how to make an appointment. Or call the federal vaccine hotline at 1-800-232-0233 to speak with someone who can help you learn about the vaccine and book an appointment nearby.</p>
     <p class="text-sm">We're building the most comprehensive map of vaccination sites in America. Want to help? <a href="https://blog.vaccinateca.com/help-vaccinate-the-states/">Learn more &rarr;</a></p>
 home_feedback: 'Provide site feedback'
 about_intro: |
@@ -94,3 +94,6 @@ locations_near_me: Locations near me
 vaccine_type: Vaccine type
 unknown: Unknown
 copy_link_alt: Copy link to location information
+
+federal_hotline_name: Federal Vaccine Hotline
+federal_hotline_description: Talk to someone who can help you learn about the vaccine and book an appointment nearby.
