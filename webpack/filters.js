@@ -1,5 +1,4 @@
 import { toggleVisibility } from "./utils/dom.js";
-import pfizerLinkTemplate from "./templates/pfizerLink.handlebars";
 
 /**
  * filters.js sets up the filter button at the top of the page and parses
@@ -23,7 +22,6 @@ const initFilters = (callback) => {
   const cb = () => {
     toggleActiveIcon();
     callback(createMapboxFilter());
-    setupPfizerLink(cb);
   };
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -76,7 +74,6 @@ const initFilters = (callback) => {
   });
 
   toggleActiveIcon();
-  setupPfizerLink(cb);
 };
 
 const getFilterQueryParams = () => {
@@ -119,42 +116,6 @@ const createMapboxFilter = () => {
     }
   }
   return filter;
-};
-
-const setupPfizerLink = (callback) => {
-  const pfizerNotice = document.querySelector(".js-pfizer");
-  if (pfizerNotice) {
-    pfizerNotice.innerHTML = "";
-    const pfizerTemplate = pfizerLinkTemplate({
-      pfizerFiltered:
-        filterPfizer && !filterJJ && !filterModerna && !filterUnknown,
-    });
-    const range = document
-      .createRange()
-      .createContextualFragment(pfizerTemplate);
-
-    range.querySelector("a").addEventListener("click", (e) => {
-      e.preventDefault();
-
-      if (filterPfizer && !filterJJ && !filterModerna && !filterUnknown) {
-        filterPfizer = false;
-      } else {
-        filterPfizer = true;
-        filterJJ = false;
-        filterModerna = false;
-        filterUnknown = false;
-      }
-
-      modernaInput.checked = filterModerna;
-      pfizerInput.checked = filterPfizer;
-      jjInput.checked = filterJJ;
-      unknownInput.checked = filterUnknown;
-
-      callback();
-    });
-
-    pfizerNotice.appendChild(range);
-  }
 };
 
 const toggleActiveIcon = () => {
