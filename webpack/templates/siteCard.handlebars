@@ -91,9 +91,17 @@
                 <p class="text-sm">{{hours}}</p>
             </div>
         {{/if}}
-        {{#if notes}}
+        {{#if offersPfizer}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold mb-1">{{t "notes"}}</h5>
+                <div class="text-sm">
+                    {{t "guardian_pfizer"}}
+                </div>
+            </div>
+        {{/if}}
+        {{#if notes}}
+            <div class="grid grid-cols-1 px-4 py-2">
+                {{#unless offersPfizer}}<h5 class="font-bold mb-1">{{t "notes"}}</h5>{{/unless}}
                 <div class="text-sm">
                     {{{notes}}}
                 </div>

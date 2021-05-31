@@ -7,6 +7,7 @@ book_appt: Book
 visit_site: Visit Site
 hours: "Hours:"
 notes: "Notes:"
+guardian_pfizer: "Many locations require that people under 18 be accompanied by a guardian for vaccination. Please check your provider’s policies to confirm."
 more_details: More details
 data_from: Data from
 more_information: "For more information:"
