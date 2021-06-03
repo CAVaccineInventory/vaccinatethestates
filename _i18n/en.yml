@@ -76,8 +76,12 @@ faq_accurate_answer: |
 faq_worked_on_this: Some of us who worked on this project on Day 1
 maps_sponsored_by: Maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
 embed_footer: Powered by <a target="_blank" href="https://www.vaccinatethestates.com">VaccinateTheStates</a>, maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
+current_language: English # Set to the language being translated. Español, not Ingles.
+arabic: Arabic
 english: English
+german: German
 spanish: Spanish
+tagalog: Tagalog
 no_sites: Sorry, we couldn't find any vaccination sites in the selected area. Please try zooming out or moving the map to see more vaccination sites.
 search_hint: Search for vaccine locations
 embed_zoomed_out: Search for a city, zip code, or address to see vaccination sites.
