@@ -1,5 +1,5 @@
 title: Vaccinate The States
-languages: ["en", "es"]
+languages: ["en", "de", "es", "tl"] # first language will be fallback
 
 url: https://vaccinatethestates.com
 
@@ -10,7 +10,7 @@ email:
     outreach: outreach@vaccinatethestates.com
     media: media@vaccinatethestates.com
     partners: partners@vaccinatethestates.com
-  
+
 google_analytics_id: G-P9ZQGN9BXT
 
 include:

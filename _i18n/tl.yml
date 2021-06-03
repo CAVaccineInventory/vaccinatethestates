@@ -1,0 +1,62 @@
+home_title: ""
+aboutus_title: Tungkol sa Amin
+vaccinebot_title: VaccineBot
+volunteer_title: Boluntaryo
+call: ""
+book_appt: Itakda
+visit_site: ""
+hours: ""
+notes: ""
+more_details: ""
+data_from: ""
+more_information: ""
+appointment_details: ""
+correction: "Mukhang may mali?"
+correction_link: Ipaalam sa amin
+report_missing: ""
+headline: ""
+website: Website
+site_description: ""
+404_text:
+    ""
+use_my_location: Gamitin ang aking lokasyon
+my_location: Ang aking lokasyon
+getting_location: ""
+alert_detect: ""
+skip_to_content: ""
+home_body: |
+home_feedback: ''
+about_intro: |
+about_how_we_work_title: ""
+about_how_we_work: |
+about_equity_title: ""
+about_press_title: ""
+faq: ""
+faq_how: ""
+faq_reporter: ""
+faq_provider: ""
+faq_provider_answer: |
+faq_org: ""
+faq_accurate: ""
+faq_accurate_answer: |
+faq_worked_on_this: Ito ang ilan sa amin na nagtrabaho sa proyektong ito mula sa simula nitong proyektong ito pinakaunang araw
+maps_sponsored_by: ""
+embed_footer: ""
+english: ""
+spanish: ""
+no_sites: ""
+search_hint: ""
+embed_zoomed_out: ""
+verified_at: ""
+appointments_required: Kailangan ng appointment
+appointments_accepted: ""
+walkin_only: ""
+walkin_accepted: ""
+moderna: ""
+pfizer: ""
+jj: ""
+copied_to_clipboard: Nakopya sa Clipboard
+locations_near_me: Mga lokasyong malapit sa akin
+vaccine_type: ""
+unknown: ""
+copy_link_alt: ""

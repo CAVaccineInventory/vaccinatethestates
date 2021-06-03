@@ -41,9 +41,6 @@
 
                 </a>
             {{/if}}
-            {{#if lastVerified}}
-                <span class="text-xs me-1 text-end">{{t "verified_at" lastVerified=lastVerified}}</span>
-            {{/if}}
         </div>
     </div>
 
@@ -91,9 +88,17 @@
                 <p class="text-sm">{{hours}}</p>
             </div>
         {{/if}}
-        {{#if notes}}
+        {{#if offersPfizer}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold mb-1">{{t "notes"}}</h5>
+                <div class="text-sm">
+                    {{t "guardian_pfizer"}}
+                </div>
+            </div>
+        {{/if}}
+        {{#if notes}}
+            <div class="grid grid-cols-1 px-4 py-2">
+                {{#unless offersPfizer}}<h5 class="font-bold mb-1">{{t "notes"}}</h5>{{/unless}}
                 <div class="text-sm">
                     {{{notes}}}
                 </div>
@@ -118,8 +123,8 @@
                 </div>
             </div>
         {{/if}}
-        <div class="flex flex-row flex-wrap justify-between px-4 py-2 text-sm">
-            <div class="grid grid-col-1">
+        <div class="flex flex-row flex-wrap justify-between items-end px-4 py-2 text-sm">
+            <div>
                 {{#if vaccinefinder}}
                     <p>
                         {{t "data_from"}}
@@ -142,7 +147,10 @@
                     <p>{{t "data_from"}} Google</p>
                 {{/if}}
             </div>
-            <div class="text-right text-sm">
+            <div class="text-right">
+                {{#if lastVerified}}
+                    <div class="text-xs">{{t "verified_at" lastVerified=lastVerified}}</div>
+                {{/if}}
                 {{t "correction" }}
                 <a href="https://airtable.com/shrdt7TsVi76kTzYt?prefill_Location+ID={{id}}" target="_blank">{{t "correction_link"}}</a>
             </div>
