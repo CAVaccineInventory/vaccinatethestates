@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'yaml'
 
-ignored_keys = [ 'current_language']
+ignored_keys = [ 'current_language', 'arabic' ]
 
 translation_keys = YAML.load_file('_i18n/en.yml').keys - ignored_keys
 files = Dir.glob("**/*.{html,handlebars,js,md}").reject { |f| f =~ /_i18n|node_modules|_site|assets|README.md/ }
