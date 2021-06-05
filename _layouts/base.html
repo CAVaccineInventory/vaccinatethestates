@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}" dir="ltr">
-  {% include head.html %}
-  <body>
-    {% include header.html %}
-    <main class="pt-16 px-4 md:px-8">
-      {{ content }} {% include footer.html %}
-    </main>
-    {% include toast_container.html %}
-  </body>
+{% if site.lang == 'ar' %}
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}" dir="rtl">
+  {% else %}
+  <html lang="{{ page.lang | default: site.lang | default: 'en' }}" dir="ltr">
+    {% endif %} {% include head.html %}
+    <body>
+      {% include header.html %}
+      <main class="pt-16 px-4 md:px-8">
+        {{ content }} {% include footer.html %}
+      </main>
+      {% include toast_container.html %}
+    </body>
+  </html>
 </html>
