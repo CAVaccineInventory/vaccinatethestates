@@ -78,6 +78,7 @@ faq_worked_on_this: بعضنا ممن عملوا في هذا المشروع من
 maps_sponsored_by: "الخرائط برعاية<a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\"> فريق مجتمع Mapbox</a>."
 embed_footer: "مدعوم من <a target=\"_blank\" href=\"https://www.vaccinatethestates.com\">VaccinateTheStates</a> ، الخرائط التي يرعاها <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">فريق مجتمع Mapbox</a>."
 current_language: العربية # Set to the language being translated. Español, not Ingles.
+current_language_dir: rtl
 arabic: العربية
 english: الإنجليزية
 german: الألمانية
