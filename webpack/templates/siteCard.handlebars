@@ -5,7 +5,7 @@
         {{else}}
             <img class="h-5" src="/assets/img/close-outline.svg" />
         {{/if}}
-        <span>{{name}}</span>
+        <span dir="ltr">{{name}}</span>
     </div>
 {{/inline}}
 
@@ -18,12 +18,12 @@
                     <img class="copy-button__img h-5" src="/assets/img/link.svg" />
                     <img class="copy-button__img-hover h-5 hidden" src="/assets/img/link_green.svg" />
                 </button>
-                <h4 class="font-bold text-lg inline">
+                <h4 class="font-bold text-lg inline" dir="ltr">
                     {{name}}
                 </h4>
             </div>
             <div class="mb-2 text-sm">
-                <a href="{{addressLink}}" target="_blank">{{address}}</a>
+                <a href="{{addressLink}}" target="_blank" dir="ltr">{{address}}</a>
             </div>
         </div>
         <div class="flex flex-col">
@@ -34,7 +34,7 @@
                     <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
                     {{#if action.isCall}}
                         <span class="inline lg:hidden">{{t action.label}}</span>
-                        <span class="hidden lg:inline">{{phoneNumber}}</span>
+                        <span class="hidden lg:inline" dir="ltr">{{phoneNumber}}</span>
                     {{else}}
                         <span>{{t action.label}}</span>
                     {{/if}}
@@ -77,7 +77,7 @@
         {{#if appointmentDetails}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold mb-1">{{t "appointment_details"}}</h5>
-                <div class="text-sm break-words">
+                <div class="text-sm break-words" dir="ltr">
                     {{{appointmentDetails}}}
                 </div>
             </div>
@@ -85,7 +85,7 @@
         {{#if hours}}
             <div class="grid grid-cols-1 px-4 py-2">
                 <h5 class="font-bold mb-1">{{t "hours"}}</h5>
-                <p class="text-sm">{{hours}}</p>
+                <p class="text-sm" dir="ltr">{{hours}}</p>
             </div>
         {{/if}}
         {{#if offersPfizer}}
@@ -99,7 +99,7 @@
         {{#if notes}}
             <div class="grid grid-cols-1 px-4 py-2">
                 {{#unless offersPfizer}}<h5 class="font-bold mb-1">{{t "notes"}}</h5>{{/unless}}
-                <div class="text-sm">
+                <div class="text-sm" dir="ltr">
                     {{{notes}}}
                 </div>
             </div>
@@ -111,13 +111,13 @@
                     {{#if website}}
                         <div class="flex flex-row">
                             <img class="h-5 mb-1 me-2" src="/assets/img/link.svg" />
-                            <a href="{{httpify website}}" class="break-all" target="_blank">{{website}}</a>
+                            <a href="{{httpify website}}" class="break-all" target="_blank" dir="ltr">{{website}}</a>
                         </div>
                     {{/if}}
                     {{#if phoneNumber}}
                         <div class="flex flex-row">
                             <img class="h-5 me-2" src="/assets/img/phone.svg" />
-                            <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
+                            <a href="tel:{{phoneNumber}}" dir="ltr">{{phoneNumber}}</a>
                         </div>
                     {{/if}}
                 </div>
