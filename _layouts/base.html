@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}" dir="ltr">
+<html
+  lang="{{ page.lang | default: site.lang | default: 'en' }}"
+  dir="{% t current_language_dir %}"
+>
   {% include head.html %}
   <body>
     {% include header.html %}

@@ -77,7 +77,8 @@ faq_accurate_answer: |
 faq_worked_on_this: Some of us who worked on this project on Day 1
 maps_sponsored_by: Maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
 embed_footer: Powered by <a target="_blank" href="https://www.vaccinatethestates.com">VaccinateTheStates</a>, maps sponsored by the <a target="_blank" href="https://www.mapbox.com/about/maps">Mapbox Community Team</a>.
-current_language: English # Set to the language being translated. Español, not Ingles.
+current_language: Type the name of the language you're translating (e.g., "Español" or "العربية"). Do not translate this text. # Set to the language being translated. Español, not Ingles.
+current_language_dir: ltr
 arabic: Arabic
 english: English
 german: German

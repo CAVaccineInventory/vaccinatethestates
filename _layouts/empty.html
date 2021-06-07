@@ -1,4 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'en' }}" dir="ltr">
+<html
+  lang="{{ page.lang | default: site.lang | default: 'en' }}"
+  dir="{% t current_language_dir %}"
+>
   {% include head.html %} {{ content }} {% include toast_container.html %}
 </html>
