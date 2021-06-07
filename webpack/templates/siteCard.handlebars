@@ -34,7 +34,7 @@
                     <img class="h-5 me-1" src="/assets/img/{{#if action.isSite}}link_white{{else}}phone_white{{/if}}.svg" />
                     {{#if action.isCall}}
                         <span class="inline lg:hidden">{{t action.label}}</span>
-                        <span class="hidden lg:inline">{{phoneNumber}}</span>
+                        <span class="hidden lg:inline" dir="ltr">{{phoneNumber}}</span>
                     {{else}}
                         <span>{{t action.label}}</span>
                     {{/if}}
@@ -117,7 +117,7 @@
                     {{#if phoneNumber}}
                         <div class="flex flex-row">
                             <img class="h-5 me-2" src="/assets/img/phone.svg" />
-                            <a href="tel:{{phoneNumber}}">{{phoneNumber}}</a>
+                            <a href="tel:{{phoneNumber}}" dir="ltr">{{phoneNumber}}</a>
                         </div>
                     {{/if}}
                 </div>
