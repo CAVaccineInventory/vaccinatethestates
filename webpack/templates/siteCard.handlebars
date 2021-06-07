@@ -5,7 +5,7 @@
         {{else}}
             <img class="h-5" src="/assets/img/close-outline.svg" />
         {{/if}}
-        <span>{{name}}</span>
+        <span dir="ltr">{{name}}</span>
     </div>
 {{/inline}}
 
@@ -18,12 +18,12 @@
                     <img class="copy-button__img h-5" src="/assets/img/link.svg" />
                     <img class="copy-button__img-hover h-5 hidden" src="/assets/img/link_green.svg" />
                 </button>
-                <h4 class="font-bold text-lg inline">
+                <h4 class="font-bold text-lg inline" dir="ltr">
                     {{name}}
                 </h4>
             </div>
             <div class="mb-2 text-sm">
-                <a href="{{addressLink}}" target="_blank">{{address}}</a>
+                <a href="{{addressLink}}" target="_blank" dir="ltr">{{address}}</a>
             </div>
         </div>
         <div class="flex flex-col">
