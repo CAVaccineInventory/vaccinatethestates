@@ -18,7 +18,7 @@
     "marked": "^2.0.3",
     "path-browserify": "^1.0.1",
     "postcss-cli": "^8.3.1",
-    "postcss-import": "^14.0.1",
+    "postcss-import": "^14.0.2",
     "regenerator-runtime": "^0.13.7",
     "sanitize-html": "^2.3.3",
     "tailwindcss": "^2.1.4",
