@@ -21,7 +21,7 @@
     "postcss-import": "^14.0.1",
     "regenerator-runtime": "^0.13.7",
     "sanitize-html": "^2.3.3",
-    "tailwindcss": "^2.1.1",
+    "tailwindcss": "^2.1.4",
     "url": "^0.11.0"
   },
   "devDependencies": {
