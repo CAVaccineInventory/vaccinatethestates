@@ -1,5 +1,5 @@
 title: Vaccinate The States
-languages: ["en", "ar", "de", "es", "tl"] # first language will be fallback
+languages: ["en", "ar", "de", "es", "tl", "fr"] # first language will be fallback
 
 url: https://vaccinatethestates.com
 
