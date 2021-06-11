@@ -1,0 +1,78 @@
+home_title: Sites de vaccination à proximité
+aboutus_title: À propos de nous
+vaccinebot_title: VaccineBot
+volunteer_title: Bénévole
+call: Appel
+book_appt: Livre
+visit_site: Visitez le site
+hours: "Les heures:"
+notes: "Remarques:"
+guardian_pfizer: "De nombreux endroits exigent que les personnes de moins de 18 ans soient accompagnées par un tuteur pour la vaccination. Veuillez vérifier les politiques de votre fournisseur pour confirmer."
+more_details: Plus de détails
+data_from: Data de
+more_information: "Pour plus d'informations:"
+appointment_details: "Détails du rendez-vous :"
+correction: "Quelque chose ne va pas ?"
+correction_link: Faites le nous savoir
+report_missing: Signaler un emplacement manquant.
+headline: Trouvez un vaccin COVID-19 pour vous-même ou un proche
+website: Site Internet
+site_description: Publication à jour de la disponibilité du vaccin COVID-19 dans les hôpitaux et les pharmacies des États-Unis.
+404_text:
+    "La page que vous avez demandée n'existe pas. Si vous cherchez de l'aide pour trouver des vaccins, veuillez vérifier <a href=\"/\">ici</a> ."
+use_my_location: Utilise ma location
+my_location: Ma position
+getting_location: Obtenir l'emplacement...
+alert_detect: Échec de la détection de votre position. Veuillez réessayer ou entrer votre code postal
+skip_to_content: Aller au contenu
+home_body: |
+    <p class="mb-2">Aux États-Unis, toute personne âgée de plus de 12 ans est désormais éligible à une vaccination COVID-19 gratuite, sûre et fiable.</p><p class="mb-2"> Trouvez des sites de vaccination près de chez vous et apprenez à prendre rendez-vous. Ou appelez la hotline fédérale des vaccins au 1-800-232-0233 pour parler à quelqu'un qui peut vous aider à en savoir plus sur le vaccin et prendre rendez-vous à proximité.</p><p class="text-sm"> Nous construisons la carte la plus complète des sites de vaccination en Amérique. Vouloir aider? <a href="https://blog.vaccinateca.com/help-vaccinate-the-states/">En savoir plus →</a></p>
+home_feedback: 'Fournir des commentaires sur le site'
+about_intro: |
+    Vaccinate The States est un effort communautaire à but non lucratif, non partisan et qui aide les habitants des États-Unis à obtenir des informations précises et à jour sur la façon de se faire vacciner contre le coronavirus. Nous construisons la liste la plus complète des sites de vaccination aux États-Unis.
+about_how_we_work_title: Comment nous travaillons
+about_how_we_work: |
+    Notre équipe appelle quotidiennement des professionnels de la santé sur des centaines de sites de vaccination potentiels pour leur demander s'ils proposent des vaccinations et comment obtenir un rendez-vous. Nous recueillons également des informations sur les sites de vaccination à partir de sources officielles, notamment VaccineFinder.org, les agences gouvernementales des États, les services de santé des comtés et les prestataires de soins de santé. Nous compilons ce qu'ils disent dans une carte complète et la rendons disponible gratuitement sur ce site, à d'autres éditeurs et à des initiatives de santé publique.
+about_equity_title: Notre engagement pour un accès équitable aux informations sur les vaccins
+about_press_title: Dans les nouvelles
+faq: Foire aux questions (FAQ)
+faq_how: "Comment puis-je aider?"
+faq_reporter: "Je suis journaliste. Puis-je entrer en contact?"
+faq_provider: "Je travaille chez un prestataire médical ! Comment puis-je vous demander de mettre à jour nos informations ou de vous faire une demande ?"
+faq_provider_answer: |
+    <p class="mb-2">Nous apprécions le travail que vous faites et sommes là pour le soutenir !</p><p class="mb-2"> Veuillez envoyer un SMS au <a href="tel:+14153014597">(415) 301-4597</a> avec votre message, votre affiliation institutionnelle et un poste interne ou le nom du contact afin que nous puissions vous rappeler pour vérifier. Nous ne pouvons pas recevoir de photos à ce numéro ; texte seulement, s'il vous plaît. Si vous souhaitez intégrer notre carte sur votre site, veuillez consulter nos instructions <a
+    href="https://blog.vaccinateca.com/put-vaccine-locations-on-your-own-website/">ici</a> .</p><p> L'un des organisateurs lira votre message et prendra des mesures dès que raisonnablement possible.</p>
+faq_org: "Je travaille dans une organisation communautaire ou pour le gouvernement. Pouvons-nous discuter de cela?"
+faq_accurate: "Les informations sur ce site Web sont-elles exactes?"
+faq_accurate_answer: |
+    <p class="mb-2">Nous nous appuyons principalement sur des sources officielles ou des appels téléphoniques directs aux sites de vaccination. Nous utilisons également des sources non officielles lorsque nous pensons qu'elles fournissent des informations précises sur les cliniques de vaccination non disponibles auprès d'autres sources. La situation est compliquée et change rapidement ; même les sources officielles sont parfois incorrectes ou périmées.</p><p class="mb-2"> Nos efforts sont appuyés par des entités gouvernementales et certains des plus grands éditeurs au monde.</p><p class="mb-2"> Bien que nous fassions des efforts substantiels pour fournir les informations les plus précises et à jour dont nous disposons, nous ne pouvons garantir l'exactitude actuelle de tout ce qui est publié.</p><p> Certaines de nos données de localisation sont fournies par <a
+    href="https://vaccinefinder.org/" target="_blank">VaccineFinder.org</a> . Ces données sont © 2021. Hôpital pour enfants de Boston. Tous les droits sont réservés.</p>
+faq_worked_on_this: Certains d'entre nous qui ont travaillé sur ce projet le jour 1
+maps_sponsored_by: "Cartes sponsorisées par l'<a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">équipe communautaire Mapbox</a> ."
+vaccinefinder_data: Certaines données fournies par
+embed_footer: "Propulsé par <a target=\"_blank\" href=\"https://www.vaccinatethestates.com\">VaccinateTheStates</a> , cartes sponsorisées par l' <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">équipe communautaire Mapbox</a> ."
+current_language: Français # Set to the language being translated. Español, not Ingles.
+current_language_dir: ltr
+arabic: arabe
+english: Anglais
+german: Allemand
+spanish: Espanol
+tagalog: Tagalog
+no_sites: "Désolé, nous n'avons trouvé aucun site de vaccination dans la zone sélectionnée. Veuillez essayer de faire un zoom arrière ou de déplacer la carte pour voir plus de sites de vaccination."
+search_hint: Rechercher des emplacements de vaccins
+embed_zoomed_out: "Recherchez une ville, un code postal ou une adresse pour voir les sites de vaccination."
+verified_at: "Vérifié {{lastVerified}}"
+appointments_required: Rendez-vous obligatoire
+appointments_accepted: Rendez-vous acceptés
+walkin_only: Sans rendez-vous seulement
+walkin_accepted: Sans rendez-vous acceptés
+moderna: Moderna
+pfizer: Pfizer
+jj: J & J
+copied_to_clipboard: Copié dans le presse-papier
+locations_near_me: Endroits près de chez moi
+vaccine_type: Type de vaccin
+unknown: Inconnu
+federal_hotline_name: Ligne d'assistance fédérale pour les vaccins
+federal_hotline_description: Parlez à quelqu'un qui peut vous aider à vous renseigner sur le vaccin et prenez rendez-vous à proximité.
+copy_link_alt: Copier le lien vers les informations de localisation
