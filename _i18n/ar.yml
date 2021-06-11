@@ -76,6 +76,7 @@ faq_accurate_answer: |
     مستشفى. كل الحقوق محفوظة.</p>
 faq_worked_on_this: بعضنا ممن عملوا في هذا المشروع منذ بداية العام
 maps_sponsored_by: "الخرائط برعاية<a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\"> فريق مجتمع Mapbox</a>."
+vaccinefinder_data: تم توفير بعض البيانات بواسطة
 embed_footer: "مدعوم من <a target=\"_blank\" href=\"https://www.vaccinatethestates.com\">VaccinateTheStates</a> ، الخرائط التي يرعاها <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">فريق مجتمع Mapbox</a>."
 current_language: العربية # Set to the language being translated. Español, not Ingles.
 current_language_dir: rtl
@@ -84,6 +85,11 @@ english: الإنجليزية
 german: الألمانية
 spanish: الأسبانية
 tagalog: الفلبيني
+french: الفرنسية
+chinese_simplified: الصينية (المبسطة)
+chinese_traditional: الصينية (التقليدية)
+hindi: الهندية
+farsi: الفارسي
 no_sites: معذرةً ، لم نتمكن من العثور على أي مراكز تطعيم في المنطقة المحددة. يرجى محاولة تصغير الخريطة أو تحريكها لمشاهدة المزيد من مراكز التلقيح.
 search_hint: ابحث عن مراكز التطعيم
 embed_zoomed_out: ابحث عن مدينة أو رمز بريدي أو عنوان للحصول على المزيد من المراكز التطعيم.
