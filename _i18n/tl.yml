@@ -1,62 +1,110 @@
-home_title: ""
+home_title: Site sa Pagpapabakuna na Malapit sa Akin
 aboutus_title: Tungkol sa Amin
 vaccinebot_title: VaccineBot
 volunteer_title: Boluntaryo
-call: ""
+call: Tawag
 book_appt: Itakda
-visit_site: ""
-hours: ""
-notes: ""
-more_details: ""
-data_from: ""
-more_information: ""
-appointment_details: ""
+visit_site: Bisitahin ang site
+hours: "Oras:"
+notes: "Listo:"
+guardian_pfizer: "Maraming mga lokasyon ang nangangailangan na ang mga taong wala pang 18 taong gulang ay sinamahan ng isang tagapag-alaga para sa pagbabakuna. Mangyaring suriin ang mga patakaran ng iyong provider upang kumpirmahin."
+more_details: Higit pang mga detalye
+data_from: Data mula sa
+more_information: "Para sa karagdagang impormasyon:"
+appointment_details: "Mga detalye ng appointment:"
 correction: "Mukhang may mali?"
 correction_link: Ipaalam sa amin
-report_missing: ""
-headline: ""
+report_missing: Lulat ang isang nawawalang lokasyon.
+headline: Maghanap ng bakunang COVID-19 para sa iyong sarili o sa isang mahal sa buhay
 website: Website
-site_description: ""
+site_description: Ang pag-publish ng napapanahong pagkakaroon ng bakuna sa COVID-19 sa mga ospital at parmasya sa buong Estados Unidos.
 404_text:
-    ""
+    "Ang pahina na iyong hiniling ay wala. Kung naghahanap ka ng tulong sa paghanap ng mga bakuna, mangyaring suriin <a href=\"/\">dito</a>."
 use_my_location: Gamitin ang aking lokasyon
 my_location: Ang aking lokasyon
-getting_location: ""
-alert_detect: ""
-skip_to_content: ""
+getting_location: Pagkuha ng lokasyon...
+alert_detect: Nabigong makita ang iyong lokasyon. Pakisubukang muli o ipasok ang iyong zip code
+skip_to_content: Lumaktaw sa nilalaman
 home_body: |
-home_feedback: ''
+    <p class="mb-2">Ang bawat isa na higit sa 12 sa US ay karapat-dapat na ngayon para sa isang libre, ligtas, at maaasahang pagbabakuna ng COVID-19.</p>
+    <p class="mb-2">Maghanap ng mga site na pagbabakuna na malapit sa iyo, at alamin kung paano gumawa ng appointment. O tawagan ang hotline ng bakunang pederal sa 1-800-232-0233 upang makipag-usap sa isang tao na makakatulong sa iyo na malaman ang tungkol sa bakuna at mag-book ng isang appointment sa malapit.</p>
+    <p class="text-sm">Binubuo namin ang pinaka-komprehensibong mapa ng mga site ng pagbabakuna sa Amerika. Nais mong tumulong?<a href="https://blog.vaccinateca.com/help-vaccinate-the-states/"> Dagdagan ang nalalaman</a></p>
+home_feedback: 'Mag-ulat ng puna sa site'
 about_intro: |
-about_how_we_work_title: ""
+    Vaccinate the States ay isang pagsisikap na hindi kumikita, hindi partisan, hinihimok ng pamayanan na makakatulong sa mga tao
+    sa Estados Unidos matutunan ang tumpak, napapanahong impormasyon tungkol sa kung paano makakuha ng coronavirus
+    bakuna Binubuo namin ang pinaka-kumpletong listahan ng mga site ng pagbabakuna sa Estados Unidos.
+about_how_we_work_title: Paano Kami Nagtatrabaho
 about_how_we_work: |
-about_equity_title: ""
-about_press_title: ""
-faq: ""
-faq_how: ""
-faq_reporter: ""
-faq_provider: ""
+    Tumawag ang aming koponan ng mga propesyonal sa medisina sa daan-daang mga potensyal na site ng pagbabakuna
+    araw-araw na tanungin sila kung sila ay nag-aalok ng mga pagbabakuna at kung paano makakuha ng
+    appointment. Kinokolekta rin namin ang impormasyon sa site ng bakuna mula sa mga opisyal na mapagkukunan,
+    kabilang ang VaccineFinder.org, mga ahensya ng gobyerno ng estado, kalusugan sa lalawigan
+    mga kagawaran, at tagabigay ng pangangalagang pangkalusugan. Pinagsasama-sama namin ang sinabi nila a
+    komprehensibong mapa, at gawin itong malayang magagamit sa site na ito, sa iba pa
+    mga publisher, at sa mga hakbangin sa kalusugan ng publiko.
+about_equity_title: Ang aming Pangako sa Makatarungang Pag-access sa Impormasyon sa Bakuna
+about_press_title: Sa Balita
+faq: Frequently Asked Questions (FAQ)
+faq_how: "Paano ako makakatulong?"
+faq_reporter: "Reporter ako. Maaari ba akong makipag-ugnay?"
+faq_provider: "I work at a medical center! How do I ask you to update our information or make a request of you?"
 faq_provider_answer: |
-faq_org: ""
-faq_accurate: ""
+    <p class="mb-2">Pinahahalagahan namin ang trabahong iyong ginagawa, at naririto na
+    suportahan ito!</p>
+    <p class="mb-2">Mangyaring mag-text <a href="tel:+14153014597">(415) 301-4597</a>
+    kasama ang iyong mensahe, kaakibat na institusyon, at isang
+    panloob na extension o pangalan ng contact upang maaari kaming tumawag muli upang ma-verify. Hindi natin pwedeng gawin
+    makatanggap ng mga larawan sa numerong ito; text lang po. Kung interesado ka sa
+    ang pag-embed ng aming mapa sa iyong site, mangyaring tingnan ang aming mga tagubilin <a
+    href="https://blog.vaccinateca.com/put-vaccine-locations-on-your-own-website/">dito</a>.</p>
+    <p>Basahin ng isa sa mga organisador ang iyong mensahe at magsasagawa ng pagkilos sa lalong madaling panahon.</p>
+faq_org: "Nagtatrabaho ako sa isang samahang nakaharap sa pamayanan o para sa gobyerno. Maaari ba nating talakayin ito?"
+faq_accurate: "Tama ba ang impormasyon sa website na ito?"
 faq_accurate_answer: |
+    <p class="mb-2">Pangunahin kaming umaasa sa mga opisyal na mapagkukunan o direktang mga tawag sa telepono sa pagbabakuna
+    mga site. Gumagamit din kami ng mga hindi opisyal na mapagkukunan kung saan naniniwala kaming nagbibigay ng tumpak na impormasyon tungkol sa
+    ang mga klinika sa pagbabakuna ay hindi magagamit mula sa iba pang mga mapagkukunan .. Ang sitwasyon ay kumplikado at nagbabago
+    mabilis; kahit na ang mga opisyal na mapagkukunan ay minsan ay hindi tama o hindi na napapanahon.</p>
+    <p class="mb-2">Ang aming pagsisikap ay umaasa ng mga entity ng gobyerno at ilan sa pinakamalaki
+    mga publisher sa buong mundo.</p>
+    <p class="mb-2">Habang nagsusumikap kami upang maibigay ang pinaka tumpak, napapanahon
+    magagamit na impormasyon sa amin, hindi namin magagarantiyahan ang kasalukuyang kawastuhan ng lahat
+    nalathala.</p>
+    <p>Ang ilan sa aming data sa lokasyon ay ibinibigay ng <a
+    href="https://vaccinefinder.org/" target="_blank">VaccineFinder.org</a>. Ang data na iyon ay © 2021. Boston Children's
+    Hospital. Nakalaan ang lahat ng mga karapatan.</p>
 faq_worked_on_this: Ito ang ilan sa amin na nagtrabaho sa proyektong ito mula sa simula nitong proyektong ito pinakaunang araw
-maps_sponsored_by: ""
-embed_footer: ""
-english: ""
-spanish: ""
-no_sites: ""
-search_hint: ""
-embed_zoomed_out: ""
-verified_at: ""
+maps_sponsored_by: "Ang mga mapa ay nai-sponsor ng <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">Koponan ng Komunidad ng Mapbox</a>."
+vaccinefinder_data: Ang ilang mga data na ibinigay ng
+embed_footer: "Pinapagana ng <a target=\"_blank\" href=\"https://www.vaccinatethestates.com\">VaccinateTheStates</a>, mga mapa na nai-sponsor ng <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">Koponan ng Komunidad ng Mapbox</a>."
+current_language: Tagalog # Set to the language being translated. Español, not Ingles.
+current_language_dir: ltr
+arabic: Arabe
+english: Ingles
+german: Aleman
+spanish: Espanyol
+tagalog: Tagalog
+french: Pranses
+chinese_simplified: Intsik (Pinasimple)
+chinese_traditional: Intsik (Tradisyunal)
+hindi: Hindi
+farsi: Farsi
+no_sites: "Paumanhin, wala kaming makitang anumang mga site sa pagbabakuna sa napiling lugar. Mangyaring subukang mag-zoom out o ilipat ang mapa upang makita ang higit pang mga site ng pagbabakuna."
+search_hint: Maghanap para sa mga lokasyon ng bakuna
+embed_zoomed_out: "Maghanap para sa isang lungsod, zip code, o address upang makita ang mga site ng pagbabakuna."
+verified_at: "Na-verify {{lastVerified}}"
 appointments_required: Kailangan ng appointment
-appointments_accepted: ""
-walkin_only: ""
-walkin_accepted: ""
-moderna: ""
-pfizer: ""
-jj: ""
+appointments_accepted: Tinanggap ng appointment
+walkin_only: Walk-in lang
+walkin_accepted: Tinanggap ang mga walk-in
+moderna: Moderna
+pfizer: Pfizer
+jj: "J & J "
 copied_to_clipboard: Nakopya sa Clipboard
 locations_near_me: Mga lokasyong malapit sa akin
-vaccine_type: ""
-unknown: ""
-copy_link_alt: ""
+vaccine_type: Uri ng bakuna
+unknown: Hindi alam
+federal_hotline_name: Hotline
+federal_hotline_description: Kausapin ang isang tao na makakatulong sa iyo na malaman ang tungkol sa bakuna at mag-book ng isang appointment sa malapit.
+copy_link_alt: Kopyahin ang link sa impormasyon ng lokasyon
