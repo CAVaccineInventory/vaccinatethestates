@@ -1,62 +1,103 @@
-home_title: ""
-aboutus_title: ""
-vaccinebot_title: ""
-volunteer_title: ""
-call: ""
-book_appt: ""
-visit_site: ""
-hours: ""
-notes: ""
-more_details: ""
-data_from: ""
-more_information: ""
-appointment_details: ""
-correction: ""
-correction_link: ""
-report_missing: ""
-headline: ""
-website: ""
-site_description: ""
+home_title: Impfstellen in meiner Nähe
+aboutus_title: Über uns
+vaccinebot_title: VaccineBot
+volunteer_title: Ehrenamtlichen
+call: Anrufen
+book_appt: Buchen
+visit_site: Besuche die Website
+hours: "Öffnungszeit:"
+notes: "Anmerkungen:"
+guardian_pfizer: "Viele Standorte verlangen, dass Personen unter 18 Jahren von einem Vormund zur Impfung begleitet werden. Bitte überprüfen Sie zur Bestätigung die Richtlinien Ihres Krankenversicherungs."
+more_details: Mehr anzeigen
+data_from: Data aus
+more_information: "Für mehr Informationen"
+appointment_details: "Termindetails:"
+correction: "Etwas unrecht?"
+correction_link: Lass uns wissen
+report_missing: Melden Sie einen fehlenden Standort.
+headline: Finden Sie einen Coronaimpfstoff für sich selbst oder einen geliebten Menschen
+website: Webseite
+site_description: Veröffentlichung der aktuellen Verfügbarkeit von Coronaimpfstoffen in Krankenhäusern und Apotheken in den USA.
 404_text:
-    ""
-use_my_location: ""
-my_location: ""
-getting_location: ""
-alert_detect: ""
-skip_to_content: ""
+    "Die gewünschte Seite existiert nicht. Wenn Sie Hilfe bei der Suche nach Impfstoffen suchen, klicken Sie bitte <a href=\"/\">hier</a> ."
+use_my_location: Meinen Standort verwenden
+my_location: Mein Standort
+getting_location: Standort finden...
+alert_detect: Ihr Standort konnte nicht erkannt werden. Bitte versuche es erneut oder geben Sie Ihre Postleitzahl ein
+skip_to_content: Zum Inhalt springen
 home_body: |
-home_feedback: ''
+    <p class="mb-2">Jeder in den USA über 12 Jahren hat jetzt Anspruch auf eine kostenloser, sicherer und zuverlässiger Coronaimpfstoff.</p>
+    <p class="mb-2">Finden Sie Impfstellen in Ihrer Nähe und lernen Sie, wie Sie einen Termin machen. Oder rufen Sie die Impfstoff-Hotline des Bundes unter 1-800-232-0233 an, um mit jemandem zu sprechen, der Ihnen helfen kann, mehr über den Impfstoff zu lernen und einen Termin in der Nähe zu machen.</p>
+    <p class="text-sm">Wir erstellen die umfassendste Liste von Impfstellen in den Vereinigten Staaten. Helfen wollen? <a href="https://blog.vaccinateca.com/help-vaccinate-the-states/"> Mehr lernen &rarr; </a></p>
+home_feedback: 'Feedback zur Website geben'
 about_intro: |
-about_how_we_work_title: ""
+    Vaccinate The States ist ein gemeinnützige, überparteiliche, gemeinschaftsorientierte Bemühung, dass Leute aus den Vereinigten Staaten hilfen richtige, zeitgemäße Information lernen über wie sich das Coronaimpfstoff erhalten. Wir erstellen die umfassendste Liste von Impfstellen in den Vereinigten Staaten.
+about_how_we_work_title: Wie wir arbeiten
 about_how_we_work: |
-about_equity_title: ""
-about_press_title: ""
-faq: ""
-faq_how: ""
-faq_reporter: ""
-faq_provider: ""
-faq_provider_answer: |
-faq_org: ""
-faq_accurate: ""
-faq_accurate_answer: |
-faq_worked_on_this: ""
-maps_sponsored_by: ""
-embed_footer: ""
-english: ""
-spanish: ""
-no_sites: ""
-search_hint: ""
-embed_zoomed_out: ""
-verified_at: ""
-appointments_required: ""
-appointments_accepted: ""
-walkin_only: ""
-walkin_accepted: ""
-moderna: ""
-pfizer: ""
-jj: ""
-copied_to_clipboard: ""
-locations_near_me: ""
-vaccine_type: ""
-unknown: ""
-copy_link_alt: ""
+    Unsere Arbeitsgruppe ruft medizinisches Fachpersonal an Hunderten potenzieller Impfstellen an
+    täglich, um sie zu fragen, ob sie Impfungen anbieten und wie man einen Termin bekommt. Wir sammeln auch Informationen über Impfstellen aus offiziellen Quellen,
+    einschließlich VaccineFinder.org, staatliche Regierungsbehörden, Kreisgesundheit
+    Abteilungen und Gesundheitsdienstleister. Wir sammeln ihre Aussagen in einer
+    umfassenden Karte zusammen und frei verfügbar machen auf dieser Seite, an andere Verlage, und zur Public-Health-Initiative.
+about_equity_title: Unser Engagement für einen gleichberechtigten Zugang zu Impfstoffinformationen
+about_press_title: In den Nachrichten
+faq: Häufig gestellte Fragen (FAQ)
+faq_how: "Wie kann ich helfen?"
+faq_reporter: "Ich bin ein Reporter. Kann ich Kontakt aufnehmen?"
+faq_provider: "Ich arbeite bei einem Arzt! Wie bitte ich Sie, unsere Informationen zu aktualisieren oder eine Anfrage an Sie zu richten?"
+faq_provider_answer: |-
+    <p class="mb-2">Wir schätzen Ihre Arbeit und sind hier, um sie zu unterstützen!</p>
+    <p class="mb-2"> Bitte senden Sie eine SMS <a href="tel:+14153014597">(415) 301-4597</a>
+    mit Ihrer Nachricht, Ihrer institutionellen Zugehörigkeit, und einer
+    internen Durchwahl oder einem Kontaktnamen, damit wir zur Überprüfung zurückrufen können. Unter dieser Nummer können wir
+    keine Fotos empfangen; bitte nur Text. Wenn Sie daran interessiert sind, 
+    unsere Karte in Ihre Website einzubetten, lesen Sie bitte unsere Anweisungen <a
+    href="https://blog.vaccinateca.com/put-vaccine-locations-on-your-own-website/">hier</a> .</p>
+    <p> Einer der Organisatoren wird Ihre Nachricht lesen und so schnell wie möglich Maßnahmen ergreifen.</p>
+faq_org: "Ich arbeite in einer gemeinschaftsorientierten Organisation oder für die Regierung. Können wir das besprechen?"
+faq_accurate: "Sind die Informationen auf dieser Website korrekt?"
+faq_accurate_answer: |-
+    <p class="mb-2">Wir verlassen uns in erster Linie auf offizielle Quellen oder direkte Telefonate zur Impfung
+    Websites. Wir verwenden auch inoffizielle Quellen, von denen wir glauben, dass sie genaue Informationen über
+    Impfkliniken liefern, die aus anderen Quellen nicht verfügbar sind. Die Situation ist kompliziert und ändert
+    sich schnell; sogar offizielle Quellen sind manchmal falsch oder veraltet.</p>
+    <p class="mb-2"> Auf unsere Bemühungen verlassen sich Regierungsbehörden und einige der größten Verlage der Welt.</p>
+    <p class="mb-2">Während wir erhebliche Anstrengungen unternehmen, um die genauesten und aktuellsten
+    Informationen, die uns zur Verfügung stehen, können wir nicht für die aktuelle Richtigkeit von allem garantieren
+    veröffentlicht.</p>
+    <p> Einige unserer Standortdaten werden von <a
+    href="https://vaccinefinder.org/" target="_blank">VaccineFinder.org</a> bereitgestellt. Diese Daten sind ©2021. Bostoner Kinderkrankenhaus. Alle Rechte vorbehalten.</p>
+faq_worked_on_this: "Einige von uns, die an diesem Projekt an Tag 1 gearbeitet haben"
+maps_sponsored_by: "Vom <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">Mapbox-Community-Team</a> gesponserte Karten."
+vaccinefinder_data: Einige Daten zur Verfügung gestellt von
+embed_footer: "Unterstützt von <a target=\"_blank\" href=\"https://www.vaccinatethestates.com\">VaccinateTheStates</a>, vom <a target=\"_blank\" href=\"https://www.mapbox.com/about/maps\">Mapbox-Community-Team</a> gesponserte Karten."
+current_language: Deutsch # Set to the language being translated. Español, not Ingles.
+current_language_dir: ltr
+arabic: Arabisch
+english: Englisch
+german: Deutsch
+spanish: Spanisch
+tagalog: Tagalog
+french: Französisch
+chinese_simplified: Vereinfachtes Chinesisch
+chinese_traditional: Traditionelles Chinesisch
+hindi: Hindi
+farsi: Farsi
+no_sites: "Im ausgewählten Gebiet konnten wir leider keine Impfstellen finden. Bitte versuchen Sie, die Karte zu verkleinern oder zu verschieben, um weitere Impfstellen zu sehen."
+search_hint: Suche nach Impfstoffstandorten
+embed_zoomed_out: "Suchen Sie nach einer Stadt, Postleitzahl oder Adresse, um Impfstellen anzuzeigen."
+verified_at: "Verifiziert {{lastVerified}}"
+appointments_required: Termine erforderlich
+appointments_accepted: Termine angenommen
+walkin_only: Nur Laufkundschaft
+walkin_accepted: Laufkundschaft akzeptiert
+moderna: Moderna
+pfizer: Pfizer
+jj: Janssen
+copied_to_clipboard: In die Zwischenablage kopiert
+locations_near_me: Standorte in meiner Nähe
+vaccine_type: Impfstofftyp
+unknown: Unbekannt
+federal_hotline_name: Impfstoff-Hotline des Bundes
+federal_hotline_description: "Sprechen Sie mit jemandem, der Ihnen helfen kann, mehr über den Impfstoff zu lernen und einen Termin in Ihrer Nähe zu machen."
+copy_link_alt: Link zu Standortinformationen kopieren
