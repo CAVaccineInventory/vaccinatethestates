@@ -1,0 +1,93 @@
+home_title: 我附近的接种疫苗点
+aboutus_title: 关于我们
+vaccinebot_title: 疫苗器人
+volunteer_title: 志愿者
+call: 打个电话
+book_appt: 预约
+visit_site: 访问网站
+hours: "小时"
+notes: "笔记"
+guardian_pfizer: "许多地方要求未满 18 岁的人必须由监护人陪同才能接种疫苗。请检查您的提供商的政策以确认。"
+more_details: 更多细节
+data_from: 数据来自
+more_information: "想要查询更多的信息"
+appointment_details: "预约详情"
+correction: 看起来有些不对劲
+correction_link: 让我们知道
+report_missing: 报告丢失的位置
+headline: 为您自己和您所爱的人找到一种新型冠状病毒疫苗
+website: 网站
+site_description: 在美国各地的医院和药房发布最新的 COVID-19 疫苗供应情况
+404_text:
+    "Nín yào zhǎo de yèmiàn bù cúnzài. Rúguǒ nín zhèngzài xúnzhǎo yìmiáo fāngmiàn de bāngzhù, qǐng chákàn cǐ <a href=\"/\" > chù </a> "
+use_my_location: 使用我的位置
+my_location: 我的位置
+getting_location: 获取位置...
+alert_detect: 未能检测到您的位置。请重试或输入您的邮政编码
+skip_to_content: 跳到内容
+home_body: |
+    <p class="mb-2"> 现在，美国 12 岁以上的每个人都有资格获得免费、安全和可靠的 COVID-19 疫苗接种。</p>
+    <p class = "mb-2">查找您附近的疫苗接种点，并了解如何预约。或者拨打联邦疫苗热线 1-800-232-0233 与可以帮助您了解疫苗的人交谈并在附近预约 </p>
+    <p class = "text-sm"> 我们正在构建美国最全面的疫苗接种点地图。想帮忙？<a href = "https://blog.vaccinateca.com/help-vaccinate-the-states/"> Learn more </a></p>
+home_feedback: '提供现场反馈'
+about_intro: |
+    为美国接种疫苗是一项非营利、无党派、社区驱动的工作，旨在帮助人们
+    在美国学习有关如何感染冠状病毒的准确、最新的信息
+    疫苗. 我们正在建立美国最全面的疫苗接种地点清单。
+about_how_we_work_title: 我们如何工作
+about_how_we_work: |
+    我们的团队每天致电数百个潜在疫苗接种点的医疗专业人员，询问他们是否提供疫苗接种以及如何获得预约。
+    我们还从官方来源收集疫苗站点信息，包括 VaccineFinder.org、州政府机构、县卫生部门和医疗保健提供者。
+
+    我们将他们所说的内容汇编成一张综合地图，并在本网站、其他出版商和公共卫生倡议中免费提供。
+about_equity_title: 我们对公平获取疫苗信息的承诺
+about_press_title: 在新闻中
+faq: 常见问题 (FAQ)
+faq_how: 我能提供什么帮助？
+faq_reporter: "我是一名记者。我可以联系吗?"
+faq_provider: 我在医疗机构工作！我如何要求您更新我们的信息或向您提出要求？
+faq_provider_answer: |-
+    <p class="mb-2"> 我们感谢您所做的工作，并在这里支持它！</p>
+    <p class="mb-2"> 请发短信  <a href ="tel:+14153014597"> (415) 301-4597 6 </a> 并附上您的消息、机构隶属关系以及内部分机或联系人姓名，以便我们回电进行验证. 我们无法以这个号码接收照片；纯文字，拜托了。如果您有兴趣将我们的地图嵌入您的网站，请在 <a href ="https://blog.vaccinateca.com/put-vaccine-locations-on-your-own-website/">此处 </a> 查看我们的说明. </p>
+    <p> 其中一位组织者将阅读您的消息并尽快采取行动 </p>
+faq_org: 我在面向社区的组织或为政府工作。我们可以讨论这个吗？
+faq_accurate: 这个网站上的信息准确吗？
+faq_accurate_answer: |
+    <p class = "mb-2"> 我们主要依靠官方来源或直接致电疫苗接种站点。我们还使用非官方来源，我们认为它们提供了其他来源无法提供的有关疫苗接种诊所的准确信息。
+    形势复杂，变化迅速；甚至官方来源有时也不正确或过时. </p><p class = "mb-2"> 我们的努力得到了政府实体和世界上一些最大的出版商的信赖. </p>
+    <p class = "mb-2"> 虽然我们做出了巨大的努力来提供最准确、最新的信息，但我们不能保证已发布的所有内容的当前准确性</p>
+    <p> 我们的一些位置数据由  <a href = "https://vaccinefinder.org/" target="_blank"> VaccineFinder.org 提供</a>. 该数据是 ©2021。波士顿儿童医院。保留所有权利</p>
+faq_worked_on_this: 我们中的一些人在第一天就参与了这个项目
+maps_sponsored_by: "<a href=\"https://www.mapbox.com/about/maps\" target=\"_blank\">Mapbox 社区团队 </a> 赞助的地图"
+vaccinefinder_data: 部分数据由
+embed_footer: "由 <a href=\"https://www.vaccinatethestates.com\" target=\"_blank\"> VaccinateTheStates </a> 提供支持，地图由 <a href=\"https://www.mapbox.com/about/maps\" target=\"_blank\">` Mapbox 社区团队 </a> 赞助"
+current_language: 中文 # Set to the language being translated. Español, not Ingles.
+current_language_dir: 升
+arabic: 阿拉伯文
+english: 英文
+german: 德文
+spanish: 西班牙语
+tagalog: 他加禄语
+french: 法语
+chinese_simplified: 中文 (简体字)
+chinese_traditional: 中文 (繁体字)
+hindi: 印地语
+farsi: 波斯语
+no_sites: "抱歉，我们在所选区域内找不到任何疫苗接种点。请尝试缩小或移动地图以查看更多疫苗接种点. "
+search_hint: 搜索疫苗位置
+embed_zoomed_out: 搜索城市、邮政编码或地址以查看疫苗接种点。
+verified_at: "验证 {{lastVerified}}"
+appointments_required: 需要预约
+appointments_accepted: 接受预约
+walkin_only: 仅限步入式
+walkin_accepted: 接受步入式
+moderna: Moderna
+pfizer: Pfizer
+jj: J & J
+copied_to_clipboard: 复制到剪贴板
+locations_near_me: 我附近的位置
+vaccine_type: 疫苗类型
+unknown: 未知
+federal_hotline_name: 联邦疫苗热线
+federal_hotline_description: 与可以帮助您了解疫苗的人交谈并在附近预约。
+copy_link_alt: 复制指向位置信息的链接
