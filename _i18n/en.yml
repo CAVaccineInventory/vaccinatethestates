@@ -2,6 +2,9 @@ home_title: Vaccination Sites Near Me
 aboutus_title: About Us
 vaccinebot_title: VaccineBot
 volunteer_title: Volunteer
+shutdown: |
+    Vaccinate The States is winding down. California locations will continue to
+    update through August 2. <a href="https://blog.vaccinateca.com/vaccinate-the-states-is-winding-down/">Learn more &rarr;</a>
 call: Call
 book_appt: Book
 visit_site: Visit Site
