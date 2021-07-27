@@ -26,7 +26,7 @@ getting_location: Obtenir l'emplacement...
 alert_detect: Échec de la détection de votre position. Veuillez réessayer ou entrer votre code postal
 skip_to_content: Aller au contenu
 home_body: |
-    <p class="mb-2">Aux États-Unis, toute personne âgée de plus de 12 ans est désormais éligible à une vaccination COVID-19 gratuite, sûre et fiable.</p><p class="mb-2"> Trouvez des sites de vaccination près de chez vous et apprenez à prendre rendez-vous. Ou appelez la hotline fédérale des vaccins au 1-800-232-0233 pour parler à quelqu'un qui peut vous aider à en savoir plus sur le vaccin et prendre rendez-vous à proximité.</p><p class="text-sm"> Nous construisons la carte la plus complète des sites de vaccination en Amérique. Vouloir aider? <a href="https://blog.vaccinateca.com/help-vaccinate-the-states/">En savoir plus →</a></p>
+    <p class="mb-2">Aux États-Unis, toute personne âgée de plus de 12 ans est désormais éligible à une vaccination COVID-19 gratuite, sûre et fiable.</p><p class="mb-2"> Trouvez des sites de vaccination près de chez vous et apprenez à prendre rendez-vous. Ou appelez la hotline fédérale des vaccins au 1-800-232-0233 pour parler à quelqu'un qui peut vous aider à en savoir plus sur le vaccin et prendre rendez-vous à proximité.</p>
 home_feedback: 'Fournir des commentaires sur le site'
 about_intro: |
     Vaccinate The States est un effort communautaire à but non lucratif, non partisan et qui aide les habitants des États-Unis à obtenir des informations précises et à jour sur la façon de se faire vacciner contre le coronavirus. Nous construisons la liste la plus complète des sites de vaccination aux États-Unis.
