@@ -21,7 +21,7 @@
     "postcss-import": "^14.0.2",
     "regenerator-runtime": "^0.13.7",
     "sanitize-html": "^2.4.0",
-    "tailwindcss": "^2.1.4",
+    "tailwindcss": "^2.2.7",
     "url": "^0.11.0"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.14.7",
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-es": "^4.1.0",
     "foreman": "^3.0.1",
