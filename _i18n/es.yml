@@ -12,9 +12,6 @@ more_details: ""
 data_from: ""
 more_information: ""
 appointment_details: "Información sobre citas"
-correction: "¿Algo se ve incorrecto?"
-correction_link: Haznos saber
-report_missing: ""
 headline: Encuentre una vacuna contra el COVID-19 para usted o un querido
 website: ""
 site_description: Publicando la disponibilidad actualizada de la vacuna contra el COVID-19 en hospitales y farmacias de los Estados Unidos.
@@ -26,7 +23,6 @@ getting_location: ""
 alert_detect: No se pudo detectar tu ubicación. Vuelve a intentarlo o ingresa tu código ZIP
 skip_to_content: ""
 home_body: |
-home_feedback: ''
 about_intro: |
 about_how_we_work_title: ""
 about_how_we_work: |
