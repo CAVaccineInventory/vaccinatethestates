@@ -6,6 +6,8 @@ shutdown: |
     Vaccinate The States is winding down. California locations will continue to
     update through August 2. <a href="https://blog.vaccinateca.com/vaccinate-the-states-is-winding-down/">Learn more &rarr;</a>
 shutdown_forward: Find a vaccine at <a href="https://vaccines.gov">Vaccines.gov &rarr;</a>
+shutdown_forward_no_link: Find a vaccine at Vaccines.gov &rarr;
+card_out_of_date: This information may be out of date.
 call: Call
 book_appt: Book
 visit_site: Visit Site
