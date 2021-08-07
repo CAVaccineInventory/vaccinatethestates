@@ -12,9 +12,6 @@ more_details: Higit pang mga detalye
 data_from: Data mula sa
 more_information: "Para sa karagdagang impormasyon:"
 appointment_details: "Mga detalye ng appointment:"
-correction: "Mukhang may mali?"
-correction_link: Ipaalam sa amin
-report_missing: Lulat ang isang nawawalang lokasyon.
 headline: Maghanap ng bakunang COVID-19 para sa iyong sarili o sa isang mahal sa buhay
 website: Website
 site_description: Ang pag-publish ng napapanahong pagkakaroon ng bakuna sa COVID-19 sa mga ospital at parmasya sa buong Estados Unidos.
@@ -28,7 +25,6 @@ skip_to_content: Lumaktaw sa nilalaman
 home_body: |
     <p class="mb-2">Ang bawat isa na higit sa 12 sa US ay karapat-dapat na ngayon para sa isang libre, ligtas, at maaasahang pagbabakuna ng COVID-19.</p>
     <p class="mb-2">Maghanap ng mga site na pagbabakuna na malapit sa iyo, at alamin kung paano gumawa ng appointment. O tawagan ang hotline ng bakunang pederal sa 1-800-232-0233 upang makipag-usap sa isang tao na makakatulong sa iyo na malaman ang tungkol sa bakuna at mag-book ng isang appointment sa malapit.</p>
-home_feedback: 'Mag-ulat ng puna sa site'
 about_intro: |
     Vaccinate the States ay isang pagsisikap na hindi kumikita, hindi partisan, hinihimok ng pamayanan na makakatulong sa mga tao
     sa Estados Unidos matutunan ang tumpak, napapanahong impormasyon tungkol sa kung paano makakuha ng coronavirus

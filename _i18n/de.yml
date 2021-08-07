@@ -11,9 +11,6 @@ more_details: ""
 data_from: ""
 more_information: ""
 appointment_details: ""
-correction: ""
-correction_link: ""
-report_missing: ""
 headline: ""
 website: ""
 site_description: ""
@@ -25,7 +22,6 @@ getting_location: ""
 alert_detect: ""
 skip_to_content: ""
 home_body: |
-home_feedback: ''
 about_intro: |
 about_how_we_work_title: ""
 about_how_we_work: |

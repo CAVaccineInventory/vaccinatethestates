@@ -5,6 +5,7 @@ volunteer_title: Volunteer
 shutdown: |
     Vaccinate The States has shut down as of August 2, 2021. <a href="https://blog.vaccinateca.com/vaccinate-the-states-is-winding-down/">Learn more &rarr;</a>
 shutdown_forward: Find a vaccine at <a href="https://vaccines.gov">Vaccines.gov &rarr;</a>
+card_out_of_date: This information may be out of date.
 call: Call
 book_appt: Book
 visit_site: Visit Site
@@ -15,9 +16,6 @@ more_details: More details
 data_from: Data from
 more_information: "For more information:"
 appointment_details: "Appointment details:"
-correction: Something look wrong?
-correction_link: Let us know
-report_missing: Report a missing location.
 headline: Find a COVID-19 vaccine for yourself or a loved one
 website: Website
 site_description: Publishing up-to-date COVID-19 vaccine availability at hospitals and pharmacies across the United States.
@@ -31,7 +29,6 @@ skip_to_content: Skip to content
 home_body: |
     <p class="mb-2">Everyone over 12 in the US is now eligible for a free, safe, and reliable COVID-19 vaccination.</p>
     <p class="mb-2">Find vaccination sites near you, and learn how to make an appointment. Or call the federal vaccine hotline at 1-800-232-0233 to speak with someone who can help you learn about the vaccine and book an appointment nearby.</p>
-home_feedback: 'Provide site feedback'
 about_intro: |
     Vaccinate The States is a non-profit, non-partisan, community-driven effort that helps people
     in the United States learn accurate, up-to-date information about how to get the coronavirus
