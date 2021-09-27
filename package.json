@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@sentry/browser": "^6.8.0",
-    "@sentry/tracing": "^6.10.0",
+    "@sentry/tracing": "^6.13.2",
     "autoprefixer": "^10.3.4",
     "clipboard": "^2.0.8",
     "handlebars-loader": "^1.7.1",
