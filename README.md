@@ -1,3 +1,5 @@
+### Vaccinate The States has shut down as of August 2, 2021. [Learn more →](shutdown-notice.md)
+
 # Vaccinate The States 🇺🇸
 
 Vaccinate The States is the web frontend for displaying vaccination sites across the US. It is static pages served with Jekyll
